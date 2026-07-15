@@ -3,13 +3,15 @@
     "listing": "/index.html",
     "items": [
       "/posts/index.html",
-      "/posts/math-heavy-example/index.html"
+      "/posts/math-heavy-example/index.html",
+      "/posts/Lagrangian/index.html"
     ]
   },
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/math-heavy-example/index.html"
+      "/posts/math-heavy-example/index.html",
+      "/posts/Lagrangian/index.html"
     ]
   }
 ]

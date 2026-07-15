@@ -4,7 +4,14 @@
     "href": "index.html",
     "title": "Haotian’s Blog",
     "section": "",
-    "text": "Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.\nStart with the sample post below, then duplicate it for new notes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Math-Heavy Quarto Post\n\n\n\nquarto\n\nmath\n\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\nNo matching items"
+    "text": "Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.\nStart with the sample post below, then duplicate it for new notes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Math-Heavy Quarto Post\n\n\n\nquarto\n\nmath\n\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\n\n\n\n\n\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\n\nmath\n\nphysics\n\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nCategories\n\n\n\n\n\n\n\n\nJul 15, 2026\n\n\nA Math-Heavy Quarto Post\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\nquarto, math\n\n\n\n\n\n\nJul 15, 2026\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\nmath, physics\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/math-heavy-example/index.html",
@@ -49,10 +56,17 @@
     "text": "5 References\nYou can cite equations like equation 3, definitions like definition 1, theorems like theorem 1, and sections like section 5."
   },
   {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
+    "objectID": "posts/Lagrangian/index.html",
+    "href": "posts/Lagrangian/index.html",
+    "title": "Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nCategories\n\n\n\n\n\n\n\n\nJul 15, 2026\n\n\nA Math-Heavy Quarto Post\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\nquarto, math\n\n\n\n\n\n\nNo matching items"
+    "text": "If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem."
+  },
+  {
+    "objectID": "posts/Lagrangian/index.html#the-introduction-of-general-coordinates",
+    "href": "posts/Lagrangian/index.html#the-introduction-of-general-coordinates",
+    "title": "Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem",
+    "section": "1 The introduction of general coordinates",
+    "text": "1 The introduction of general coordinates\nNewton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:\n\\[\nm_i \\ddot{\\vec{r_i}}=\\vec F_i + \\vec N_i\n\\tag{1}\\]\nwhere \\(\\vec N_i\\) represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction."
   }
 ]
