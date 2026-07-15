@@ -60,13 +60,20 @@
     "href": "posts/Lagrangian/index.html",
     "title": "Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem",
     "section": "",
-    "text": "If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem."
+    "text": "If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian \\(L=T-V\\) and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem."
+  },
+  {
+    "objectID": "posts/Lagrangian/index.html#motivation",
+    "href": "posts/Lagrangian/index.html#motivation",
+    "title": "Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem",
+    "section": "",
+    "text": "If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian \\(L=T-V\\) and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem."
   },
   {
     "objectID": "posts/Lagrangian/index.html#the-introduction-of-general-coordinates",
     "href": "posts/Lagrangian/index.html#the-introduction-of-general-coordinates",
     "title": "Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem",
-    "section": "1 The introduction of general coordinates",
-    "text": "1 The introduction of general coordinates\nNewton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:\n\\[\nm_i \\ddot{\\vec{r_i}}=\\vec F_i + \\vec N_i\n\\tag{1}\\]\nwhere \\(\\vec N_i\\) represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction."
+    "section": "2 The introduction of general coordinates",
+    "text": "2 The introduction of general coordinates\nNewton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:\n\\[\nm_i \\ddot{\\vec{r_i}}=\\vec F_i + \\vec N_i\n\\tag{1}\\]\nwhere \\(\\vec N_i\\) represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force \\(\\vec N_i\\) since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play."
   }
 ]

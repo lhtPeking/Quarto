@@ -338,7 +338,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-introduction-of-general-coordinates" id="toc-the-introduction-of-general-coordinates" class="nav-link active" data-scroll-target="#the-introduction-of-general-coordinates"><span class="header-section-number">1</span> The introduction of general coordinates</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#the-introduction-of-general-coordinates" id="toc-the-introduction-of-general-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-general-coordinates"><span class="header-section-number">2</span> The introduction of general coordinates</a></li>
   </ul>
 </nav>
     </div>
@@ -386,14 +387,17 @@ window.Quarto = {
 </header>
 
 
-<p>If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem.</p>
-<section id="the-introduction-of-general-coordinates" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="the-introduction-of-general-coordinates"><span class="header-section-number">1</span> The introduction of general coordinates</h2>
+<section id="motivation" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
+<p>If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian <span class="math inline">\(L=T-V\)</span> and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem.</p>
+</section>
+<section id="the-introduction-of-general-coordinates" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-general-coordinates"><span class="header-section-number">2</span> The introduction of general coordinates</h2>
 <p>Newton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:</p>
 <p><span id="eq-risk"><span class="math display">\[
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
 \tag{1}\]</span></span></p>
-<p>where <span class="math inline">\(\vec N_i\)</span> represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction.</p>
+<p>where <span class="math inline">\(\vec N_i\)</span> represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force <span class="math inline">\(\vec N_i\)</span> since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.</p>
 
 
 </section>
