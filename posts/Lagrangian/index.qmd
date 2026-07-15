@@ -2,7 +2,7 @@
 title: "Lagrangian Mechanics: The Principle of Least Action and Noether's Theorem"
 description: "From Newton to Lagrange, the prologue of symmetry and modern physics."
 date: 2026-07-15
-categories: [math, physics]
+categories: [Physics, Theoretical Mechanics]
 author: "Haotian Li"
 ---
 
@@ -18,5 +18,43 @@ $$
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
 $$ {#eq-risk}
 
-where $\vec N_i$ represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force $\vec N_i$ since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.
+where $\vec N_i$ represents constraint force acting on the $i$-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force $\vec N_i$ since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.
+
+Suppose we have $N$ particles with $k$ constraint equations in a 3D space, the degrees of freedom of this system is $3N-k$. Naturally, we could introduce $3N-k$ new coordinates $\{q_1, q_2, ..., q_{3N-k}\}$ to match these degrees of freedom, and these coordinates are called "general coordinates".
+
+Therefore, the position of the i-th particle could be expressed using the general coordinates that occupied all the spatial freedom of the system:
+
+$$
+\vec{r}_i=\vec{r}_i(q_1,q_2,\ldots,q_{3N-k},t)
+$$ {#eq-risk}
+
+And its differential form could be written as:
+
+$$
+d\vec{r}_i
+=
+\frac{\partial \vec{r}_i}{\partial q_1}dq_1
++
+\frac{\partial \vec{r}_i}{\partial q_2}dq_2
++\cdots+
+\frac{\partial \vec{r}_i}{\partial q_{3N-k}}dq_{3N-k}
++
+\frac{\partial \vec{r}_i}{\partial t}dt
+$$ {#eq-risk}
+
+Divide both sides by $dt$ we obtain the velocity:
+
+$$
+\vec{v}_i
+=
+\frac{d\vec{r}_i}{dt}
+=
+\frac{\partial \vec{r}_i}{\partial q_1}\dot{q}_1
++
+\frac{\partial \vec{r}_i}{\partial q_2}\dot{q}_2
++\cdots+
+\frac{\partial \vec{r}_i}{\partial q_{3N-k}}\dot{q}_{3N-k}
++
+\frac{\partial \vec{r}_i}{\partial t}
+$$ {#eq-risk}
 
