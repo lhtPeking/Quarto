@@ -1,0 +1,14 @@
+---
+title: "Math Notes"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+page-layout: full
+---
+
+Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.
+
+Start with the sample post below, then duplicate it for new notes.
+

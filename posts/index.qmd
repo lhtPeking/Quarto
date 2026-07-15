@@ -1,0 +1,10 @@
+---
+title: "Posts"
+listing:
+  contents: .
+  sort: "date desc"
+  type: table
+  fields: [date, title, description, categories]
+page-layout: full
+---
+

@@ -1,0 +1,93 @@
+---
+title: "A Math-Heavy Quarto Post"
+description: "A compact example with macros, equation numbering, theorem blocks, and cross references."
+date: 2026-07-15
+categories: [quarto, math]
+author: "Haotian Li"
+---
+
+## Inline and Display Math
+
+Inline notation works with dollar signs, for example $f : \R^d \to \R$ and $\E[X]$.
+
+Display equations are written with double dollar signs. Add an identifier like `{#eq-risk}` after the equation to number and reference it:
+
+$$
+R(\theta) = \E_{(X,Y) \sim \mathcal{D}}
+\left[
+  \ell\{f_\theta(X), Y\}
+\right].
+$$ {#eq-risk}
+
+We can refer back to @eq-risk in prose.
+
+## Aligned Equations
+
+Use standard LaTeX environments for multi-line derivations:
+
+$$
+\begin{aligned}
+\nabla_\theta R(\theta)
+&= \nabla_\theta \E[\ell(f_\theta(X), Y)] \\
+&= \E[\nabla_\theta \ell(f_\theta(X), Y)].
+\end{aligned}
+$$ {#eq-gradient}
+
+The interchange in @eq-gradient needs regularity assumptions, which is a nice place to use a theorem block.
+
+## Definitions and Theorems
+
+::: {#def-lipschitz}
+## Lipschitz Function
+
+A function $f : \R^d \to \R$ is $L$-Lipschitz if, for all $x,y \in \R^d$,
+
+$$
+|f(x) - f(y)| \le L \norm{x-y}.
+$$
+:::
+
+Refer to @def-lipschitz anywhere after the block.
+
+::: {#thm-contraction}
+## Contraction Mapping
+
+Let $(M,d)$ be a complete metric space. If $T : M \to M$ satisfies
+
+$$
+d(Tx, Ty) \le c\,d(x,y)
+\quad \text{for some } 0 \le c < 1,
+$$
+
+then $T$ has a unique fixed point.
+:::
+
+@thm-contraction is one of the most useful fixed-point tools.
+
+::: {.proof}
+Choose any $x_0 \in M$ and define $x_{n+1} = T x_n$. Then
+
+$$
+d(x_{n+1}, x_n) \le c^n d(x_1, x_0).
+$$
+
+The sequence is Cauchy, hence converges to some $x^\star \in M$. Continuity of $T$ gives $T x^\star = x^\star$. Uniqueness follows by applying the contraction inequality to two fixed points.
+:::
+
+## Useful Macro Examples
+
+The project-wide MathJax configuration in `_quarto.yml` defines a few shortcuts:
+
+$$
+\inner{x}{y} = x^\top y,
+\qquad
+\norm{x}_2 = \sqrt{\inner{x}{x}},
+\qquad
+\theta^\star = \argmin_{\theta \in \R^d} R(\theta).
+$$ {#eq-macros}
+
+That keeps your posts readable while still rendering proper LaTeX.
+
+## References {#sec-references}
+
+You can cite equations like @eq-macros, definitions like @def-lipschitz, theorems like @thm-contraction, and sections like @sec-references.

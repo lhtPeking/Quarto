@@ -1,0 +1,58 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Math Notes"
+  navbar:
+    right:
+      - text: "Home"
+        href: index.qmd
+      - text: "Posts"
+        href: posts/index.qmd
+      - icon: github
+        href: https://github.com/
+  page-footer:
+    center: "Built with Quarto"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    html-math-method:
+      method: mathjax
+    include-in-header:
+      text: |
+        <script>
+        window.MathJax = {
+          tex: {
+            tags: 'ams',
+            macros: {
+              R: "\\mathbb{R}",
+              N: "\\mathbb{N}",
+              E: "\\mathbb{E}",
+              P: "\\mathbb{P}",
+              Var: "\\operatorname{Var}",
+              Cov: "\\operatorname{Cov}",
+              argmin: "\\operatorname*{arg\\,min}",
+              inner: ["\\left\\langle #1, #2 \\right\\rangle", 2],
+              norm: ["\\left\\lVert #1 \\right\\rVert", 1]
+            }
+          }
+        };
+        </script>
+
+crossref:
+  eq-prefix: equation
+  thm-prefix: theorem
+  def-prefix: definition
+  sec-prefix: section
+
+execute:
+  freeze: auto
+
