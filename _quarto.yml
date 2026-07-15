@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "Math Notes"
+  title: "Haotian's Blog"
   navbar:
     right:
       - text: "Home"
