@@ -1,0 +1,18 @@
+---
+title: "Lagrangian Mechanics: The Principle of Least Action and Noether's Theorem"
+description: "From Newton to Lagrange, the prologue of symmetry and modern physics."
+date: 2026-07-15
+categories: [math, physics]
+author: "Haotian Li"
+---
+If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem.
+
+## The introduction of general coordinates
+
+Newton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:
+
+$$
+m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
+$$ {#eq-risk}
+
+where $\vec N_i$ represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction. 
