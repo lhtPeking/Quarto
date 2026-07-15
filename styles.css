@@ -1,0 +1,40 @@
+/* Keep math-heavy pages readable on both desktop and mobile. */
+body {
+  line-height: 1.65;
+}
+
+.quarto-title-block .description {
+  max-width: 58rem;
+}
+
+main.content {
+  max-width: 860px;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.math.display {
+  overflow-x: auto;
+  padding-block: 0.25rem;
+}
+
+.theorem,
+.definition,
+.proof {
+  border-left: 3px solid var(--bs-primary);
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  background: color-mix(in srgb, var(--bs-primary) 7%, transparent);
+}
+
+.proof {
+  border-left-color: var(--bs-secondary);
+  background: color-mix(in srgb, var(--bs-secondary) 7%, transparent);
+}
+
+code {
+  white-space: break-spaces;
+}
+

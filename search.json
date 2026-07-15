@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Math Notes",
+    "section": "",
+    "text": "Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.\nStart with the sample post below, then duplicate it for new notes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Math-Heavy Quarto Post\n\n\n\nquarto\n\nmath\n\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html",
+    "href": "posts/math-heavy-example/index.html",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "",
+    "text": "Inline notation works with dollar signs, for example \\(f : \\R^d \\to \\R\\) and \\(\\E[X]\\).\nDisplay equations are written with double dollar signs. Add an identifier like {#eq-risk} after the equation to number and reference it:\n\\[\nR(\\theta) = \\E_{(X,Y) \\sim \\mathcal{D}}\n\\left[\n  \\ell\\{f_\\theta(X), Y\\}\n\\right].\n\\tag{1}\\]\nWe can refer back to equation 1 in prose."
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html#inline-and-display-math",
+    "href": "posts/math-heavy-example/index.html#inline-and-display-math",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "",
+    "text": "Inline notation works with dollar signs, for example \\(f : \\R^d \\to \\R\\) and \\(\\E[X]\\).\nDisplay equations are written with double dollar signs. Add an identifier like {#eq-risk} after the equation to number and reference it:\n\\[\nR(\\theta) = \\E_{(X,Y) \\sim \\mathcal{D}}\n\\left[\n  \\ell\\{f_\\theta(X), Y\\}\n\\right].\n\\tag{1}\\]\nWe can refer back to equation 1 in prose."
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html#aligned-equations",
+    "href": "posts/math-heavy-example/index.html#aligned-equations",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "2 Aligned Equations",
+    "text": "2 Aligned Equations\nUse standard LaTeX environments for multi-line derivations:\n\\[\n\\begin{aligned}\n\\nabla_\\theta R(\\theta)\n&= \\nabla_\\theta \\E[\\ell(f_\\theta(X), Y)] \\\\\n&= \\E[\\nabla_\\theta \\ell(f_\\theta(X), Y)].\n\\end{aligned}\n\\tag{2}\\]\nThe interchange in equation 2 needs regularity assumptions, which is a nice place to use a theorem block."
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html#definitions-and-theorems",
+    "href": "posts/math-heavy-example/index.html#definitions-and-theorems",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "3 Definitions and Theorems",
+    "text": "3 Definitions and Theorems\n\nDefinition 1 (Lipschitz Function) A function \\(f : \\R^d \\to \\R\\) is \\(L\\)-Lipschitz if, for all \\(x,y \\in \\R^d\\),\n\\[\n|f(x) - f(y)| \\le L \\norm{x-y}.\n\\]\n\nRefer to definition 1 anywhere after the block.\n\nTheorem 1 (Contraction Mapping) Let \\((M,d)\\) be a complete metric space. If \\(T : M \\to M\\) satisfies\n\\[\nd(Tx, Ty) \\le c\\,d(x,y)\n\\quad \\text{for some } 0 \\le c &lt; 1,\n\\]\nthen \\(T\\) has a unique fixed point.\n\ntheorem 1 is one of the most useful fixed-point tools.\n\nProof. Choose any \\(x_0 \\in M\\) and define \\(x_{n+1} = T x_n\\). Then\n\\[\nd(x_{n+1}, x_n) \\le c^n d(x_1, x_0).\n\\]\nThe sequence is Cauchy, hence converges to some \\(x^\\star \\in M\\). Continuity of \\(T\\) gives \\(T x^\\star = x^\\star\\). Uniqueness follows by applying the contraction inequality to two fixed points."
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html#useful-macro-examples",
+    "href": "posts/math-heavy-example/index.html#useful-macro-examples",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "4 Useful Macro Examples",
+    "text": "4 Useful Macro Examples\nThe project-wide MathJax configuration in _quarto.yml defines a few shortcuts:\n\\[\n\\inner{x}{y} = x^\\top y,\n\\qquad\n\\norm{x}_2 = \\sqrt{\\inner{x}{x}},\n\\qquad\n\\theta^\\star = \\argmin_{\\theta \\in \\R^d} R(\\theta).\n\\tag{3}\\]\nThat keeps your posts readable while still rendering proper LaTeX."
+  },
+  {
+    "objectID": "posts/math-heavy-example/index.html#sec-references",
+    "href": "posts/math-heavy-example/index.html#sec-references",
+    "title": "A Math-Heavy Quarto Post",
+    "section": "5 References",
+    "text": "5 References\nYou can cite equations like equation 3, definitions like definition 1, theorems like theorem 1, and sections like section 5."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nCategories\n\n\n\n\n\n\n\n\nJul 15, 2026\n\n\nA Math-Heavy Quarto Post\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\nquarto, math\n\n\n\n\n\n\nNo matching items"
+  }
+]
