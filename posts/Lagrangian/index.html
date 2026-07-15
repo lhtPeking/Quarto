@@ -351,8 +351,8 @@ window.Quarto = {
 <div class="quarto-title">
 <h1 class="title">Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">math</div>
-    <div class="quarto-category">physics</div>
+    <div class="quarto-category">Physics</div>
+    <div class="quarto-category">Theoretical Mechanics</div>
   </div>
   </div>
 
@@ -397,7 +397,38 @@ window.Quarto = {
 <p><span id="eq-risk"><span class="math display">\[
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
 \tag{1}\]</span></span></p>
-<p>where <span class="math inline">\(\vec N_i\)</span> represents forces on the restricted direction, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force <span class="math inline">\(\vec N_i\)</span> since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.</p>
+<p>where <span class="math inline">\(\vec N_i\)</span> represents constraint force acting on the <span class="math inline">\(i\)</span>-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force <span class="math inline">\(\vec N_i\)</span> since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.</p>
+<p>Suppose we have <span class="math inline">\(N\)</span> particles with <span class="math inline">\(k\)</span> constraint equations in a 3D space, the degrees of freedom of this system is <span class="math inline">\(3N-k\)</span>. Naturally, we could introduce <span class="math inline">\(3N-k\)</span> new coordinates <span class="math inline">\(\{q_1, q_2, ..., q_{3N-k}\}\)</span> to match these degrees of freedom, and these coordinates are called “general coordinates”.</p>
+<p>Therefore, the position of the i-th particle could be expressed using the general coordinates that occupied all the spatial freedom of the system:</p>
+<p><span id="eq-risk"><span class="math display">\[
+\vec{r}_i=\vec{r}_i(q_1,q_2,\ldots,q_{3N-k},t)
+\tag{2}\]</span></span></p>
+<p>And its differential form could be written as:</p>
+<p><span id="eq-risk"><span class="math display">\[
+d\vec{r}_i
+=
+\frac{\partial \vec{r}_i}{\partial q_1}dq_1
++
+\frac{\partial \vec{r}_i}{\partial q_2}dq_2
++\cdots+
+\frac{\partial \vec{r}_i}{\partial q_{3N-k}}dq_{3N-k}
++
+\frac{\partial \vec{r}_i}{\partial t}dt
+\tag{3}\]</span></span></p>
+<p>Divide both sides by <span class="math inline">\(dt\)</span> we obtain the velocity:</p>
+<p><span id="eq-risk"><span class="math display">\[
+\vec{v}_i
+=
+\frac{d\vec{r}_i}{dt}
+=
+\frac{\partial \vec{r}_i}{\partial q_1}\dot{q}_1
++
+\frac{\partial \vec{r}_i}{\partial q_2}\dot{q}_2
++\cdots+
+\frac{\partial \vec{r}_i}{\partial q_{3N-k}}\dot{q}_{3N-k}
++
+\frac{\partial \vec{r}_i}{\partial t}
+\tag{4}\]</span></span></p>
 
 
 </section>
