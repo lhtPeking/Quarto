@@ -10,7 +10,7 @@ author: "Haotian Li"
 
 If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian $L=T-V$ and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem.
 
-## The introduction of general coordinates
+## The introduction of generalized coordinates
 
 Newton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:
 
@@ -20,7 +20,7 @@ $$ {#eq-risk}
 
 where $\vec N_i$ represents constraint force acting on the $i$-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force $\vec N_i$ since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.
 
-Suppose we have $N$ particles with $k$ constraint equations in a 3D space, the degrees of freedom of this system is $3N-k$. Naturally, we could introduce $3N-k$ new coordinates $\{q_1, q_2, ..., q_{3N-k}\}$ to match these degrees of freedom, and these coordinates are called "general coordinates".
+Suppose we have $N$ particles with $k$ constraint equations in a 3D space, the degrees of freedom of this system is $3N-k$. Naturally, we could introduce $3N-k$ new coordinates $\{q_1, q_2, ..., q_{3N-k}\}$ to match these degrees of freedom, and these coordinates are called "generalized coordinates".
 
 Therefore, the position of the i-th particle could be expressed using the general coordinates that occupied all the spatial freedom of the system:
 
@@ -74,15 +74,119 @@ $$
 $$ {#eq-risk}
 
 Substitue $\vec N_i$ with $m_i \ddot{\vec{r_i}}-\vec F_i$, we obtain the D'Alembert Principle for a single particle:
-
-::: 
-## D'Alembert Principle
-
 $$
 \left(m_i\ddot{\vec r}_i-\vec F_i\right)
 \cdot
 \delta\vec r_i=0
+$$ {#eq-risk}
+
+We could furthur decompose the virtual displacement $\delta \vec{r_i}$ on to the generalized coordinates. Given that $d\vec r_i=\sum_j\frac{\partial \vec r_i}{\partial q_j}dq_j+\frac{\partial \vec r_i}{\partial t}dt$ and $dt=0$, we have:
+
+$$
+\delta\vec r_i
+=
+\sum_j
+\frac{\partial \vec r_i}{\partial q_j}\delta q_j
+$$ {#eq-risk}
+
+Subtitute this into D'Alembert Principle, we obtain its general coordinated form:
+$$
+\sum_j
+m_i\ddot{\vec r}_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+-
+\sum_j
+\vec F_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+=0
+$$ {#eq-risk}
+
+The next step we're gonna take is where the rubber hits the road. We are going to sum over all the particles to get a comprehensive equation for the whole system, you will see what this brings us in a minute. For now we just sum over $i$:
+
+$$
+\sum_j
+\left(
+\sum_i
+m_i\ddot{\vec r}_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+-
+\sum_j
+\left(
+\sum_i
+\vec F_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+=0
+$$ {#eq-risk}
+
+The equation above could be re-organized into the following form just by switching the order of the two summations:
+$$
+\sum_j
+\left[
+\sum_i
+m_i\ddot{\vec r}_i
+\cdot
+\frac{{\partial\vec r}_i}{\partial q_j}
+-
+\sum_i
+\vec F_i
+\cdot
+\frac{{\partial\vec r}_i}{\partial q_j}
+\right]
+\delta q_j
+=0
+$$ {#eq-risk}
+
+Note that both $\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ and $\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ are quantities indexed by $j$ instead of by $i$, and both terms have clear physical interpretations.
+
+The virtual work of the whole system could be expressed as:
+$$
+\delta W=
+\sum_{i=1}^{N}
+\vec F_i\cdot\delta\vec r_i=
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\left(
+\sum_{j=1}^{3N-k}
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+\right)
+=
+\sum_{j=1}^{3N-k}
+\left(
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+$$ {#eq-risk}
+Therefore, the work on the $j$-th direction could be represented as:
+$$
+\left(
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+$$ {#eq-risk}
+
+The displacement on the $j$-th direction is $\delta q_j$, therefore the term $\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized force" on the $j$-th direction. Similarly, the term $\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized inertia force" on the $j$-th direction.
+
+Thereby, we could give them new symbols to define them more clearly:
+::: {#def-gf}
+## Generalized Force & Generalized Inertia Force
+Here we use $Q_j$ and $I_j$ to represent generalized force and generalized inertia force on the $j$-th direction.
+$$
+Q_j := \sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\qquad
+I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}
 $$
 :::
-
-
