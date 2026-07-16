@@ -341,10 +341,7 @@ window.Quarto = {
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#the-introduction-of-generalized-coordinates" id="toc-the-introduction-of-generalized-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</a></li>
   <li><a href="#analyze-the-particle-system-in-a-bundle" id="toc-analyze-the-particle-system-in-a-bundle" class="nav-link" data-scroll-target="#analyze-the-particle-system-in-a-bundle"><span class="header-section-number">3</span> Analyze the particle system in a “bundle”</a></li>
-  <li><a href="#the-lagrangian-and-the-principle-of-least-action" id="toc-the-lagrangian-and-the-principle-of-least-action" class="nav-link" data-scroll-target="#the-lagrangian-and-the-principle-of-least-action"><span class="header-section-number">4</span> The Lagrangian and the Principle of Least Action</a>
-  <ul class="collapse">
-  <li><a href="#the-action" id="toc-the-action" class="nav-link" data-scroll-target="#the-action"><span class="header-section-number">4.1</span> The Action</a></li>
-  </ul></li>
+  <li><a href="#the-lagrangian-and-the-principle-of-least-action" id="toc-the-lagrangian-and-the-principle-of-least-action" class="nav-link" data-scroll-target="#the-lagrangian-and-the-principle-of-least-action"><span class="header-section-number">4</span> The Lagrangian and the Principle of Least Action</a></li>
   <li><a href="#noethers-theorem" id="toc-noethers-theorem" class="nav-link" data-scroll-target="#noethers-theorem"><span class="header-section-number">5</span> Noether’s Theorem</a>
   <ul class="collapse">
   <li><a href="#time-translation-symmetry-and-energy-conservation" id="toc-time-translation-symmetry-and-energy-conservation" class="nav-link" data-scroll-target="#time-translation-symmetry-and-energy-conservation"><span class="header-section-number">5.1</span> Time-Translation Symmetry and Energy Conservation</a></li>
@@ -660,33 +657,15 @@ Q_j := \sum_i\vec F_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 \]</span></p>
 </div>
-<p>In the following section, I’m gonna show you that <span class="math inline">\(Q_j\)</span> has</p>
+<p>And thus the D’Alembert’s principle in terms of generalized coordinates could be expressed as:</p>
+<p><span id="eq-risk"><span class="math display">\[
+\sum_{j=1}^{3N-k}
+\left(I_j-Q_j\right)\delta q_j=0,
+\tag{14}\]</span></span></p>
+<p>In the following section, I’m gonna establish the relationship between <span class="math inline">\(Q_j\)</span> and the system potential ennergy <span class="math inline">\(V\)</span> and the relationship between <span class="math inline">\(I_j\)</span> and the system kinetic ennergy <span class="math inline">\(T\)</span>, and derive the Lagrangian from the first principle.</p>
 </section>
 <section id="the-lagrangian-and-the-principle-of-least-action" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="the-lagrangian-and-the-principle-of-least-action"><span class="header-section-number">4</span> The Lagrangian and the Principle of Least Action</h2>
-<p>We have already expressed D’Alembert’s principle in terms of generalized coordinates:</p>
-<p><span class="math display">\[
-\sum_{j=1}^{3N-k}
-\left(I_j-Q_j\right)\delta q_j=0,
-\]</span></p>
-<p>where</p>
-<p><span class="math display">\[
-I_j
-:=
-\sum_{i=1}^{N}
-m_i\ddot{\vec r}_i\cdot
-\frac{\partial\vec r_i}{\partial q_j}
-\]</span></p>
-<p>is the generalized inertial term, and</p>
-<p><span class="math display">\[
-Q_j
-:=
-\sum_{i=1}^{N}
-\vec F_i\cdot
-\frac{\partial\vec r_i}{\partial q_j}
-\]</span></p>
-<p>is the generalized force associated with the generalized coordinate <span class="math inline">\(q_j\)</span>.</p>
-<p>The next step is to express these two quantities in terms of the kinetic and potential energies of the system.</p>
 <div id="thm-inertial-kinetic" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 3 (Generalized Inertial Term and Kinetic Energy)</strong></span> Let the total kinetic energy of the particle system be</p>
 <p><span class="math display">\[
@@ -717,13 +696,50 @@ T
 \sum_{i=1}^{N}
 m_i\vec v_i\cdot\vec v_i,
 \]</span></p>
-<p>we differentiate it with respect to <span class="math inline">\(\dot q_j\)</span>:</p>
+<p>Taking the partial derivative of the kinetic energy with respect to <span class="math inline">\(\dot q_j\)</span>, we obtain</p>
 <p><span class="math display">\[
-\frac{\partial T}{\partial\dot q_j}
-=
+\begin{aligned}
+\frac{\partial T}{\partial \dot q_j}
+&amp;=
+\frac{\partial}{\partial \dot q_j}
+\left[
+\frac{1}{2}
+\sum_{i=1}^{N}
+m_i
+\left(
+v_{ix}^{\,2}
++
+v_{iy}^{\,2}
++
+v_{iz}^{\,2}
+\right)
+\right] \\[4pt]
+&amp;=
+\frac{1}{2}
+\sum_{i=1}^{N}
+m_i
+\left(
+2v_{ix}\frac{\partial v_{ix}}{\partial \dot q_j}
++
+2v_{iy}\frac{\partial v_{iy}}{\partial \dot q_j}
++
+2v_{iz}\frac{\partial v_{iz}}{\partial \dot q_j}
+\right) \\[4pt]
+&amp;=
+\sum_{i=1}^{N}
+m_i
+\left(
+v_{ix}\frac{\partial v_{ix}}{\partial \dot q_j}
++
+v_{iy}\frac{\partial v_{iy}}{\partial \dot q_j}
++
+v_{iz}\frac{\partial v_{iz}}{\partial \dot q_j}
+\right) \\[4pt]
+&amp;=
 \sum_{i=1}^{N}
 m_i\vec v_i\cdot
-\frac{\partial\vec v_i}{\partial\dot q_j}.
+\frac{\partial\vec v_i}{\partial \dot q_j}.
+\end{aligned}
 \]</span></p>
 <p>Using the position–velocity derivative identity,</p>
 <p><span class="math display">\[
@@ -884,10 +900,8 @@ L(q,\dot q,t):=T(q,\dot q,t)-V(q,t).
 },
 \qquad
 j=1,2,\dots,3N-k.
-\tag{14}\]</span></span></p>
+\tag{15}\]</span></span></p>
 <p>These are the <strong>Euler–Lagrange equations</strong>.</p>
-<section id="the-action" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="the-action"><span class="header-section-number">4.1</span> The Action</h3>
 <p>For a trajectory</p>
 <p><span class="math display">\[
 q(t)
@@ -902,7 +916,7 @@ S[q]
 :=
 \int_{t_1}^{t_2}
 L(q,\dot q,t)\,dt.
-\tag{15}\]</span></span></p>
+\tag{16}\]</span></span></p>
 <p>Unlike an ordinary function, which maps numbers to numbers, the action is a functional: it assigns a number to an entire trajectory.</p>
 <p>Consider a neighboring trajectory</p>
 <p><span class="math display">\[
@@ -996,7 +1010,6 @@ S[q+\varepsilon\eta]
 <p>Therefore, the principle of stationary action is equivalent to the Euler–Lagrange equations.</p>
 </div>
 <p>Despite its traditional name, the <strong>principle of least action</strong> does not generally state that the physical trajectory minimizes the action. It only requires the first variation of the action to vanish. The physical trajectory may correspond to a minimum, a maximum, or another stationary point.</p>
-</section>
 </section>
 <section id="noethers-theorem" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="noethers-theorem"><span class="header-section-number">5</span> Noether’s Theorem</h2>
@@ -1169,7 +1182,7 @@ p_j\dot q_j-L
 =
 \text{constant}
 }.
-\tag{16}\]</span></span></p>
+\tag{17}\]</span></span></p>
 <p>For a natural mechanical system with</p>
 <p><span class="math display">\[
 L=T-V,
