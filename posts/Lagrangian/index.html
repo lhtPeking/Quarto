@@ -341,7 +341,6 @@ window.Quarto = {
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#the-introduction-of-generalized-coordinates" id="toc-the-introduction-of-generalized-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</a></li>
   <li><a href="#analyze-the-particle-system-in-a-bundle" id="toc-analyze-the-particle-system-in-a-bundle" class="nav-link" data-scroll-target="#analyze-the-particle-system-in-a-bundle"><span class="header-section-number">3</span> Analyze the particle system in a “bundle”</a></li>
-  <li><a href="#generalized-force-generalized-inertia-force" id="toc-generalized-force-generalized-inertia-force" class="nav-link" data-scroll-target="#generalized-force-generalized-inertia-force"><span class="header-section-number">4</span> Generalized Force &amp; Generalized Inertia Force</a></li>
   </ul>
 </nav>
     </div>
@@ -535,18 +534,17 @@ m_i\ddot{\vec r}_i
 \tag{13}\]</span></span></p>
 <p>The displacement on the <span class="math inline">\(j\)</span>-th direction is <span class="math inline">\(\delta q_j\)</span>, therefore the term <span class="math inline">\(\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized force” on the <span class="math inline">\(j\)</span>-th direction. Similarly, the term <span class="math inline">\(\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized inertia force” on the <span class="math inline">\(j\)</span>-th direction.</p>
 <p>Thereby, we could give them new symbols to define them more clearly:</p>
-</section>
-<section id="generalized-force-generalized-inertia-force" class="level2 callout-definition" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="generalized-force-generalized-inertia-force"><span class="header-section-number">4</span> Generalized Force &amp; Generalized Inertia Force</h2>
-<p>Here we use <span class="math inline">\(Q_j\)</span> and <span class="math inline">\(I_j\)</span> to represent generalized force and generalized inertia force on the <span class="math inline">\(j\)</span>-th direction.</p>
+<div id="def-gf" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Generalized Force &amp; Generalized Inertia Force)</strong></span> Here we use <span class="math inline">\(Q_j\)</span> and <span class="math inline">\(I_j\)</span> to represent generalized force and generalized inertia force on the <span class="math inline">\(j\)</span>-th direction.</p>
 <p><span class="math display">\[
 Q_j := \sum_i\vec F_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 \qquad
 I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 \]</span></p>
+</div>
+
+
 </section>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
