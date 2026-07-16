@@ -339,7 +339,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
-  <li><a href="#the-introduction-of-general-coordinates" id="toc-the-introduction-of-general-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-general-coordinates"><span class="header-section-number">2</span> The introduction of general coordinates</a></li>
+  <li><a href="#the-introduction-of-generalized-coordinates" id="toc-the-introduction-of-generalized-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</a></li>
   <li><a href="#analyze-the-particle-system-in-a-bundle" id="toc-analyze-the-particle-system-in-a-bundle" class="nav-link" data-scroll-target="#analyze-the-particle-system-in-a-bundle"><span class="header-section-number">3</span> Analyze the particle system in a “bundle”</a></li>
   </ul>
 </nav>
@@ -392,14 +392,14 @@ window.Quarto = {
 <h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
 <p>If you are an undergraduate student majoring in physics, I bet that when you heard about the definition of Lagrangian <span class="math inline">\(L=T-V\)</span> and the principle of least action for the first time, you felt like a fly rubbing its head off. But no worries, I will derive “Lagrangian and Action” from the first principle in this blog and show you how the symmetry is tightly associated with conservation, namely Noether’s Theorem.</p>
 </section>
-<section id="the-introduction-of-general-coordinates" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-general-coordinates"><span class="header-section-number">2</span> The introduction of general coordinates</h2>
+<section id="the-introduction-of-generalized-coordinates" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</h2>
 <p>Newton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:</p>
 <p><span id="eq-risk"><span class="math display">\[
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
 \tag{1}\]</span></span></p>
 <p>where <span class="math inline">\(\vec N_i\)</span> represents constraint force acting on the <span class="math inline">\(i\)</span>-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force <span class="math inline">\(\vec N_i\)</span> since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.</p>
-<p>Suppose we have <span class="math inline">\(N\)</span> particles with <span class="math inline">\(k\)</span> constraint equations in a 3D space, the degrees of freedom of this system is <span class="math inline">\(3N-k\)</span>. Naturally, we could introduce <span class="math inline">\(3N-k\)</span> new coordinates <span class="math inline">\(\{q_1, q_2, ..., q_{3N-k}\}\)</span> to match these degrees of freedom, and these coordinates are called “general coordinates”.</p>
+<p>Suppose we have <span class="math inline">\(N\)</span> particles with <span class="math inline">\(k\)</span> constraint equations in a 3D space, the degrees of freedom of this system is <span class="math inline">\(3N-k\)</span>. Naturally, we could introduce <span class="math inline">\(3N-k\)</span> new coordinates <span class="math inline">\(\{q_1, q_2, ..., q_{3N-k}\}\)</span> to match these degrees of freedom, and these coordinates are called “generalized coordinates”.</p>
 <p>Therefore, the position of the i-th particle could be expressed using the general coordinates that occupied all the spatial freedom of the system:</p>
 <p><span id="eq-risk"><span class="math display">\[
 \vec{r}_i=\vec{r}_i(q_1,q_2,\ldots,q_{3N-k},t)
@@ -441,12 +441,101 @@ m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
 <p>If we consider a “virtual displacement” <span class="math inline">\(\delta \vec{r_i}\)</span> within a timescale <span class="math inline">\(dt=0\)</span>, constraint force <span class="math inline">\(\vec N_i\)</span> doesn’t contribute to any work: <span id="eq-risk"><span class="math display">\[
 \vec N_i\cdot\delta\vec r_i=0
 \tag{6}\]</span></span></p>
-<p>Substitue <span class="math inline">\(\vec N_i\)</span> with <span class="math inline">\(m_i \ddot{\vec{r_i}}-\vec F_i\)</span>, we obtain the D’Alembert Principle for a single particle:</p>
-<p>::: ## D’Alembert Principle</p>
-<p><span class="math display">\[
+<p>Substitue <span class="math inline">\(\vec N_i\)</span> with <span class="math inline">\(m_i \ddot{\vec{r_i}}-\vec F_i\)</span>, we obtain the D’Alembert Principle for a single particle: <span id="eq-risk"><span class="math display">\[
 \left(m_i\ddot{\vec r}_i-\vec F_i\right)
 \cdot
 \delta\vec r_i=0
+\tag{7}\]</span></span></p>
+<p>We could furthur decompose the virtual displacement <span class="math inline">\(\delta \vec{r_i}\)</span> on to the generalized coordinates. Given that <span class="math inline">\(d\vec r_i=\sum_j\frac{\partial \vec r_i}{\partial q_j}dq_j+\frac{\partial \vec r_i}{\partial t}dt\)</span> and <span class="math inline">\(dt=0\)</span>, we have:</p>
+<p><span id="eq-risk"><span class="math display">\[
+\delta\vec r_i
+=
+\sum_j
+\frac{\partial \vec r_i}{\partial q_j}\delta q_j
+\tag{8}\]</span></span></p>
+<p>Subtitute this into D’Alembert Principle, we obtain its general coordinated form: <span id="eq-risk"><span class="math display">\[
+\sum_j
+m_i\ddot{\vec r}_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+-
+\sum_j
+\vec F_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+=0
+\tag{9}\]</span></span></p>
+<p>The next step we’re gonna take is where the rubber hits the road. We are going to sum over all the particles to get a comprehensive equation for the whole system, you will see what this brings us in a minute. For now we just sum over <span class="math inline">\(i\)</span>:</p>
+<p><span id="eq-risk"><span class="math display">\[
+\sum_j
+\left(
+\sum_i
+m_i\ddot{\vec r}_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+-
+\sum_j
+\left(
+\sum_i
+\vec F_i
+\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+=0
+\tag{10}\]</span></span></p>
+<p>The equation above could be re-organized into the following form just by switching the order of the two summations: <span id="eq-risk"><span class="math display">\[
+\sum_j
+\left[
+\sum_i
+m_i\ddot{\vec r}_i
+\cdot
+\frac{{\partial\vec r}_i}{\partial q_j}
+-
+\sum_i
+\vec F_i
+\cdot
+\frac{{\partial\vec r}_i}{\partial q_j}
+\right]
+\delta q_j
+=0
+\tag{11}\]</span></span></p>
+<p>Note that both <span class="math inline">\(\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> and <span class="math inline">\(\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> are quantities indexed by <span class="math inline">\(j\)</span> instead of by <span class="math inline">\(i\)</span>, and both terms have clear physical interpretations.</p>
+<p>The virtual work of the whole system could be expressed as: <span id="eq-risk"><span class="math display">\[
+\delta W=
+\sum_{i=1}^{N}
+\vec F_i\cdot\delta\vec r_i=
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\left(
+\sum_{j=1}^{3N-k}
+\frac{\partial\vec r_i}{\partial q_j}
+\delta q_j
+\right)
+=
+\sum_{j=1}^{3N-k}
+\left(
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+\tag{12}\]</span></span> Therefore, the work on the <span class="math inline">\(j\)</span>-th direction could be represented as: <span id="eq-risk"><span class="math display">\[
+\left(
+\sum_{i=1}^{N}
+\vec F_i\cdot
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+\delta q_j
+\tag{13}\]</span></span></p>
+<p>The displacement on the <span class="math inline">\(j\)</span>-th direction is <span class="math inline">\(\delta q_j\)</span>, therefore the term <span class="math inline">\(\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized force” on the <span class="math inline">\(j\)</span>-th direction. Similarly, the term <span class="math inline">\(\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized inertia force” on the <span class="math inline">\(j\)</span>-th direction.</p>
+<p>Thereby, we could give them new symbols to define them more clearly: ::: {#def-gf} ## Generalized Force &amp; Generalized Inertia Force Here we use <span class="math inline">\(Q_j\)</span> and <span class="math inline">\(I_j\)</span> to represent generalized force and generalized inertia force on the <span class="math inline">\(j\)</span>-th direction. <span class="math display">\[
+Q_j := \sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\qquad
+I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}
 \]</span> :::</p>
 
 
