@@ -183,7 +183,7 @@ The displacement on the $j$-th direction is $\delta q_j$, therefore the term $\s
 
 Thereby, we could give them new symbols to define them more clearly:
 
-::: {.callout-definition}
+::: {#def-gf}
 
 ## Generalized Force & Generalized Inertia Force
 
