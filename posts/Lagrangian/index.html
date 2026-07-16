@@ -348,6 +348,7 @@ window.Quarto = {
   <li><a href="#spatial-translation-symmetry-and-momentum-conservation" id="toc-spatial-translation-symmetry-and-momentum-conservation" class="nav-link" data-scroll-target="#spatial-translation-symmetry-and-momentum-conservation"><span class="header-section-number">5.2</span> 2. Spatial-Translation Symmetry and Momentum Conservation</a></li>
   <li><a href="#spatial-rotation-symmetry-and-angular-momentum-conservation" id="toc-spatial-rotation-symmetry-and-angular-momentum-conservation" class="nav-link" data-scroll-target="#spatial-rotation-symmetry-and-angular-momentum-conservation"><span class="header-section-number">5.3</span> 3. Spatial-Rotation Symmetry and Angular Momentum Conservation</a></li>
   </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -402,17 +403,17 @@ window.Quarto = {
 <section id="the-introduction-of-generalized-coordinates" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</h2>
 <p>Newton’s Laws become extremely cumbersome when dealing with systems containing many particles and constraints. We need to write down Newton’s Second Law for every particle:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
-\tag{1}\]</span></span></p>
+\]</span></p>
 <p>where <span class="math inline">\(\vec N_i\)</span> represents constraint force acting on the <span class="math inline">\(i\)</span>-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force <span class="math inline">\(\vec N_i\)</span> since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.</p>
 <p>Suppose we have <span class="math inline">\(N\)</span> particles with <span class="math inline">\(k\)</span> constraint equations in a 3D space, the degrees of freedom of this system is <span class="math inline">\(3N-k\)</span>. Naturally, we could introduce <span class="math inline">\(3N-k\)</span> new coordinates <span class="math inline">\(\{q_1, q_2, ..., q_{3N-k}\}\)</span> to match these degrees of freedom, and these coordinates are called “generalized coordinates”.</p>
 <p>Therefore, the position of the i-th particle could be expressed using the general coordinates that occupied all the spatial freedom of the system:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 \vec{r}_i=\vec{r}_i(q_1,q_2,\ldots,q_{3N-k},t)
-\tag{2}\]</span></span></p>
+\]</span></p>
 <p>And its differential form could be written as:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 d\vec{r}_i
 =
 \frac{\partial \vec{r}_i}{\partial q_1}dq_1
@@ -422,7 +423,7 @@ d\vec{r}_i
 \frac{\partial \vec{r}_i}{\partial q_{3N-k}}dq_{3N-k}
 +
 \frac{\partial \vec{r}_i}{\partial t}dt
-\tag{3}\]</span></span></p>
+\]</span></p>
 <p>Divide both sides by <span class="math inline">\(dt\)</span> we obtain the velocity representation under generalized coordinates:</p>
 <p><span id="eq-risk"><span class="math display">\[
 \vec{v}_i
@@ -436,7 +437,7 @@ d\vec{r}_i
 \frac{\partial \vec{r}_i}{\partial q_{3N-k}}\dot{q}_{3N-k}
 +
 \frac{\partial \vec{r}_i}{\partial t}
-\tag{4}\]</span></span></p>
+\tag{1}\]</span></span></p>
 <p>Besides, there are two important identity equations we need to prove in this section. For consistency, you can skip this part and head directly to the next section. If you are interested in the mathematical details, you can come back to see the proof.</p>
 <div id="thm-identity1" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Displacement-Velocity Relationship)</strong></span> This identity shows that the partial derivative of the particle position with respect to a generalized coordinate is equal to the partial derivative of the particle velocity with respect to the corresponding generalized velocity.</p>
@@ -550,25 +551,25 @@ d\vec{r}_i
 <h2 data-number="3" class="anchored" data-anchor-id="analyze-the-particle-system-in-a-bundle"><span class="header-section-number">3</span> Analyze the particle system in a “bundle”</h2>
 <p>As we stated before, the power of Lagrangian mechanics lies in its holistic view of the system, instead of analyzing the system particle-by-particle in Newton’s mechanics. In this section, I will show you how the Lagrangian analyzes the many-particle system in a “bundle”.</p>
 <p>Again, Newton’s Second Law for particle <span class="math inline">\(i\)</span>:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
-\tag{5}\]</span></span></p>
-<p>If we consider a “virtual displacement” <span class="math inline">\(\delta \vec{r_i}\)</span> within a timescale <span class="math inline">\(dt=0\)</span>, constraint force <span class="math inline">\(\vec N_i\)</span> doesn’t contribute to any work: <span id="eq-risk"><span class="math display">\[
+\]</span></p>
+<p>If we consider a “virtual displacement” <span class="math inline">\(\delta \vec{r_i}\)</span> within a timescale <span class="math inline">\(dt=0\)</span>, constraint force <span class="math inline">\(\vec N_i\)</span> doesn’t contribute to any work: <span class="math display">\[
 \vec N_i\cdot\delta\vec r_i=0
-\tag{6}\]</span></span></p>
+\]</span></p>
 <p>Substitue <span class="math inline">\(\vec N_i\)</span> with <span class="math inline">\(m_i \ddot{\vec{r_i}}-\vec F_i\)</span>, we obtain the D’Alembert Principle for a single particle: <span id="eq-risk"><span class="math display">\[
 \left(m_i\ddot{\vec r}_i-\vec F_i\right)
 \cdot
 \delta\vec r_i=0
-\tag{7}\]</span></span></p>
+\tag{2}\]</span></span></p>
 <p>We could furthur decompose the virtual displacement <span class="math inline">\(\delta \vec{r_i}\)</span> on to the generalized coordinates. Given that <span class="math inline">\(d\vec r_i=\sum_j\frac{\partial \vec r_i}{\partial q_j}dq_j+\frac{\partial \vec r_i}{\partial t}dt\)</span> and <span class="math inline">\(dt=0\)</span>, we have:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 \delta\vec r_i
 =
 \sum_j
 \frac{\partial \vec r_i}{\partial q_j}\delta q_j
-\tag{8}\]</span></span></p>
-<p>Subtitute this into D’Alembert Principle, we obtain its general coordinated form: <span id="eq-risk"><span class="math display">\[
+\]</span></p>
+<p>Subtitute this into D’Alembert Principle, we obtain its general coordinated form: <span class="math display">\[
 \sum_j
 m_i\ddot{\vec r}_i
 \cdot
@@ -581,9 +582,9 @@ m_i\ddot{\vec r}_i
 \frac{\partial\vec r_i}{\partial q_j}
 \delta q_j
 =0
-\tag{9}\]</span></span></p>
+\]</span></p>
 <p>The next step we’re gonna take is where the rubber hits the road. We are going to sum over all the particles to get a comprehensive equation for the whole system, you will see what this brings us in a minute. For now we just sum over <span class="math inline">\(i\)</span>:</p>
-<p><span id="eq-risk"><span class="math display">\[
+<p><span class="math display">\[
 \sum_j
 \left(
 \sum_i
@@ -602,7 +603,7 @@ m_i\ddot{\vec r}_i
 \right)
 \delta q_j
 =0
-\tag{10}\]</span></span></p>
+\]</span></p>
 <p>The equation above could be re-organized into the following form just by switching the order of the two summations: <span id="eq-risk"><span class="math display">\[
 \sum_j
 \left[
@@ -618,9 +619,9 @@ m_i\ddot{\vec r}_i
 \right]
 \delta q_j
 =0
-\tag{11}\]</span></span></p>
+\tag{3}\]</span></span></p>
 <p>Note that both <span class="math inline">\(\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> and <span class="math inline">\(\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> are quantities indexed by <span class="math inline">\(j\)</span> instead of by <span class="math inline">\(i\)</span>, and both terms have clear physical interpretations.</p>
-<p>The virtual work of the whole system could be expressed as: <span id="eq-risk"><span class="math display">\[
+<p>The virtual work of the whole system could be expressed as: <span class="math display">\[
 \delta W=
 \sum_{i=1}^{N}
 \vec F_i\cdot\delta\vec r_i=
@@ -639,14 +640,14 @@ m_i\ddot{\vec r}_i
 \frac{\partial\vec r_i}{\partial q_j}
 \right)
 \delta q_j
-\tag{12}\]</span></span> Therefore, the work on the <span class="math inline">\(j\)</span>-th direction could be represented as: <span id="eq-risk"><span class="math display">\[
+\]</span> Therefore, the work on the <span class="math inline">\(j\)</span>-th direction could be represented as: <span class="math display">\[
 \left(
 \sum_{i=1}^{N}
 \vec F_i\cdot
 \frac{\partial\vec r_i}{\partial q_j}
 \right)
 \delta q_j
-\tag{13}\]</span></span></p>
+\]</span></p>
 <p>The displacement on the <span class="math inline">\(j\)</span>-th direction is <span class="math inline">\(\delta q_j\)</span>, therefore the term <span class="math inline">\(\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized force” on the <span class="math inline">\(j\)</span>-th direction. Similarly, the term <span class="math inline">\(\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\)</span> could be interpreted as the “generalized inertia force” on the <span class="math inline">\(j\)</span>-th direction.</p>
 <p>Thereby, we could give them new symbols to define them more clearly:</p>
 <div id="def-gf" class="theorem definition">
@@ -661,7 +662,7 @@ I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 <p><span id="eq-risk"><span class="math display">\[
 \sum_{j=1}^{3N-k}
 \left(I_j-Q_j\right)\delta q_j=0,
-\tag{14}\]</span></span></p>
+\tag{4}\]</span></span></p>
 <p>In the following section, I’m gonna establish the relationship between <span class="math inline">\(Q_j\)</span> and the system potential ennergy <span class="math inline">\(V\)</span> and the relationship between <span class="math inline">\(I_j\)</span> and the system kinetic ennergy <span class="math inline">\(T\)</span>, and derive the Lagrangian from the first principle.</p>
 </section>
 <section id="the-lagrangian-and-the-principle-of-least-action" class="level2" data-number="4">
@@ -907,9 +908,8 @@ L(q,\dot q,t):=T(q,\dot q,t)-V(q,t)
 0
 \qquad
 j=1,2,\dots,3N-k.
-\tag{15}\]</span></span></p>
-<p>These are the Euler–Lagrange equations.</p>
-<p>For a trajectory</p>
+\tag{5}\]</span></span></p>
+<p>These are the Euler–Lagrange equations. For a trajectory</p>
 <p><span class="math display">\[
 q(t)
 =
@@ -927,16 +927,14 @@ t,
 q_1(t),\dots,q_{3N-k}(t),
 \dot q_1(t),\dots,\dot q_{3N-k}(t)
 \right)\,dt.
-\tag{16}\]</span></span></p>
-<p>Here, the action <span class="math inline">\(S\)</span> is not an ordinary function of a finite number of variables. Instead, it is a functional.</p>
-<p>To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:</p>
+\tag{6}\]</span></span></p>
+<p>Here, the action <span class="math inline">\(S\)</span> is not an ordinary function of a finite number of variables. Instead, it is a functional. To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:</p>
 <p><span class="math display">\[
 q_j^{(\varepsilon)}(t)
 =
 q_j(t)+\varepsilon\eta_j(t),
 \]</span></p>
-<p>where <span class="math inline">\(\varepsilon\)</span> is a small parameter and <span class="math inline">\(\eta_j(t)\)</span> represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.<span class="math inline">\(\eta_j(t_1)=\eta_j(t_2)=0\)</span>.</p>
-<p>The action evaluated along this perturbed trajectory becomes a function of <span class="math inline">\(\varepsilon\)</span>:</p>
+<p>where <span class="math inline">\(\varepsilon\)</span> is a small parameter and <span class="math inline">\(\eta_j(t)\)</span> represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.<span class="math inline">\(\eta_j(t_1)=\eta_j(t_2)=0\)</span>. The action evaluated along this perturbed trajectory becomes a function of <span class="math inline">\(\varepsilon\)</span>:</p>
 <p><span class="math display">\[
 S(\varepsilon)
 :=
@@ -953,16 +951,11 @@ S[q+\varepsilon\eta].
 </section>
 <section id="noethers-theorem" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="noethers-theorem"><span class="header-section-number">5</span> Noether’s Theorem</h2>
-<p>The trajectories of a system are determined by the Lagrangian</p>
-<p><span class="math display">\[
-L=T-V.
-\]</span></p>
-<p>A symmetry means that the evolution of the system is independent of a certain parameter <span class="math inline">\(p\)</span>. Mathematically, this can be expressed as</p>
+<p>The trajectories of a system are totally determined by the Lagrangian <span class="math inline">\(L=T-V\)</span>. A symmetry means that the evolution of the system is independent of a certain parameter <span class="math inline">\(p\)</span>. For example, the time translation energy means that time will not affect the evolution of a system: how an apple falls from a tree will look exactly the same today or tomorrow. Mathematically, this can be expressed as</p>
 <p><span class="math display">\[
 \frac{\partial L}{\partial p}=0.
 \]</span></p>
 <p>This simple idea leads to several important conservation laws.</p>
-<hr>
 <section id="time-translation-symmetry-and-energy-conservation" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="time-translation-symmetry-and-energy-conservation"><span class="header-section-number">5.1</span> 1. Time-Translation Symmetry and Energy Conservation</h3>
 <p>If the system is invariant under time translation, the Lagrangian has no explicit dependence on time:</p>
@@ -1129,9 +1122,15 @@ T+V
 \]</span></p>
 <p>The conserved quantity is the generalized momentum associated with the rotational coordinate, which corresponds to angular momentum.</p>
 <p>Hence, rotational symmetry leads to angular momentum conservation.</p>
-
-
 </section>
+</section>
+<section id="summary" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="summary"><span class="header-section-number">6</span> Summary</h2>
+<p>In this article, we started from Newton’s laws and introduced generalized coordinates to describe constrained systems more naturally. By applying D’Alembert’s principle, we transformed the problem from individual forces acting on particles into a system-level description, leading to the Euler–Lagrange equation.</p>
+<p>The Lagrangian formulation provides a powerful framework where the dynamics of a system are determined by the stationary action principle. Furthermore, Noether’s theorem reveals the deep connection between symmetry and conservation laws: time-translation symmetry leads to energy conservation, spatial-translation symmetry leads to momentum conservation, and rotational symmetry leads to angular momentum conservation.</p>
+<p>Together, the Lagrangian and Noether’s theorem provide a unified perspective on classical mechanics, showing that the laws of motion can be understood through the structure and symmetry of the system itself.</p>
+
+
 </section>
 
 </main> <!-- /main -->
