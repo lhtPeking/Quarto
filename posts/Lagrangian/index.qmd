@@ -709,156 +709,47 @@ The Lagrangian $L=T-V$ of a system naturally satisfies Euler–Lagrange equation
 
 ## Noether's Theorem
 
-The power of the Lagrangian formulation becomes especially clear when the system possesses a continuous symmetry.
-
-A symmetry is a continuous transformation of the generalized coordinates—or of time—under which the action remains unchanged. Noether's theorem states that every such continuous symmetry produces a conserved quantity.
-
-Define the generalized momentum conjugate to $q_j$ by
+The trajectories of a system are determined by the Lagrangian
 
 $$
-p_j
-:=
-\frac{\partial L}{\partial\dot q_j}.
+L=T-V.
 $$
 
-::: {#thm-noether}
-
-## Noether's Theorem
-
-Suppose the generalized coordinates undergo an infinitesimal transformation
+A symmetry means that the evolution of the system is independent of a certain parameter $p$. 
+Mathematically, this can be expressed as
 
 $$
-q_j
-\longrightarrow
-q_j+\varepsilon\xi_j(q,t),
+\frac{\partial L}{\partial p}=0.
 $$
 
-while time remains fixed. If the Lagrangian is invariant to first order,
+This simple idea leads to several important conservation laws.
 
-$$
-\delta L=0,
-$$
+---
 
-then the quantity
+### 1. Time-Translation Symmetry and Energy Conservation
 
-$$
-J
-=
-\sum_{j=1}^{3N-k}
-p_j\xi_j
-$$
-
-is conserved:
-
-$$
-\frac{dJ}{dt}=0.
-$$
-
-:::
-
-::: {.proof}
-
-Under the infinitesimal transformation,
-
-$$
-\delta q_j=\varepsilon\xi_j
-$$
-
-and
-
-$$
-\delta\dot q_j
-=
-\varepsilon\frac{d\xi_j}{dt}.
-$$
-
-The corresponding change in the Lagrangian is
-
-$$
-\delta L
-=
-\varepsilon
-\sum_{j=1}^{3N-k}
-\left(
-\frac{\partial L}{\partial q_j}\xi_j
-+
-\frac{\partial L}{\partial\dot q_j}
-\frac{d\xi_j}{dt}
-\right).
-$$
-
-Using the Euler–Lagrange equations,
-
-$$
-\frac{\partial L}{\partial q_j}
-=
-\frac{d}{dt}
-\left(
-\frac{\partial L}{\partial\dot q_j}
-\right)
-=
-\dot p_j,
-$$
-
-we obtain
-
-$$
-\begin{aligned}
-\delta L
-&=
-\varepsilon
-\sum_{j=1}^{3N-k}
-\left(
-\dot p_j\xi_j
-+
-p_j\dot\xi_j
-\right)\\
-&=
-\varepsilon
-\frac{d}{dt}
-\left(
-\sum_{j=1}^{3N-k}
-p_j\xi_j
-\right).
-\end{aligned}
-$$
-
-If the transformation is a symmetry, then $\delta L=0$. Therefore,
-
-$$
-\frac{d}{dt}
-\left(
-\sum_{j=1}^{3N-k}
-p_j\xi_j
-\right)
-=
-0.
-$$
-
-Hence,
-
-$$
-J
-=
-\sum_{j=1}^{3N-k}
-p_j\xi_j
-$$
-
-is conserved.
-
-:::
-
-The theorem above is the simplest fixed-time form of Noether's theorem. The more general theorem also allows transformations of time and changes in the Lagrangian by a total time derivative.
-
-### Time-Translation Symmetry and Energy Conservation
-
-Suppose the Lagrangian has no explicit dependence on time:
+If the system is invariant under time translation, the Lagrangian has no explicit dependence on time:
 
 $$
 \frac{\partial L}{\partial t}=0.
 $$
 
-The total derivative of the Lagrangian is
+The total differential of the Lagrangian is
+
+$$
+dL
+=
+\sum_{j=1}^{3N-k}
+\left(
+\frac{\partial L}{\partial q_j}dq_j
++
+\frac{\partial L}{\partial \dot q_j}d\dot q_j
+\right)
++
+\frac{\partial L}{\partial t}dt .
+$$
+
+Dividing both sides by $dt$, we obtain
 
 $$
 \frac{dL}{dt}
@@ -867,13 +758,26 @@ $$
 \left(
 \frac{\partial L}{\partial q_j}\dot q_j
 +
-\frac{\partial L}{\partial\dot q_j}\ddot q_j
+\frac{\partial L}{\partial \dot q_j}\ddot q_j
 \right)
 +
 \frac{\partial L}{\partial t}.
 $$
 
-Using
+For a time-independent Lagrangian,
+
+$$
+\frac{dL}{dt}
+=
+\sum_{j=1}^{3N-k}
+\left(
+\frac{\partial L}{\partial q_j}\dot q_j
++
+\frac{\partial L}{\partial \dot q_j}\ddot q_j
+\right).
+$$
+
+Using the Euler--Lagrange equation,
 
 $$
 \frac{\partial L}{\partial q_j}
@@ -884,18 +788,17 @@ $$
 \right),
 $$
 
-we find
+we have
 
 $$
 \frac{dL}{dt}
 =
+\sum_{j=1}^{3N-k}
 \frac{d}{dt}
 \left(
-\sum_{j=1}^{3N-k}
-\frac{\partial L}{\partial\dot q_j}\dot q_j
-\right)
-+
-\frac{\partial L}{\partial t}.
+\frac{\partial L}{\partial\dot q_j}
+\dot q_j
+\right).
 $$
 
 Therefore,
@@ -904,136 +807,128 @@ $$
 \frac{d}{dt}
 \left(
 \sum_{j=1}^{3N-k}
-\frac{\partial L}{\partial\dot q_j}\dot q_j
--
-L
+\frac{\partial L}{\partial\dot q_j}
+\dot q_j
+-L
 \right)
-=
--\frac{\partial L}{\partial t}.
-$$
-
-When $\partial L/\partial t=0$,
-
-$$
-\boxed{
-E
-=
-\sum_{j=1}^{3N-k}
-p_j\dot q_j-L
-=
-\text{constant}
-}.
-$$ {#eq-energy}
-
-For a natural mechanical system with
-
-$$
-L=T-V,
-$$
-
-where $T$ is quadratic in the generalized velocities and $V$ is velocity-independent,
-
-$$
-\sum_j p_j\dot q_j=2T.
+=0.
 $$
 
 Hence,
 
 $$
-E=2T-(T-V)=T+V,
+\sum_{j=1}^{3N-k}
+\frac{\partial L}{\partial\dot q_j}
+\dot q_j
+-L
+=
+\text{constant}.
 $$
 
-which is the conservation of mechanical energy.
+For a natural mechanical system,
 
-### Spatial-Translation Symmetry and Momentum Conservation
+$$
+L=T-V
+=
+\frac12
+\sum_{j=1}^{3N-k}
+m_j\dot q_j^2
+-
+V(q_1,\dots,q_{3N-k}),
+$$
 
-Suppose the Lagrangian does not depend on a generalized coordinate $q_j$:
+we have
+
+$$
+\frac{\partial L}{\partial\dot q_j}
+=
+m_j\dot q_j.
+$$
+
+Therefore,
+
+$$
+\sum_{j=1}^{3N-k}
+\frac{\partial L}{\partial\dot q_j}\dot q_j
+=
+\sum_{j=1}^{3N-k}
+m_j\dot q_j^2
+=
+2T.
+$$
+
+Thus,
+
+$$
+2T-L
+=
+2T-(T-V)
+=
+T+V
+=
+\text{constant}.
+$$
+
+Therefore, time-translation symmetry leads to the conservation of energy.
+
+---
+
+### 2. Spatial-Translation Symmetry and Momentum Conservation
+
+For a spatial translation symmetry along the generalized coordinate $q_j$,
 
 $$
 \frac{\partial L}{\partial q_j}=0.
 $$
 
-Such a coordinate is called a **cyclic coordinate** or **ignorable coordinate**. The Euler–Lagrange equation immediately gives
+The Euler--Lagrange equation gives
 
 $$
 \frac{d}{dt}
 \left(
 \frac{\partial L}{\partial\dot q_j}
 \right)
-=
-0.
+=0.
 $$
 
 Therefore,
 
 $$
-\boxed{
-p_j
-=
 \frac{\partial L}{\partial\dot q_j}
 =
-\text{constant}
-}.
+\text{constant}.
 $$
 
-When $q_j$ represents a Cartesian translation, $p_j$ is the corresponding component of linear momentum. Thus, spatial-translation symmetry leads to momentum conservation.
-
-### Rotational Symmetry and Angular-Momentum Conservation
-
-Consider an infinitesimal rotation about a fixed unit vector $\hat n$. The position of particle $i$ changes by
+Since
 
 $$
-\delta\vec r_i
-=
-\varepsilon\,
-\hat n\times\vec r_i.
+\frac{\partial L}{\partial\dot q_j}
 $$
 
-The corresponding Noether charge is
+is the generalized momentum corresponding to $q_j$, we obtain momentum conservation in that direction.
+
+---
+
+### 3. Spatial-Rotation Symmetry and Angular Momentum Conservation
+
+The same argument applies to spatial rotational symmetry.
+
+If the system is invariant under rotation, the corresponding rotational coordinate does not appear explicitly in the Lagrangian:
 
 $$
-\begin{aligned}
-J
-&=
-\sum_{i=1}^{N}
-\vec p_i\cdot
+\frac{\partial L}{\partial q_j}=0.
+$$
+
+Therefore,
+
+$$
+\frac{d}{dt}
 \left(
-\hat n\times\vec r_i
-\right)\\
-&=
-\hat n\cdot
-\sum_{i=1}^{N}
-\vec r_i\times\vec p_i.
-\end{aligned}
+\frac{\partial L}{\partial\dot q_j}
+\right)
+=0.
 $$
 
-Therefore, rotational invariance implies that
+The conserved quantity is the generalized momentum associated with the rotational coordinate, which corresponds to angular momentum.
 
-$$
-\boxed{
-\vec L_{\mathrm{angular}}
-=
-\sum_{i=1}^{N}
-\vec r_i\times\vec p_i
-}
-$$
-
-is conserved.
-
-In summary,
-
-$$
-\begin{aligned}
-\text{time-translation symmetry}
-&\Longrightarrow
-\text{energy conservation},\\
-\text{spatial-translation symmetry}
-&\Longrightarrow
-\text{linear-momentum conservation},\\
-\text{rotational symmetry}
-&\Longrightarrow
-\text{angular-momentum conservation}.
-\end{aligned}
-$$
-
-
+Hence, rotational symmetry leads to angular momentum conservation.
