@@ -58,6 +58,151 @@ $$
 \frac{\partial \vec{r}_i}{\partial t}
 $$ {#eq-risk}
 
+Besides, there are two important identity equations we need to prove in this section. For consistency, you can skip this part and head directly to the next section. If you are interested in the mathematical details, you can come back to see the proof.
+
+
+::: {#thm-identity1}
+
+## Displacement-Velocity Relationship
+
+This identity shows that the partial derivative of the particle position with respect to a generalized coordinate is equal to the partial derivative of the particle velocity with respect to the corresponding generalized velocity.
+
+$$
+\frac{\partial \vec v_i}{\partial \dot q_j}
+=
+\frac{\partial \vec r_i}{\partial q_j}
+$$
+
+:::
+
+::: {.proof}
+
+As we stated before, the velocity of a particle could be expressed as:
+
+$$
+\vec v_i
+=
+\sum_{j=1}^{3N-k}
+\frac{\partial \vec r_i}{\partial q_j}\dot q_j
++
+\frac{\partial \vec r_i}{\partial t}
+$$
+
+Taking the partial derivative of both sides with respect to $\dot q_j$, we obtain:
+
+$$
+\frac{\partial \vec v_i}{\partial \dot q_j}
+=
+\frac{\partial}{\partial \dot q_j}
+\left(
+\sum_{l=1}^{3N-k}
+\frac{\partial \vec r_i}{\partial q_l}\dot q_l
++
+\frac{\partial \vec r_i}{\partial t}
+\right)
+$$
+
+Since $q_l$ and $\dot q_l$ are independent generalized variables, only the term containing $\dot q_j$ remains:
+
+$$
+\frac{\partial \vec v_i}{\partial \dot q_j}
+=
+\frac{\partial \vec r_i}{\partial q_j}
+$$
+
+Therefore, the identity is proved.
+
+:::
+
+
+::: {#thm-identity2}
+
+## Order-irrelevance Principle
+
+This identity shows that the partial derivative with respect to a generalized coordinate and the total time derivative commute when applied to the particle position.
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+=
+\frac{\partial\vec v_i}{\partial q_j}
+$$
+
+:::
+
+::: {.proof}
+
+The derivative of $\vec r_i$ with respect to $q_j$ is itself a function of all generalized coordinates and time:
+
+$$
+\frac{\partial \vec r_i}{\partial q_j}
+=
+\frac{\partial \vec r_i}{\partial q_j}
+(q_1,q_2,\dots,q_{3N-k},t)
+$$
+
+Therefore, taking the total time derivative gives:
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial \vec r_i}{\partial q_j}
+\right)
+=
+\sum_{l=1}^{3N-k}
+\frac{\partial^2 \vec r_i}
+{\partial q_j\partial q_l}
+\dot q_l
++
+\frac{\partial^2 \vec r_i}
+{\partial q_j\partial t}
+$$
+
+On the other hand, taking the partial derivative of $\vec v_i$ with respect to $q_j$ gives:
+
+$$
+\frac{\partial \vec v_i}{\partial q_j}
+=
+\frac{\partial}{\partial q_j}
+\left(
+\sum_{l=1}^{3N-k}
+\frac{\partial \vec r_i}{\partial q_l}\dot q_l
++
+\frac{\partial \vec r_i}{\partial t}
+\right)
+$$
+
+Because $q_j$ and $\dot q_l$ are treated as independent variables, we obtain:
+
+$$
+\frac{\partial \vec v_i}{\partial q_j}
+=
+\sum_{l=1}^{3N-k}
+\frac{\partial^2 \vec r_i}
+{\partial q_j\partial q_l}
+\dot q_l
++
+\frac{\partial^2 \vec r_i}
+{\partial q_j\partial t}
+$$
+
+Therefore,
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\vec r_i}{\partial q_j}
+\right)
+=
+\frac{\partial\vec v_i}{\partial q_j}
+$$
+
+and the identity is proved.
+
+:::
+
 ## Analyze the particle system in a "bundle"
 
 As we stated before, the power of Lagrangian mechanics lies in its holistic view of the system, instead of analyzing the system particle-by-particle in Newton’s mechanics. In this section, I will show you how the Lagrangian analyzes the many-particle system in a "bundle".
@@ -187,7 +332,7 @@ Thereby, we could give them new symbols to define them more clearly:
 
 ## Generalized Force & Generalized Inertia Force
 
-Here we use $Q_j$ and $I_j$ to represent generalized force and generalized inertia force on the $j$-th direction.
+Here we use $Q_j$ and $I_j$ to represent generalized force and generalized inertia force on the $j$-th direction, respectively.
 
 $$
 Q_j := \sum_i\vec F_i\cdot\frac{\partial\vec r_i}{\partial q_j}
@@ -196,4 +341,7 @@ I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 $$
 
 :::
+
+Refer to @def-gf anywhere after the block.
+
 
