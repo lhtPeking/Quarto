@@ -42,7 +42,7 @@ d\vec{r}_i
 \frac{\partial \vec{r}_i}{\partial t}dt
 $$ {#eq-risk}
 
-Divide both sides by $dt$ we obtain the velocity:
+Divide both sides by $dt$ we obtain the velocity representation under generalized coordinates:
 
 $$
 \vec{v}_i
@@ -57,5 +57,32 @@ $$
 +
 \frac{\partial \vec{r}_i}{\partial t}
 $$ {#eq-risk}
+
+## Analyze the particle system in a "bundle"
+
+As we stated before, the power of Lagrangian mechanics lies in its holistic view of the system, instead of analyzing the system particle-by-particle in Newton’s mechanics. In this section, I will show you how the Lagrangian analyzes the many-particle system in a "bundle".
+
+Again, Newton’s Second Law for particle $i$:
+
+$$
+m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
+$$ {#eq-risk}
+
+If we consider a "virtual displacement" $\delta \vec{r_i}$ within a timescale $dt=0$, constraint force $\vec N_i$ doesn't contribute to any work:
+$$
+\vec N_i\cdot\delta\vec r_i=0
+$$ {#eq-risk}
+
+Substitue $\vec N_i$ with $m_i \ddot{\vec{r_i}}-\vec F_i$, we obtain the D'Alembert Principle for a single particle:
+
+::: 
+## D'Alembert Principle
+
+$$
+\left(m_i\ddot{\vec r}_i-\vec F_i\right)
+\cdot
+\delta\vec r_i=0
+$$
+:::
 
 
