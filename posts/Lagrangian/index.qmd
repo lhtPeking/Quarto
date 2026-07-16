@@ -658,24 +658,6 @@ $$
 
 we define the action functional as the integration of Lagrangian over time:
 
-$$
-S[q]
-:=
-\int_{t_1}^{t_2}
-L(q,\dot q,t)\,dt.
-$$ {#eq-action}
-
-### The Principle of Least Action
-
-The Euler--Lagrange equations determine the evolution of the generalized coordinates
-
-$$
-\left\{
-q_1(t),q_2(t),\dots,q_{3N-k}(t)
-\right\}.
-$$
-
-From the calculus of variations, these trajectories can also be characterized as stationary points of a certain integral functional. This functional is called the **action** and is defined as
 
 $$
 S[q]
@@ -688,17 +670,9 @@ q_1(t),\dots,q_{3N-k}(t),
 \right)\,dt.
 $$ {#eq-action}
 
-Here, the action $S$ is not an ordinary function of a finite number of variables. Instead, it is a **functional**: it assigns a number to an entire trajectory
+Here, the action $S$ is not an ordinary function of a finite number of variables. Instead, it is a functional.
 
-$$
-q(t)
-=
-\left\{
-q_1(t),q_2(t),\dots,q_{3N-k}(t)
-\right\}.
-$$
-
-To examine whether a given trajectory is physical, we introduce a nearby family of trajectories
+To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:
 
 $$
 q_j^{(\varepsilon)}(t)
@@ -706,11 +680,7 @@ q_j^{(\varepsilon)}(t)
 q_j(t)+\varepsilon\eta_j(t),
 $$
 
-where $\varepsilon$ is a small parameter and $\eta_j(t)$ represents an arbitrary variation of the trajectory. The endpoints are fixed, so
-
-$$
-\eta_j(t_1)=\eta_j(t_2)=0.
-$$
+where $\varepsilon$ is a small parameter and $\eta_j(t)$ represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.$\eta_j(t_1)=\eta_j(t_2)=0$.
 
 The action evaluated along this perturbed trajectory becomes a function of $\varepsilon$:
 
@@ -720,31 +690,21 @@ S(\varepsilon)
 S[q+\varepsilon\eta].
 $$
 
-::: {#thm-stationary-action}
-
-## Principle of Stationary Action
-
-Among all nearby trajectories connecting the same initial and final configurations, the physical trajectory makes the action stationary. Therefore,
+Using conclusions from functional analysis, a trajectory that satisfies Euler–Lagrange equation will give rise to a local extrema of the integration. In this case:
 
 $$
-\left.
-\frac{dS(\varepsilon)}{d\varepsilon}
-\right|_{\varepsilon=0}
-=
-0.
+\frac{dS(\varepsilon)}{d\varepsilon}=0
 $$
 
-Equivalently,
+Therefore we have the theorem:
 
-$$
-\delta S=0.
-$$
+::: {#thm-least-action}
+
+## Principle of Least Action
+
+The Lagrangian $L=T-V$ of a system naturally satisfies Euler–Lagrange equations, which means the action $S$, the integration of $L$ over time, is an extrema, usually a minimum.
 
 :::
-
-This condition is known traditionally as the **principle of least action**. However, the word *least* can be misleading: the physical trajectory does not necessarily minimize the action. It only makes the first-order variation of the action vanish, so the action may correspond to a minimum, a maximum, or another stationary point.
-
-Despite its traditional name, the **principle of least action** does not generally state that the physical trajectory minimizes the action. It only requires the first variation of the action to vanish. The physical trajectory may correspond to a minimum, a maximum, or another stationary point.
 
 
 ## Noether's Theorem
