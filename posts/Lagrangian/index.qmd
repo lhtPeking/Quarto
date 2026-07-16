@@ -182,12 +182,16 @@ $$ {#eq-risk}
 The displacement on the $j$-th direction is $\delta q_j$, therefore the term $\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized force" on the $j$-th direction. Similarly, the term $\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized inertia force" on the $j$-th direction.
 
 Thereby, we could give them new symbols to define them more clearly:
-::: {#def-gf}
+::: {.callout-definition}
 ## Generalized Force & Generalized Inertia Force
+
 Here we use $Q_j$ and $I_j$ to represent generalized force and generalized inertia force on the $j$-th direction.
+
 $$
-Q_j := \sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\qquad
-I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}
+Q_j := \sum_i\vec F_i\cdot\frac{\partial\vec r_i}{\partial q_j}
+\qquad
+I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{\partial\vec r_i}{\partial q_j}
 $$
+
 :::
-Refer to @def-gf anywhere after the block.
+
