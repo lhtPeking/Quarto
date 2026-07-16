@@ -559,11 +559,16 @@ Q_j
 \end{aligned}
 $$
 
-Thus,
+Thus, we have the relationship:
 
+::: {#thm-general-potential}
+
+## Generalized Force Term and Potential Energy
 $$
 Q_j=-\frac{\partial V}{\partial q_j}.
 $$
+
+:::
 
 Substituting the expressions for $I_j$ and $Q_j$ into D'Alembert's principle gives
 
@@ -584,13 +589,7 @@ $$
 0.
 $$
 
-The generalized virtual displacements
-
-$$
-\delta q_1,\delta q_2,\dots,\delta q_{3N-k}
-$$
-
-are independent. Therefore, the coefficient of every $\delta q_j$ must vanish:
+The generalized virtual displacements $\{\delta q_1,\delta q_2,\dots,\delta q_{3N-k}\}$ are independent. Let $\{\delta q_1,\delta q_2, ..., \delta q_{j-1}, \delta q_{j+1},\delta q_{3N-k}\}$ equal to $0$, we obtain:
 
 $$
 \frac{d}{dt}
@@ -602,25 +601,37 @@ $$
 +
 \frac{\partial V}{\partial q_j}
 =
-0.
+0
 $$
 
-For an ordinary conservative system, the potential energy does not depend on the generalized velocities:
+For an ordinary conservative system, the potential energy $V$ does not depend on the generalized velocities:
 
 $$
-\frac{\partial V}{\partial\dot q_j}=0.
+\frac{\partial V}{\partial\dot q_j}=0
 $$
 
-We may therefore define the **Lagrangian** as
+We may write the equation above as:
 
 $$
-L(q,\dot q,t):=T(q,\dot q,t)-V(q,t).
+\frac{d}{dt}
+\left(
+\frac{\partial (T-V)}{\partial\dot q_j}
+\right)
+-
+\frac{\partial (T-V)}{\partial q_j}
+=
+0
+$$
+
+Therefore, we could define the Lagrangian naturally as:
+
+$$
+L(q,\dot q,t):=T(q,\dot q,t)-V(q,t)
 $$
 
 The equation of motion then becomes
 
 $$
-\boxed{
 \frac{d}{dt}
 \left(
 \frac{\partial L}{\partial\dot q_j}
@@ -629,12 +640,11 @@ $$
 \frac{\partial L}{\partial q_j}
 =
 0
-},
 \qquad
 j=1,2,\dots,3N-k.
 $$ {#eq-euler-lagrange}
 
-These are the **Euler–Lagrange equations**.
+These are the Euler–Lagrange equations.
 
 For a trajectory
 
@@ -646,7 +656,7 @@ q_1(t),q_2(t),\dots,q_{3N-k}(t)
 \right),
 $$
 
-we define the action functional as
+we define the action functional as the integration of Lagrangian over time:
 
 $$
 S[q]
@@ -655,9 +665,40 @@ S[q]
 L(q,\dot q,t)\,dt.
 $$ {#eq-action}
 
-Unlike an ordinary function, which maps numbers to numbers, the action is a functional: it assigns a number to an entire trajectory.
+### The Principle of Least Action
 
-Consider a neighboring trajectory
+The Euler--Lagrange equations determine the evolution of the generalized coordinates
+
+$$
+\left\{
+q_1(t),q_2(t),\dots,q_{3N-k}(t)
+\right\}.
+$$
+
+From the calculus of variations, these trajectories can also be characterized as stationary points of a certain integral functional. This functional is called the **action** and is defined as
+
+$$
+S[q]
+:=
+\int_{t_1}^{t_2}
+L\left(
+t,
+q_1(t),\dots,q_{3N-k}(t),
+\dot q_1(t),\dots,\dot q_{3N-k}(t)
+\right)\,dt.
+$$ {#eq-action}
+
+Here, the action $S$ is not an ordinary function of a finite number of variables. Instead, it is a **functional**: it assigns a number to an entire trajectory
+
+$$
+q(t)
+=
+\left\{
+q_1(t),q_2(t),\dots,q_{3N-k}(t)
+\right\}.
+$$
+
+To examine whether a given trajectory is physical, we introduce a nearby family of trajectories
 
 $$
 q_j^{(\varepsilon)}(t)
@@ -665,22 +706,29 @@ q_j^{(\varepsilon)}(t)
 q_j(t)+\varepsilon\eta_j(t),
 $$
 
-where the variation vanishes at the endpoints:
+where $\varepsilon$ is a small parameter and $\eta_j(t)$ represents an arbitrary variation of the trajectory. The endpoints are fixed, so
 
 $$
 \eta_j(t_1)=\eta_j(t_2)=0.
+$$
+
+The action evaluated along this perturbed trajectory becomes a function of $\varepsilon$:
+
+$$
+S(\varepsilon)
+:=
+S[q+\varepsilon\eta].
 $$
 
 ::: {#thm-stationary-action}
 
 ## Principle of Stationary Action
 
-A physical trajectory makes the action stationary:
+Among all nearby trajectories connecting the same initial and final configurations, the physical trajectory makes the action stationary. Therefore,
 
 $$
 \left.
-\frac{d}{d\varepsilon}
-S[q+\varepsilon\eta]
+\frac{dS(\varepsilon)}{d\varepsilon}
 \right|_{\varepsilon=0}
 =
 0.
@@ -694,82 +742,7 @@ $$
 
 :::
 
-::: {.proof}
-
-The variation of the action is
-
-$$
-\begin{aligned}
-\delta S
-&=
-\left.
-\frac{d}{d\varepsilon}
-S[q+\varepsilon\eta]
-\right|_{\varepsilon=0}\\
-&=
-\int_{t_1}^{t_2}
-\sum_{j=1}^{3N-k}
-\left(
-\frac{\partial L}{\partial q_j}\eta_j
-+
-\frac{\partial L}{\partial\dot q_j}\dot\eta_j
-\right)dt.
-\end{aligned}
-$$
-
-Integrating the second term by parts gives
-
-$$
-\int_{t_1}^{t_2}
-\frac{\partial L}{\partial\dot q_j}
-\dot\eta_j\,dt
-=
-\left[
-\frac{\partial L}{\partial\dot q_j}\eta_j
-\right]_{t_1}^{t_2}
--
-\int_{t_1}^{t_2}
-\frac{d}{dt}
-\left(
-\frac{\partial L}{\partial\dot q_j}
-\right)
-\eta_j\,dt.
-$$
-
-Since $\eta_j(t_1)=\eta_j(t_2)=0$, the boundary term vanishes. Hence,
-
-$$
-\delta S
-=
-\int_{t_1}^{t_2}
-\sum_{j=1}^{3N-k}
-\left[
-\frac{\partial L}{\partial q_j}
--
-\frac{d}{dt}
-\left(
-\frac{\partial L}{\partial\dot q_j}
-\right)
-\right]
-\eta_j\,dt.
-$$
-
-Because the functions $\eta_j(t)$ are arbitrary, the fundamental lemma of the calculus of variations implies
-
-$$
-\frac{d}{dt}
-\left(
-\frac{\partial L}{\partial\dot q_j}
-\right)
--
-\frac{\partial L}{\partial q_j}
-=
-0.
-$$
-
-Therefore, the principle of stationary action is equivalent to the Euler–Lagrange equations.
-
-:::
+This condition is known traditionally as the **principle of least action**. However, the word *least* can be misleading: the physical trajectory does not necessarily minimize the action. It only makes the first-order variation of the action vanish, so the action may correspond to a minimum, a maximum, or another stationary point.
 
 Despite its traditional name, the **principle of least action** does not generally state that the physical trajectory minimizes the action. It only requires the first variation of the action to vanish. The physical trajectory may correspond to a minimum, a maximum, or another stationary point.
 
