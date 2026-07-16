@@ -341,10 +341,7 @@ window.Quarto = {
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#the-introduction-of-generalized-coordinates" id="toc-the-introduction-of-generalized-coordinates" class="nav-link" data-scroll-target="#the-introduction-of-generalized-coordinates"><span class="header-section-number">2</span> The introduction of generalized coordinates</a></li>
   <li><a href="#analyze-the-particle-system-in-a-bundle" id="toc-analyze-the-particle-system-in-a-bundle" class="nav-link" data-scroll-target="#analyze-the-particle-system-in-a-bundle"><span class="header-section-number">3</span> Analyze the particle system in a “bundle”</a></li>
-  <li><a href="#the-lagrangian-and-the-principle-of-least-action" id="toc-the-lagrangian-and-the-principle-of-least-action" class="nav-link" data-scroll-target="#the-lagrangian-and-the-principle-of-least-action"><span class="header-section-number">4</span> The Lagrangian and the Principle of Least Action</a>
-  <ul class="collapse">
-  <li><a href="#the-principle-of-least-action" id="toc-the-principle-of-least-action" class="nav-link" data-scroll-target="#the-principle-of-least-action"><span class="header-section-number">4.1</span> The Principle of Least Action</a></li>
-  </ul></li>
+  <li><a href="#the-lagrangian-and-the-principle-of-least-action" id="toc-the-lagrangian-and-the-principle-of-least-action" class="nav-link" data-scroll-target="#the-lagrangian-and-the-principle-of-least-action"><span class="header-section-number">4</span> The Lagrangian and the Principle of Least Action</a></li>
   <li><a href="#noethers-theorem" id="toc-noethers-theorem" class="nav-link" data-scroll-target="#noethers-theorem"><span class="header-section-number">5</span> Noether’s Theorem</a>
   <ul class="collapse">
   <li><a href="#time-translation-symmetry-and-energy-conservation" id="toc-time-translation-symmetry-and-energy-conservation" class="nav-link" data-scroll-target="#time-translation-symmetry-and-energy-conservation"><span class="header-section-number">5.1</span> Time-Translation Symmetry and Energy Conservation</a></li>
@@ -925,68 +922,34 @@ q_1(t),q_2(t),\dots,q_{3N-k}(t)
 S[q]
 :=
 \int_{t_1}^{t_2}
-L(q,\dot q,t)\,dt.
-\tag{16}\]</span></span></p>
-<section id="the-principle-of-least-action" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="the-principle-of-least-action"><span class="header-section-number">4.1</span> The Principle of Least Action</h3>
-<p>The Euler–Lagrange equations determine the evolution of the generalized coordinates</p>
-<p><span class="math display">\[
-\left\{
-q_1(t),q_2(t),\dots,q_{3N-k}(t)
-\right\}.
-\]</span></p>
-<p>From the calculus of variations, these trajectories can also be characterized as stationary points of a certain integral functional. This functional is called the <strong>action</strong> and is defined as</p>
-<p><span id="eq-action"><span class="math display">\[
-S[q]
-:=
-\int_{t_1}^{t_2}
 L\left(
 t,
 q_1(t),\dots,q_{3N-k}(t),
 \dot q_1(t),\dots,\dot q_{3N-k}(t)
 \right)\,dt.
-\tag{17}\]</span></span></p>
-<p>Here, the action <span class="math inline">\(S\)</span> is not an ordinary function of a finite number of variables. Instead, it is a <strong>functional</strong>: it assigns a number to an entire trajectory</p>
-<p><span class="math display">\[
-q(t)
-=
-\left\{
-q_1(t),q_2(t),\dots,q_{3N-k}(t)
-\right\}.
-\]</span></p>
-<p>To examine whether a given trajectory is physical, we introduce a nearby family of trajectories</p>
+\tag{16}\]</span></span></p>
+<p>Here, the action <span class="math inline">\(S\)</span> is not an ordinary function of a finite number of variables. Instead, it is a functional.</p>
+<p>To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:</p>
 <p><span class="math display">\[
 q_j^{(\varepsilon)}(t)
 =
 q_j(t)+\varepsilon\eta_j(t),
 \]</span></p>
-<p>where <span class="math inline">\(\varepsilon\)</span> is a small parameter and <span class="math inline">\(\eta_j(t)\)</span> represents an arbitrary variation of the trajectory. The endpoints are fixed, so</p>
-<p><span class="math display">\[
-\eta_j(t_1)=\eta_j(t_2)=0.
-\]</span></p>
+<p>where <span class="math inline">\(\varepsilon\)</span> is a small parameter and <span class="math inline">\(\eta_j(t)\)</span> represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.<span class="math inline">\(\eta_j(t_1)=\eta_j(t_2)=0\)</span>.</p>
 <p>The action evaluated along this perturbed trajectory becomes a function of <span class="math inline">\(\varepsilon\)</span>:</p>
 <p><span class="math display">\[
 S(\varepsilon)
 :=
 S[q+\varepsilon\eta].
 \]</span></p>
-<div id="thm-stationary-action" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5 (Principle of Stationary Action)</strong></span> Among all nearby trajectories connecting the same initial and final configurations, the physical trajectory makes the action stationary. Therefore,</p>
+<p>Using conclusions from functional analysis, a trajectory that satisfies Euler–Lagrange equation will give rise to a local extrema of the integration. In this case:</p>
 <p><span class="math display">\[
-\left.
-\frac{dS(\varepsilon)}{d\varepsilon}
-\right|_{\varepsilon=0}
-=
-0.
+\frac{dS(\varepsilon)}{d\varepsilon}=0
 \]</span></p>
-<p>Equivalently,</p>
-<p><span class="math display">\[
-\delta S=0.
-\]</span></p>
+<p>Therefore we have the theorem:</p>
+<div id="thm-least-action" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Principle of Least Action)</strong></span> The Lagrangian <span class="math inline">\(L=T-V\)</span> of a system naturally satisfies Euler–Lagrange equations, which means the action <span class="math inline">\(S\)</span>, the integration of <span class="math inline">\(L\)</span> over time, is an extrema, usually a minimum.</p>
 </div>
-<p>This condition is known traditionally as the <strong>principle of least action</strong>. However, the word <em>least</em> can be misleading: the physical trajectory does not necessarily minimize the action. It only makes the first-order variation of the action vanish, so the action may correspond to a minimum, a maximum, or another stationary point.</p>
-<p>Despite its traditional name, the <strong>principle of least action</strong> does not generally state that the physical trajectory minimizes the action. It only requires the first variation of the action to vanish. The physical trajectory may correspond to a minimum, a maximum, or another stationary point.</p>
-</section>
 </section>
 <section id="noethers-theorem" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="noethers-theorem"><span class="header-section-number">5</span> Noether’s Theorem</h2>
@@ -1159,7 +1122,7 @@ p_j\dot q_j-L
 =
 \text{constant}
 }.
-\tag{18}\]</span></span></p>
+\tag{17}\]</span></span></p>
 <p>For a natural mechanical system with</p>
 <p><span class="math display">\[
 L=T-V,
