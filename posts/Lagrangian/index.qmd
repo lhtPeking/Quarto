@@ -16,7 +16,7 @@ Newton’s Laws become extremely cumbersome when dealing with systems containing
 
 $$
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
-$$ {#eq-risk}
+$$
 
 where $\vec N_i$ represents constraint force acting on the $i$-th particle, which means it will not contribute to any work if the particle only moves in the allowed direction. Most of the time, it is hard to identify force $\vec N_i$ since the constraint could be very complicated, and this is where Lagrangian Mechanics comes into play.
 
@@ -26,7 +26,7 @@ Therefore, the position of the i-th particle could be expressed using the genera
 
 $$
 \vec{r}_i=\vec{r}_i(q_1,q_2,\ldots,q_{3N-k},t)
-$$ {#eq-risk}
+$$
 
 And its differential form could be written as:
 
@@ -40,7 +40,7 @@ d\vec{r}_i
 \frac{\partial \vec{r}_i}{\partial q_{3N-k}}dq_{3N-k}
 +
 \frac{\partial \vec{r}_i}{\partial t}dt
-$$ {#eq-risk}
+$$
 
 Divide both sides by $dt$ we obtain the velocity representation under generalized coordinates:
 
@@ -211,12 +211,12 @@ Again, Newton’s Second Law for particle $i$:
 
 $$
 m_i \ddot{\vec{r_i}}=\vec F_i + \vec N_i
-$$ {#eq-risk}
+$$
 
 If we consider a "virtual displacement" $\delta \vec{r_i}$ within a timescale $dt=0$, constraint force $\vec N_i$ doesn't contribute to any work:
 $$
 \vec N_i\cdot\delta\vec r_i=0
-$$ {#eq-risk}
+$$
 
 Substitue $\vec N_i$ with $m_i \ddot{\vec{r_i}}-\vec F_i$, we obtain the D'Alembert Principle for a single particle:
 $$
@@ -232,7 +232,7 @@ $$
 =
 \sum_j
 \frac{\partial \vec r_i}{\partial q_j}\delta q_j
-$$ {#eq-risk}
+$$
 
 Subtitute this into D'Alembert Principle, we obtain its general coordinated form:
 $$
@@ -248,7 +248,7 @@ m_i\ddot{\vec r}_i
 \frac{\partial\vec r_i}{\partial q_j}
 \delta q_j
 =0
-$$ {#eq-risk}
+$$
 
 The next step we're gonna take is where the rubber hits the road. We are going to sum over all the particles to get a comprehensive equation for the whole system, you will see what this brings us in a minute. For now we just sum over $i$:
 
@@ -271,7 +271,7 @@ m_i\ddot{\vec r}_i
 \right)
 \delta q_j
 =0
-$$ {#eq-risk}
+$$
 
 The equation above could be re-organized into the following form just by switching the order of the two summations:
 $$
@@ -313,7 +313,7 @@ $$
 \frac{\partial\vec r_i}{\partial q_j}
 \right)
 \delta q_j
-$$ {#eq-risk}
+$$ 
 Therefore, the work on the $j$-th direction could be represented as:
 $$
 \left(
@@ -322,7 +322,7 @@ $$
 \frac{\partial\vec r_i}{\partial q_j}
 \right)
 \delta q_j
-$$ {#eq-risk}
+$$ 
 
 The displacement on the $j$-th direction is $\delta q_j$, therefore the term $\sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized force" on the $j$-th direction. Similarly, the term $\sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}$ could be interpreted as the "generalized inertia force" on the $j$-th direction.
 
@@ -644,9 +644,7 @@ $$
 j=1,2,\dots,3N-k.
 $$ {#eq-euler-lagrange}
 
-These are the Euler–Lagrange equations.
-
-For a trajectory
+These are the Euler–Lagrange equations. For a trajectory
 
 $$
 q(t)
@@ -670,9 +668,7 @@ q_1(t),\dots,q_{3N-k}(t),
 \right)\,dt.
 $$ {#eq-action}
 
-Here, the action $S$ is not an ordinary function of a finite number of variables. Instead, it is a functional.
-
-To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:
+Here, the action $S$ is not an ordinary function of a finite number of variables. Instead, it is a functional. To examine whether a given trajectory is physical, we introduce a nearby family of trajectories:
 
 $$
 q_j^{(\varepsilon)}(t)
@@ -680,9 +676,7 @@ q_j^{(\varepsilon)}(t)
 q_j(t)+\varepsilon\eta_j(t),
 $$
 
-where $\varepsilon$ is a small parameter and $\eta_j(t)$ represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.$\eta_j(t_1)=\eta_j(t_2)=0$.
-
-The action evaluated along this perturbed trajectory becomes a function of $\varepsilon$:
+where $\varepsilon$ is a small parameter and $\eta_j(t)$ represents an arbitrary variation of the trajectory. The endpoints are fixed, i.e.$\eta_j(t_1)=\eta_j(t_2)=0$. The action evaluated along this perturbed trajectory becomes a function of $\varepsilon$:
 
 $$
 S(\varepsilon)
@@ -709,13 +703,7 @@ The Lagrangian $L=T-V$ of a system naturally satisfies Euler–Lagrange equation
 
 ## Noether's Theorem
 
-The trajectories of a system are determined by the Lagrangian
-
-$$
-L=T-V.
-$$
-
-A symmetry means that the evolution of the system is independent of a certain parameter $p$. 
+The trajectories of a system are totally determined by the Lagrangian $L=T-V$. A symmetry means that the evolution of the system is independent of a certain parameter $p$. For example, the time translation energy means that time will not affect the evolution of a system: how an apple falls from a tree will look exactly the same today or tomorrow.
 Mathematically, this can be expressed as
 
 $$
@@ -724,7 +712,6 @@ $$
 
 This simple idea leads to several important conservation laws.
 
----
 
 ### 1. Time-Translation Symmetry and Energy Conservation
 
@@ -932,3 +919,11 @@ $$
 The conserved quantity is the generalized momentum associated with the rotational coordinate, which corresponds to angular momentum.
 
 Hence, rotational symmetry leads to angular momentum conservation.
+
+## Summary
+
+In this article, we started from Newton's laws and introduced generalized coordinates to describe constrained systems more naturally. By applying D'Alembert's principle, we transformed the problem from individual forces acting on particles into a system-level description, leading to the Euler--Lagrange equation.
+
+The Lagrangian formulation provides a powerful framework where the dynamics of a system are determined by the stationary action principle. Furthermore, Noether's theorem reveals the deep connection between symmetry and conservation laws: time-translation symmetry leads to energy conservation, spatial-translation symmetry leads to momentum conservation, and rotational symmetry leads to angular momentum conservation.
+
+Together, the Lagrangian and Noether's theorem provide a unified perspective on classical mechanics, showing that the laws of motion can be understood through the structure and symmetry of the system itself.
