@@ -342,40 +342,16 @@ $$
 
 :::
 
-In the following section, I'm gonna show you that $Q_j$ has 
-
-## The Lagrangian and the Principle of Least Action
-
-We have already expressed D'Alembert's principle in terms of generalized coordinates:
+And thus the D'Alembert's principle in terms of generalized coordinates could be expressed as:
 
 $$
 \sum_{j=1}^{3N-k}
 \left(I_j-Q_j\right)\delta q_j=0,
-$$
+$$ {#eq-risk}
 
-where
+In the following section, I'm gonna establish the relationship between $Q_j$ and the system potential ennergy $V$ and the relationship between $I_j$ and the system kinetic ennergy $T$, and derive the Lagrangian from the first principle.
 
-$$
-I_j
-:=
-\sum_{i=1}^{N}
-m_i\ddot{\vec r}_i\cdot
-\frac{\partial\vec r_i}{\partial q_j}
-$$
-
-is the generalized inertial term, and
-
-$$
-Q_j
-:=
-\sum_{i=1}^{N}
-\vec F_i\cdot
-\frac{\partial\vec r_i}{\partial q_j}
-$$
-
-is the generalized force associated with the generalized coordinate $q_j$.
-
-The next step is to express these two quantities in terms of the kinetic and potential energies of the system.
+## The Lagrangian and the Principle of Least Action
 
 ::: {#thm-inertial-kinetic}
 
@@ -418,14 +394,51 @@ T
 m_i\vec v_i\cdot\vec v_i,
 $$
 
-we differentiate it with respect to $\dot q_j$:
+Taking the partial derivative of the kinetic energy with respect to $\dot q_j$, we obtain
 
 $$
-\frac{\partial T}{\partial\dot q_j}
-=
+\begin{aligned}
+\frac{\partial T}{\partial \dot q_j}
+&=
+\frac{\partial}{\partial \dot q_j}
+\left[
+\frac{1}{2}
+\sum_{i=1}^{N}
+m_i
+\left(
+v_{ix}^{\,2}
++
+v_{iy}^{\,2}
++
+v_{iz}^{\,2}
+\right)
+\right] \\[4pt]
+&=
+\frac{1}{2}
+\sum_{i=1}^{N}
+m_i
+\left(
+2v_{ix}\frac{\partial v_{ix}}{\partial \dot q_j}
++
+2v_{iy}\frac{\partial v_{iy}}{\partial \dot q_j}
++
+2v_{iz}\frac{\partial v_{iz}}{\partial \dot q_j}
+\right) \\[4pt]
+&=
+\sum_{i=1}^{N}
+m_i
+\left(
+v_{ix}\frac{\partial v_{ix}}{\partial \dot q_j}
++
+v_{iy}\frac{\partial v_{iy}}{\partial \dot q_j}
++
+v_{iz}\frac{\partial v_{iz}}{\partial \dot q_j}
+\right) \\[4pt]
+&=
 \sum_{i=1}^{N}
 m_i\vec v_i\cdot
-\frac{\partial\vec v_i}{\partial\dot q_j}.
+\frac{\partial\vec v_i}{\partial \dot q_j}.
+\end{aligned}
 $$
 
 Using the position–velocity derivative identity,
@@ -622,8 +635,6 @@ j=1,2,\dots,3N-k.
 $$ {#eq-euler-lagrange}
 
 These are the **Euler–Lagrange equations**.
-
-### The Action
 
 For a trajectory
 
