@@ -190,3 +190,4 @@ Q_j := \sum_i\vec F_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}\qquad
 I_j := \sum_i m_i\ddot{\vec r}_i\cdot\frac{{\partial\vec r}_i}{\partial q_j}
 $$
 :::
+Refer to @def-gf anywhere after the block.
