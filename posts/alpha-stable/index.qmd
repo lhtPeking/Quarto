@@ -1,0 +1,12 @@
+---
+title: "Heavy-Tailed Randomness: The Generalized Central Limit Theorem"
+description: "Why Gaussian is not the whole story?"
+date: 2026-07-20
+categories: [Math, Statistics]
+author: "Haotian Li"
+---
+
+## Motivation
+
+
+
