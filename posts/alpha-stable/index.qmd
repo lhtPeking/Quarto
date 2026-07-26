@@ -1,12 +1,16 @@
 ---
-title: "Heavy-Tailed Randomness: The Generalized Central Limit Theorem"
+title: "Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience"
 description: "Why Gaussian is not the whole story?"
 date: 2026-07-20
-categories: [Math, Statistics]
+categories: [Math, Statistics, Theoretical Neuroscience]
 author: "Haotian Li"
 ---
 
 ## Motivation
+In one’s daily life, the Gaussian distribution can be found everywhere: the height of crowds, the cumulative point summation of tosses, the random errors measured from a certain rig, etc. This phenomenon is due to the Central Limit Theorem, which will be proved by us later using the characteristic function. However, when a system approaches criticality, such as a sandpile undergoing avalanches, a lot of properties within it will follow a heavy-tailed distribution, normally a power-law distribution. Our neural system has long been conjectured to be a near-critical system because some properties, for example, the synaptic weight and the scale of a single activity propagation, follow a power-law distribution. In this blog, I will introduce the concept of the characteristic function and the Generalized Central Limit Theorem, and discuss a beautiful PRL paper on how the heavy-tailed synaptic weights affect the dynamics of a neural network and cause a second-order phase transition.
+
+## The introduction of the Characteristic Function
+
 
 
 
