@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Haotian’s Blog",
     "section": "",
-    "text": "Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.\nStart with the sample post below, then duplicate it for new notes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHeavy-Tailed Randomness: The Generalized Central Limit Theorem\n\n\n\nMath\n\nStatistics\n\n\n\nWhy Gaussian is not the whole story?\n\n\n\n\n\nJul 20, 2026\n\n\nHaotian Li\n\n\n\n\n\n\n\n\n\n\n\n\nA Math-Heavy Quarto Post\n\n\n\nquarto\n\nmath\n\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\n\n\n\n\n\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\n\nPhysics\n\nTheoretical Mechanics\n\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\nNo matching items"
+    "text": "Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.\nStart with the sample post below, then duplicate it for new notes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHeavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience\n\n\n\nMath\n\nStatistics\n\nTheoretical Neuroscience\n\n\n\nWhy Gaussian is not the whole story?\n\n\n\n\n\nJul 20, 2026\n\n\nHaotian Li\n\n\n\n\n\n\n\n\n\n\n\n\nA Math-Heavy Quarto Post\n\n\n\nquarto\n\nmath\n\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\n\n\n\n\n\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\n\nPhysics\n\nTheoretical Mechanics\n\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\n\n\n\nJul 15, 2026\n\n\nHaotian Li\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Lagrangian/index.html",
@@ -102,6 +102,27 @@
     "href": "posts/index.html",
     "title": "Posts",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nCategories\n\n\n\n\n\n\n\n\nJul 20, 2026\n\n\nHeavy-Tailed Randomness: The Generalized Central Limit Theorem\n\n\nWhy Gaussian is not the whole story?\n\n\nMath, Statistics\n\n\n\n\n\n\nJul 15, 2026\n\n\nA Math-Heavy Quarto Post\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\nquarto, math\n\n\n\n\n\n\nJul 15, 2026\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\nPhysics, Theoretical Mechanics\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nDescription\n\n\n\nCategories\n\n\n\n\n\n\n\n\nJul 20, 2026\n\n\nHeavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience\n\n\nWhy Gaussian is not the whole story?\n\n\nMath, Statistics, Theoretical Neuroscience\n\n\n\n\n\n\nJul 15, 2026\n\n\nA Math-Heavy Quarto Post\n\n\nA compact example with macros, equation numbering, theorem blocks, and cross references.\n\n\nquarto, math\n\n\n\n\n\n\nJul 15, 2026\n\n\nLagrangian Mechanics: The Principle of Least Action and Noether’s Theorem\n\n\nFrom Newton to Lagrange, the prologue of symmetry and modern physics.\n\n\nPhysics, Theoretical Mechanics\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/alpha-stable/index.html",
+    "href": "posts/alpha-stable/index.html",
+    "title": "Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience",
+    "section": "",
+    "text": "In one’s daily life, the Gaussian distribution can be found everywhere: the height of crowds, the cumulative point summation of tosses, the random errors measured from a certain rig, etc. This phenomenon is due to the Central Limit Theorem, which will be proved by us later using the characteristic function. However, when a system approaches criticality, such as a sandpile undergoing avalanches, a lot of properties within it will follow a heavy-tailed distribution, normally a power-law distribution. Our neural system has long been conjectured to be a near-critical system because some properties, for example, the synaptic weight and the scale of a single activity propagation, follow a power-law distribution. In this blog, I will introduce the concept of the characteristic function and the Generalized Central Limit Theorem, and discuss a beautiful PRL paper on how the heavy-tailed synaptic weights affect the dynamics of a neural network and cause a second-order phase transition."
+  },
+  {
+    "objectID": "posts/alpha-stable/index.html#motivation",
+    "href": "posts/alpha-stable/index.html#motivation",
+    "title": "Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience",
+    "section": "",
+    "text": "In one’s daily life, the Gaussian distribution can be found everywhere: the height of crowds, the cumulative point summation of tosses, the random errors measured from a certain rig, etc. This phenomenon is due to the Central Limit Theorem, which will be proved by us later using the characteristic function. However, when a system approaches criticality, such as a sandpile undergoing avalanches, a lot of properties within it will follow a heavy-tailed distribution, normally a power-law distribution. Our neural system has long been conjectured to be a near-critical system because some properties, for example, the synaptic weight and the scale of a single activity propagation, follow a power-law distribution. In this blog, I will introduce the concept of the characteristic function and the Generalized Central Limit Theorem, and discuss a beautiful PRL paper on how the heavy-tailed synaptic weights affect the dynamics of a neural network and cause a second-order phase transition."
+  },
+  {
+    "objectID": "posts/alpha-stable/index.html#the-introduction-of-the-characteristic-function",
+    "href": "posts/alpha-stable/index.html#the-introduction-of-the-characteristic-function",
+    "title": "Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience",
+    "section": "2 The introduction of the Characteristic Function",
+    "text": "2 The introduction of the Characteristic Function"
   }
 ]
