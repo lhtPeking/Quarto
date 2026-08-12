@@ -340,6 +340,8 @@ window.Quarto = {
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#the-introduction-of-the-characteristic-function" id="toc-the-introduction-of-the-characteristic-function" class="nav-link" data-scroll-target="#the-introduction-of-the-characteristic-function"><span class="header-section-number">2</span> The introduction of the Characteristic Function</a></li>
+  <li><a href="#the-proof-of-the-central-limit-theorem" id="toc-the-proof-of-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</a></li>
+  <li><a href="#stable-distribution-invariance-under-summation" id="toc-stable-distribution-invariance-under-summation" class="nav-link" data-scroll-target="#stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable distribution: invariance under summation</a></li>
   </ul>
 </nav>
     </div>
@@ -432,11 +434,178 @@ f_Y(y)e^{ity}\,dy
 \]</span></p>
 <p><span class="math display">\[
 =
+\left(
 \int_{-\infty}^{+\infty} f_X(x)e^{itx}\,dx
+\right)
+\left(
 \int_{-\infty}^{+\infty} f_Y(y)  e^{ity}\,dy
+\right)
 \]</span></p>
 <p>Therefore, the identity is proved.</p>
 </div>
+<p>Based on this theorem, if we want to define a quantity that can fully describe the original distribution and have a nice property when dealing with the variable summation problem, the Fourier Transform is a good choice.</p>
+<div id="def-charact" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Characteristic Function of a probability distribution)</strong></span> Here we use <span class="math inline">\(\phi_X(t)\)</span> to represent the characteristic function of random variable <span class="math inline">\(X\)</span>, and <span class="math inline">\(f_X(x)\)</span> is the probability density function.</p>
+<p><span class="math display">\[
+\phi_X(t) := \mathbb{E}\left[e^{itX}\right]
+=
+\int_{-\infty}^{+\infty}
+e^{itx} f_X(x)\,dx
+\]</span></p>
+</div>
+<p>If we want the Characteristic Function of <span class="math inline">\(Z=X+Y\)</span>, we could have the following relation based on the Convolution Theorem:</p>
+<p><span class="math display">\[
+\phi_{X+Y}(t)
+=
+\phi_X(t)\phi_Y(t)
+\]</span></p>
+<p>Or more generally:</p>
+<p><span class="math display">\[
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+\prod_{i=1}^n \phi_{X_i}(t)
+\]</span></p>
+<p>There is a property of the Characteristic Function that is useful to our following derivation. From this property we could have a intuitive impression of how the Characteristic Function “encodes” the probability distribution.</p>
+<p>Let’s first consider the derivative of the Characteristic Function: <span class="math display">\[
+\phi_X'(t)
+=
+\int_{-\infty}^{+\infty}
+ix e^{itx}f_X(x)\,dx
+\]</span></p>
+<p>If we take <span class="math inline">\(t=0\)</span>, we have: <span class="math display">\[
+\phi_X'(0)=\int_{-\infty}^{+\infty}
+ix f_X(x)\,dx=i\mathbb{E}[X]
+\]</span></p>
+<p>The second order derivative: <span class="math display">\[
+\phi_X''(t)
+=
+\int_{-\infty}^{+\infty}
+(-x^2)e^{itx}f_X(x)\,dx
+\]</span></p>
+<p>And therefore: <span class="math display">\[
+\phi_X''(0)
+=
+\int_{-\infty}^{+\infty}
+(-x^2)f_X(x)\,dx
+=
+-\mathbb{E}[X^2]
+\]</span></p>
+<p>In a similar fashion, we could have the generic form: <span class="math display">\[
+\phi_X^{(n)}(0)
+=
+i^n \mathbb{E}[X^n]
+\]</span></p>
+<p>From the equation above we could observe that the momemts of this probability distribution are encoded in the derivatives of its characteristic function at the origin.</p>
+<p>Therefore, if the corresponding moments exist, we can write the characteristic function in its Maclaurin expansion:</p>
+<p><span class="math display">\[
+\phi_X(t)
+=
+1
++
+\phi_X'(0)t
++
+\frac{\phi_X''(0)}{2!}t^2
++
+...
+=
+1
++
+it\,\mathbb{E}[X]
+-
+\frac{t^2}{2}\mathbb{E}[X^2]
++
+...
+\]</span></p>
+<p>And we could use this expansion form to prove CLT (Central Limit Theorem).</p>
+</section>
+<section id="the-proof-of-the-central-limit-theorem" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</h2>
+<p>Suppose we have a sequence of i.i.d. random variables <span class="math inline">\(X_1,X_2,\ldots,X_n,\)</span> with finite mean and variance: <span class="math display">\[
+\mathbb{E}[X_i]=\mu,
+\qquad
+\operatorname{Var}(X_i)=\sigma^2.
+\]</span></p>
+<p>The Central Limit Theorem states that the properly centered and rescaled sum <span class="math display">\[
+Z_n
+=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n\frac{
+(X_i-\mu)
+}{
+\sigma
+}
+\]</span></p>
+<p>converges in distribution to a standard Gaussian random variable:</p>
+<p><span class="math display">\[
+Z_n
+\xrightarrow{n\to \infty }
+\mathcal{N}(0,1).
+\]</span></p>
+<p>Instead of directly calculating the probability density of the sum (which would require repeatedly performing convolutions), we study its characteristic function.</p>
+<p>Let’s first define the standardized random variable <span class="math inline">\(Y_i=\frac{X_i-\mu}{\sigma}\)</span>. We have:</p>
+<p><span class="math display">\[
+\mathbb{E}[Y_i]=0,
+\qquad
+\mathbb{E}[Y_i^2]=1
+\]</span></p>
+<p>Since we want the variance of summation to be <span class="math inline">\(1\)</span>, and variance is proportional to random variable number <span class="math inline">\(N\)</span>, we need to devide the summation by <span class="math inline">\(\frac{1}{\sqrt{N}}\)</span>: <span class="math display">\[
+Z_n=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i
+\]</span></p>
+<p>And now let’s prove <span class="math inline">\(Z_n\)</span> follows the standard Gaussian distribution.</p>
+<p>According to the properties of the Characteristic function, we could write <span class="math inline">\(\phi_{Z_n}(t)\)</span> as: <span class="math display">\[
+\phi_{Z_n}(t)=
+\phi_{\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i}(t)=
+\mathbb{E}\left[e^{it\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i}\right]
+=
+\mathbb{E}\left[e^{i(\frac{t}{\sqrt{n}})
+\sum_{i=1}^n Y_i}\right]
+\]</span> <span class="math display">\[
+=
+\phi_{\sum_{i=1}^n Y_i}(\frac{t}{\sqrt{n}})
+=
+\prod_{i=1}^n
+\phi_{Y_i}
+\left(
+\frac{t}{\sqrt{n}}
+\right)
+\]</span></p>
+<p>Since the <span class="math inline">\(Y_i\)</span> are identically distributed, <span class="math display">\[
+\prod_{i=1}^n
+\phi_{Y_i}
+\left(
+\frac{t}{\sqrt{n}}
+\right)=
+\left[
+\phi_Y
+\left(
+\frac{t}{\sqrt{n}}
+\right)
+\right]^n
+\]</span></p>
+<p>Now we use the Maclaurin expansion of <span class="math inline">\(\phi_Y(t)\)</span>. Since <span class="math inline">\(\mathbb{E}[Y]=0\)</span> and <span class="math inline">\(\mathbb{E}[Y^2]=1\)</span>, we have, near <span class="math inline">\(t=0\)</span>, <span class="math display">\[
+\phi_Y(t)=1-\frac{t^2}{2}+o(t^2)
+\]</span></p>
+<p>Replacing <span class="math inline">\(t\)</span> by <span class="math inline">\(t/\sqrt{n}\)</span> gives <span class="math display">\[
+\phi_Y(t)=
+1-\frac{t^2}{2n}+o\left(\frac{1}{n}\right)
+\]</span></p>
+<p>Therefore, <span class="math display">\[
+\phi_{Z_n}(t)=
+\left[1-\frac{t^2}{2n}+o\left(\frac{1}{n}\right)\right]^n
+\]</span></p>
+<p>Taking the limit <span class="math inline">\(n\to\infty\)</span>, we obtain <span class="math display">\[
+\phi_{Z_n}(t)=e^{-t^2/2}
+\]</span></p>
+<p>Meanwhile, <span class="math inline">\(e^{-t^2/2}\)</span> is exactly the characteristic function of the standard Gaussian distribution <span class="math inline">\(\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span> (easy to calculate). Hence, $$ Z_n = _{i=1}^n (0,1)</p>
+<p>$$</p>
+<p>as <span class="math inline">\(n\to\infty\)</span>. This proves the Central Limit Theorem.</p>
+</section>
+<section id="stable-distribution-invariance-under-summation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable distribution: invariance under summation</h2>
 
 
 </section>
