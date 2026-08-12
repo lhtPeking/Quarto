@@ -408,7 +408,9 @@ f_X(x)\sim |x|^{-(1+\alpha)},
 |x|\to\infty
 $$
 
-Correspondingly, the tail probability satisfies $\Pr(|X|>x)\sim x^{-\alpha}$. The $\alpha$ in the Characteristic Function's exponent and the $\alpha$ in the pdf are the same, and I'm gonna explain why. Suppose that $f(x)\sim |x|^{-(1+\alpha)}$, for a symmetric distribution,
+Correspondingly, the tail probability satisfies $\Pr(|X|>x)\sim x^{-\alpha}$. The $\alpha$ in the Characteristic Function's exponent and the $\alpha$ in the pdf are the same, and I'm gonna explain why. 
+
+Suppose that $f(x)\sim |x|^{-(1+\alpha)}$, for a symmetric distribution,
 
 $$
 \phi(t)=
@@ -418,11 +420,7 @@ e^{itx}f(x)\,dx=
 \cos(tx)f(x)\,dx
 $$
 
-Instead of expanding $\phi(t)$ directly, consider
-
-$$
-1-\phi(t).
-$$
+Instead of expanding $\phi(t)$ directly, consider $1-\phi(t)$
 
 Since
 
