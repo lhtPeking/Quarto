@@ -6,81 +6,13 @@ categories: [Machine Learning, Image & Imaging]
 author: "Haotian Li"
 ---
 
-## Random Forest Classification
+## Introduction
 
-Random Forest is an ensemble learning method that combines multiple decision trees.  
-For classification problems, the final prediction is determined by majority voting among all trees.
+Random Forest is a machine learning algorithm based on an ensemble of decision trees.
 
-### Load Packages
+Instead of relying on a single decision tree, Random Forest trains many trees and combines their predictions.
 
-```{python}
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-```
-
-### Load Data
-
-Here we use the Iris dataset as a simple example.
-
-```{python}
-data = load_iris()
-
-X = data.data
-y = data.target
-
-print("Shape of X:", X.shape)
-print("Shape of y:", y.shape)
-```
-
-### Split the Dataset
-
-We divide the dataset into a training set and a test set.
-
-```{python}
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-```
-
-### Train the Random Forest
-
-A random forest consists of many decision trees:
-
-$$
-\text{Random Forest}
-=
-\{\text{Tree}_1,\text{Tree}_2,\ldots,\text{Tree}_N\}.
-$$
-
-Here we construct a random forest containing 100 trees.
-
-```{python}
-model = RandomForestClassifier(
-    n_estimators=100,
-    max_depth=None,
-    random_state=42
-)
-
-model.fit(X_train, y_train)
-```
-
-### Prediction
-
-We then use the trained model to predict the labels of the test data.
-
-```{python}
-y_pred = model.predict(X_test)
-
-print(y_pred)
-```
-
-For a classification problem, each decision tree gives its own prediction.  
-The final prediction is determined by majority voting:
+For a classification problem, the final prediction is usually determined by majority voting:
 
 $$
 \hat{y}
@@ -91,24 +23,158 @@ $$
 \hat{y}_2,
 \ldots,
 \hat{y}_N
-\right).
+\right),
 $$
 
-### Evaluation
+where $\hat{y}_i$ is the prediction made by the $i$-th decision tree.
 
-Finally, we calculate the classification accuracy.
+For regression, the predictions are usually averaged:
 
-```{python}
+$$
+\hat{y}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\hat{y}_i.
+$$
+
+## A Simple Random Forest Example
+
+We first import the required packages.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+```
+
+Here we use the Iris dataset as a simple classification example.
+
+```python
+data = load_iris()
+
+X = data.data
+y = data.target
+```
+
+The matrix `X` contains the input features, while `y` contains the corresponding class labels.
+
+We then divide the dataset into a training set and a test set.
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+```
+
+Here, `test_size=0.2` means that 20% of the data is used for testing and the remaining 80% is used for training.
+
+## Training the Random Forest
+
+We can construct a random forest using `RandomForestClassifier`.
+
+```python
+model = RandomForestClassifier(
+    n_estimators=100,
+    max_depth=None,
+    random_state=42
+)
+```
+
+The parameter
+
+```python
+n_estimators=100
+```
+
+means that the random forest contains 100 decision trees.
+
+We then train the model:
+
+```python
+model.fit(X_train, y_train)
+```
+
+Conceptually, the random forest can be written as
+
+$$
+\text{Random Forest}
+=
+\{
+\text{Tree}_1,
+\text{Tree}_2,
+\ldots,
+\text{Tree}_N
+\}.
+$$
+
+Each tree is trained using a slightly different subset of the data and features.
+
+## Prediction
+
+After training, we can use the model to make predictions on the test set.
+
+```python
+y_pred = model.predict(X_test)
+```
+
+Each decision tree produces its own prediction.
+
+For example,
+
+$$
+\text{Tree}_1 \rightarrow 0,
+$$
+
+$$
+\text{Tree}_2 \rightarrow 1,
+$$
+
+$$
+\text{Tree}_3 \rightarrow 1,
+$$
+
+$$
+\text{Tree}_4 \rightarrow 1.
+$$
+
+Since most trees predict class $1$, the final prediction of the random forest is
+
+$$
+\hat{y}=1.
+$$
+
+## Evaluation
+
+The classification accuracy can be calculated using
+
+```python
 accuracy = accuracy_score(y_test, y_pred)
 
 print("Accuracy:", accuracy)
 ```
 
+The accuracy is defined as
+
+$$
+\text{Accuracy}
+=
+\frac{
+\text{Number of correct predictions}
+}{
+\text{Total number of predictions}
+}.
+$$
+
 ## Using Your Own Data
 
-For example, suppose we have the following dataset:
+For example, suppose we have a small dataset with two features:
 
-```{python}
+```python
 X = [
     [1.2, 3.4],
     [2.1, 4.2],
@@ -121,7 +187,9 @@ y = [0, 0, 1, 1]
 
 We can train a random forest directly:
 
-```{python}
+```python
+from sklearn.ensemble import RandomForestClassifier
+
 model = RandomForestClassifier(
     n_estimators=100,
     random_state=42
@@ -130,9 +198,9 @@ model = RandomForestClassifier(
 model.fit(X, y)
 ```
 
-Then make a prediction for a new sample:
+Then we can classify a new sample:
 
-```{python}
+```python
 prediction = model.predict([
     [2.0, 3.0]
 ])
@@ -142,9 +210,11 @@ print(prediction)
 
 ## Random Forest Regression
 
-For regression problems, we can instead use `RandomForestRegressor`.
+Random Forest can also be used for regression.
 
-```{python}
+Instead of `RandomForestClassifier`, we use `RandomForestRegressor`.
+
+```python
 from sklearn.ensemble import RandomForestRegressor
 
 model = RandomForestRegressor(
@@ -153,7 +223,16 @@ model = RandomForestRegressor(
 )
 ```
 
-In a regression problem, the predictions from different trees are usually averaged:
+For regression, each tree predicts a numerical value:
+
+$$
+\hat{y}_1,
+\hat{y}_2,
+\ldots,
+\hat{y}_N.
+$$
+
+The final prediction is the average:
 
 $$
 \hat{y}
@@ -162,3 +241,16 @@ $$
 \sum_{i=1}^{N}
 \hat{y}_i.
 $$
+
+## Summary
+
+The basic workflow of a Random Forest model is:
+
+1. Prepare the input features $X$ and labels $y$.
+2. Split the dataset into training and testing sets.
+3. Construct multiple decision trees.
+4. Train the Random Forest.
+5. Combine the predictions from different trees.
+6. Evaluate the performance on the test set.
+
+The key advantage of Random Forest is that combining many different decision trees usually gives better generalization than relying on a single tree.
