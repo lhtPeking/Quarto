@@ -59,6 +59,9 @@ $$
 =
 \int_{-\infty}^{+\infty}
 \int_{-\infty}^{+\infty} f_X(x) f_Y(y)  e^{itx}e^{ity}\,dxdy
+$$
+
+$$
 =
 \int_{-\infty}^{+\infty} f_X(x)e^{itx}\,dx
 \int_{-\infty}^{+\infty} f_Y(y)  e^{ity}\,dy
@@ -66,3 +69,4 @@ $$
 
 Therefore, the identity is proved.
 :::
+
