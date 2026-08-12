@@ -63,10 +63,240 @@ $$
 
 $$
 =
+\left(
 \int_{-\infty}^{+\infty} f_X(x)e^{itx}\,dx
+\right)
+\left(
 \int_{-\infty}^{+\infty} f_Y(y)  e^{ity}\,dy
+\right)
 $$
 
 Therefore, the identity is proved.
 :::
+
+Based on this theorem, if we want to define a quantity that can fully describe the original distribution and have a nice property when dealing with the variable summation problem, the Fourier Transform is a good choice.
+
+::: {#def-charact}
+
+## Characteristic Function of a probability distribution
+
+Here we use $\phi_X(t)$ to represent the characteristic function of random variable $X$, and $f_X(x)$ is the probability density function.
+
+$$
+\phi_X(t) := \mathbb{E}\left[e^{itX}\right]
+=
+\int_{-\infty}^{+\infty}
+e^{itx} f_X(x)\,dx
+$$
+
+:::
+
+If we want the Characteristic Function of $Z=X+Y$, we could have the following relation based on the Convolution Theorem:
+
+$$
+\phi_{X+Y}(t)
+=
+\phi_X(t)\phi_Y(t)
+$$
+
+Or more generally:
+
+$$
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+\prod_{i=1}^n \phi_{X_i}(t)
+$$
+
+There is a property of the Characteristic Function that is useful to our following derivation. From this property we could have a intuitive impression of how the Characteristic Function "encodes" the probability distribution.
+
+Let's first consider the derivative of the Characteristic Function:
+$$
+\phi_X'(t)
+=
+\int_{-\infty}^{+\infty}
+ix e^{itx}f_X(x)\,dx
+$$
+
+If we take $t=0$, we have:
+$$
+\phi_X'(0)=\int_{-\infty}^{+\infty}
+ix f_X(x)\,dx=i\mathbb{E}[X]
+$$
+
+The second order derivative:
+$$
+\phi_X''(t)
+=
+\int_{-\infty}^{+\infty}
+(-x^2)e^{itx}f_X(x)\,dx
+$$
+
+And therefore:
+$$
+\phi_X''(0)
+=
+\int_{-\infty}^{+\infty}
+(-x^2)f_X(x)\,dx
+=
+-\mathbb{E}[X^2]
+$$
+
+In a similar fashion, we could have the generic form:
+$$
+\phi_X^{(n)}(0)
+=
+i^n \mathbb{E}[X^n]
+$$
+
+From the equation above we could observe that the momemts of this probability distribution are encoded in the derivatives of its characteristic function at the origin.
+
+Therefore, if the corresponding moments exist, we can write the characteristic function in its Maclaurin expansion:
+
+$$
+\phi_X(t)
+=
+1
++
+\phi_X'(0)t
++
+\frac{\phi_X''(0)}{2!}t^2
++
+...
+=
+1
++
+it\,\mathbb{E}[X]
+-
+\frac{t^2}{2}\mathbb{E}[X^2]
++
+...
+$$
+
+And we could use this expansion form to prove CLT (Central Limit Theorem).
+
+## The proof of the Central Limit Theorem
+
+Suppose we have a sequence of i.i.d. random variables $X_1,X_2,\ldots,X_n,$ with finite mean and variance:
+$$
+\mathbb{E}[X_i]=\mu,
+\qquad
+\operatorname{Var}(X_i)=\sigma^2.
+$$
+
+The Central Limit Theorem states that the properly centered and rescaled sum
+$$
+Z_n
+=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n\frac{
+(X_i-\mu)
+}{
+\sigma
+}
+$$
+
+converges in distribution to a standard Gaussian random variable:
+
+$$
+Z_n
+\xrightarrow{n\to \infty }
+\mathcal{N}(0,1).
+$$
+
+Instead of directly calculating the probability density of the sum (which would require repeatedly performing convolutions), we study its characteristic function.
+
+Let's first define the standardized random variable $Y_i=\frac{X_i-\mu}{\sigma}$. We have:
+
+$$
+\mathbb{E}[Y_i]=0,
+\qquad
+\mathbb{E}[Y_i^2]=1
+$$
+
+Since we want the variance of summation to be $1$, and variance is proportional to random variable number $N$, we need to devide the summation by $\frac{1}{\sqrt{N}}$:
+$$
+Z_n=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i
+$$
+
+And now let's prove $Z_n$ follows the standard Gaussian distribution.
+
+According to the properties of the Characteristic function, we could write $\phi_{Z_n}(t)$ as:
+$$
+\phi_{Z_n}(t)=
+\phi_{\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i}(t)=
+\mathbb{E}\left[e^{it\frac{1}{\sqrt{n}}
+\sum_{i=1}^n Y_i}\right]
+=
+\mathbb{E}\left[e^{i(\frac{t}{\sqrt{n}})
+\sum_{i=1}^n Y_i}\right]
+$$
+$$
+=
+\phi_{\sum_{i=1}^n Y_i}(\frac{t}{\sqrt{n}})
+=
+\prod_{i=1}^n
+\phi_{Y_i}
+\left(
+\frac{t}{\sqrt{n}}
+\right)
+$$
+
+Since the $Y_i$ are identically distributed,
+$$
+\prod_{i=1}^n
+\phi_{Y_i}
+\left(
+\frac{t}{\sqrt{n}}
+\right)=
+\left[
+\phi_Y
+\left(
+\frac{t}{\sqrt{n}}
+\right)
+\right]^n
+$$
+
+Now we use the Maclaurin expansion of $\phi_Y(t)$. Since $\mathbb{E}[Y]=0$ and $\mathbb{E}[Y^2]=1$, we have, near $t=0$,
+$$
+\phi_Y(t)=1-\frac{t^2}{2}+o(t^2)
+$$
+
+Replacing $t$ by $t/\sqrt{n}$ gives
+$$
+\phi_Y(t)=
+1-\frac{t^2}{2n}+o\left(\frac{1}{n}\right)
+$$
+
+Therefore,
+$$
+\phi_{Z_n}(t)=
+\left[1-\frac{t^2}{2n}+o\left(\frac{1}{n}\right)\right]^n
+$$
+
+Taking the limit $n\to\infty$, we obtain
+$$
+\phi_{Z_n}(t)=e^{-t^2/2}
+$$
+
+Meanwhile, $e^{-t^2/2}$ is exactly the characteristic function of the standard Gaussian distribution $\frac{1}{\sqrt{2\pi}}e^{-x^2/2}$ (easy to calculate). Hence,
+$$
+Z_n
+=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n\frac{
+(X_i-\mu)
+}{
+\sigma
+}
+\sim
+\mathcal{N}(0,1)
+
+$$
+
+as $n\to\infty$. This proves the Central Limit Theorem.
+
+## Stable distribution: invariance under summation
 
