@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/index.html",
+      "/posts/theory-of-ﬂocking/index.html",
       "/posts/alpha-stable/index.html",
       "/posts/math-heavy-example/index.html",
       "/posts/Lagrangian/index.html"
@@ -11,6 +12,7 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/theory-of-ﬂocking/index.html",
       "/posts/alpha-stable/index.html",
       "/posts/math-heavy-example/index.html",
       "/posts/Lagrangian/index.html"
