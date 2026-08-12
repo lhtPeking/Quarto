@@ -338,10 +338,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
-  <li><a href="#the-introduction-of-the-characteristic-function" id="toc-the-introduction-of-the-characteristic-function" class="nav-link" data-scroll-target="#the-introduction-of-the-characteristic-function"><span class="header-section-number">2</span> The introduction of the Characteristic Function</a></li>
-  <li><a href="#the-proof-of-the-central-limit-theorem" id="toc-the-proof-of-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</a></li>
-  <li><a href="#stable-distribution-invariance-under-summation" id="toc-stable-distribution-invariance-under-summation" class="nav-link" data-scroll-target="#stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable distribution: invariance under summation</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">0.1</span> Motivation</a></li>
+  <li><a href="#the-introduction-of-the-characteristic-function" id="toc-the-introduction-of-the-characteristic-function" class="nav-link" data-scroll-target="#the-introduction-of-the-characteristic-function"><span class="header-section-number">0.2</span> The introduction of the Characteristic Function</a></li>
+  <li><a href="#the-proof-of-the-central-limit-theorem" id="toc-the-proof-of-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-proof-of-the-central-limit-theorem"><span class="header-section-number">0.3</span> The proof of the Central Limit Theorem</a></li>
+  <li><a href="#stable-distribution-invariance-under-summation" id="toc-stable-distribution-invariance-under-summation" class="nav-link" data-scroll-target="#stable-distribution-invariance-under-summation"><span class="header-section-number">0.4</span> Stable Distribution: Invariance Under Summation</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">1</span> ()^{-(1+)}</a>
+  <ul class="collapse">
+  <li><a href="#special-case-the-cauchy-distribution" id="toc-special-case-the-cauchy-distribution" class="nav-link" data-scroll-target="#special-case-the-cauchy-distribution"><span class="header-section-number">1.0.1</span> Special Case: the Cauchy Distribution</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -390,12 +394,12 @@ window.Quarto = {
 </header>
 
 
-<section id="motivation" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
+<section id="motivation" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">0.1</span> Motivation</h2>
 <p>In one’s daily life, the Gaussian distribution can be found everywhere: the height of crowds, the cumulative point summation of tosses, the random errors measured from a certain rig, etc. This phenomenon is due to the Central Limit Theorem, which will be proved by us later using the characteristic function. However, when a system approaches criticality, such as a sandpile undergoing avalanches, a lot of properties within it will follow a heavy-tailed distribution, normally a power-law distribution. Our neural system has long been conjectured to be a near-critical system because some properties, for example, the synaptic weight and the scale of a single activity propagation, follow a power-law distribution. In this blog, I will introduce the concept of the characteristic function and the Generalized Central Limit Theorem, and discuss a beautiful PRL paper on how the heavy-tailed synaptic weights affect the dynamics of a neural network and cause a second-order phase transition.</p>
 </section>
-<section id="the-introduction-of-the-characteristic-function" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-the-characteristic-function"><span class="header-section-number">2</span> The introduction of the Characteristic Function</h2>
+<section id="the-introduction-of-the-characteristic-function" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="the-introduction-of-the-characteristic-function"><span class="header-section-number">0.2</span> The introduction of the Characteristic Function</h2>
 <p>The central limit theorem states that the sum or average of a large number of independent random variables with finite variance tends to follow a normal distribution, regardless of the original distribution. To prove this, there are two interesting facts in this statement that we need to focus on. The first one is “sum”, which means this theorem emerges under the “sum” operation. The second one is “finite variance”; this is a strong constraint to meet, and if it is violated, we are then in the playground of the Generalized Central Limit Theorem.</p>
 <p>Let’s first look into the summation operation. Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are i.i.d. variables, let <span class="math inline">\(Z=X+Y\)</span>. The probability distribution of <span class="math inline">\(Z\)</span> could be written as: <span class="math display">\[
 f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) dx=f_X * f_Y(z)
@@ -518,8 +522,8 @@ it\,\mathbb{E}[X]
 \]</span></p>
 <p>And we could use this expansion form to prove CLT (Central Limit Theorem).</p>
 </section>
-<section id="the-proof-of-the-central-limit-theorem" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</h2>
+<section id="the-proof-of-the-central-limit-theorem" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="the-proof-of-the-central-limit-theorem"><span class="header-section-number">0.3</span> The proof of the Central Limit Theorem</h2>
 <p>Suppose we have a sequence of i.i.d. random variables <span class="math inline">\(X_1,X_2,\ldots,X_n,\)</span> with finite mean and variance: <span class="math display">\[
 \mathbb{E}[X_i]=\mu,
 \qquad
@@ -600,14 +604,237 @@ Z_n=
 <p>Taking the limit <span class="math inline">\(n\to\infty\)</span>, we obtain <span class="math display">\[
 \phi_{Z_n}(t)=e^{-t^2/2}
 \]</span></p>
-<p>Meanwhile, <span class="math inline">\(e^{-t^2/2}\)</span> is exactly the characteristic function of the standard Gaussian distribution <span class="math inline">\(\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span> (easy to calculate). Hence, $$ Z_n = _{i=1}^n (0,1)</p>
-<p>$$</p>
+<p>Meanwhile, <span class="math inline">\(e^{-t^2/2}\)</span> is exactly the characteristic function of the standard Gaussian distribution <span class="math inline">\(\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span> (easy to calculate, use the relation <span class="math inline">\(\phi_X'(t)=-t\phi_X(t)\)</span>). Hence, <span class="math display">\[
+Z_n
+=
+\frac{1}{\sqrt{n}}
+\sum_{i=1}^n\frac{
+(X_i-\mu)
+}{
+\sigma
+}
+\sim
+\mathcal{N}(0,1)
+\]</span></p>
 <p>as <span class="math inline">\(n\to\infty\)</span>. This proves the Central Limit Theorem.</p>
 </section>
-<section id="stable-distribution-invariance-under-summation" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable distribution: invariance under summation</h2>
+<section id="stable-distribution-invariance-under-summation" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="stable-distribution-invariance-under-summation"><span class="header-section-number">0.4</span> Stable Distribution: Invariance Under Summation</h2>
+<p>The Central Limit Theorem tells us that, for random variables with finite variance, repeated summation followed by a proper rescaling leads to a Gaussian distribution. This naturally raises a more general question:</p>
+<p>Are there other distributions whose shape is preserved under summation?</p>
+<p>The answer is YES, and such distributions are called <strong>stable distributions</strong>.</p>
+<p>For a standard Gaussian random variable, its Characteristic Function is <span class="math inline">\(\phi_Z(t)=e^{-t^2/2}\)</span>. A more general family with the same invariance property is given by</p>
+<p><span class="math display">\[
+\phi_X(t)=e^{-|t|^\alpha}
+,
+\qquad
+0&lt;\alpha\leq 2
+\]</span></p>
+<p>We call distributions that have this kind of Characteristic Function the “<span class="math inline">\(\alpha\)</span>-stable distribution class”. The Gaussian corresponds to the special case <span class="math inline">\(\alpha=2\)</span>. Now consider i.i.d. random variables <span class="math inline">\(X_1,\ldots,X_n\)</span> with characteristic function <span class="math inline">\(\phi_X(t)=e^{-|t|^\alpha}\)</span>, let’s prove their “summation invariance”.</p>
+<p>The characteristic function of their sum is</p>
+<p><span class="math display">\[
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+\left[\phi_X(t)\right]^n
+=
+e^{-n|t|^\alpha}
+\]</span></p>
+<p>Since <span class="math inline">\(n|t|^\alpha=\left|n^{1/\alpha}t\right|^\alpha\)</span>, we obtain</p>
+<p><span class="math display">\[
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+e^{-\left|n^{1/\alpha}t\right|^\alpha}
+=
+\phi_X\left(n^{1/\alpha}t\right)
+\]</span></p>
+<p>Since <span class="math display">\[
+\phi_X\left(n^{1/\alpha}t\right)=\mathbb{E}\left[e^{in^{1/\alpha}tX}\right]=
+\mathbb{E}\left[e^{it(n^{1/\alpha}X)}\right]=\phi_{n^{1/\alpha}X}\left(t\right)
+\]</span></p>
+<p>therefore the “summation” operation doesn’t change the Characteristic Function and thus doesn’t change the distribution shape at all, as long as we do a rescale <span class="math inline">\(X'=n^{1/\alpha}X\)</span> before summation. Or equivalently,</p>
+<p><span class="math display">\[
+\frac{X_1+\cdots+X_n}{n^{1/\alpha}}
+\overset{d}{=}X
+\]</span></p>
+<p>Summation changes only the scale of the distribution, while leaving its functional form unchanged. This is the defining feature of a stable distribution. For the Gaussian case <span class="math inline">\(\alpha=2\)</span>, the scaling factor becomes <span class="math inline">\(n^{1/\alpha}=\sqrt{n}\)</span>, which is exactly the <span class="math inline">\(\sqrt{n}\)</span> scaling appearing in the Central Limit Theorem.</p>
+<p>But why must <span class="math inline">\(\alpha\leq 2\)</span>? At first sight, one may ask whether <span class="math inline">\(\phi(t)=e^{-|t|^\alpha}\)</span> could also define a probability distribution for <span class="math inline">\(\alpha&gt;2\)</span>. Recall that if the second moment exists, <span class="math inline">\(\phi''(0)=-\mathbb{E}[X^2]\)</span>. Using the second-order difference quotient：</p>
+<p><span class="math display">\[
+\phi''(0)
+=
+\lim_{h\to 0}
+\frac{
+\phi(h)-2\phi(0)+\phi(-h)
+}{
+h^2
+}
+\]</span></p>
+<p>Since <span class="math inline">\(\phi(t)\)</span> is even and <span class="math inline">\(\phi(0)=1\)</span>,</p>
+<p><span class="math display">\[
+\phi''(0)
+=
+\lim_{h\to0}
+\frac{
+2\left(e^{-|h|^\alpha}-1\right)
+}{
+h^2
+}.
+\]</span></p>
+<p>For small <span class="math inline">\(h\)</span>, <span class="math inline">\(e^{-|h|^\alpha}-1=-|h|^\alpha+o(|h|^\alpha)\)</span>, therefore:</p>
+<p><span class="math display">\[
+\phi''(0)
+=
+\lim_{h\to0}
+\left[
+-2|h|^{\alpha-2}
++
+o\left(|h|^{\alpha-2}\right)
+\right].
+\]</span></p>
+<p>If <span class="math inline">\(\alpha&gt;2\)</span>, we must have <span class="math inline">\(\phi''(0)=0\)</span>, and the relation <span class="math inline">\(\phi''(0)=-\mathbb{E}[X^2]\)</span> will lead to <span class="math inline">\(\mathbb{E}[X^2]=0\)</span>. Since <span class="math inline">\(X^2\geq0\)</span>, this implies <span class="math inline">\(X=0\)</span>. But in that case its characteristic function would have to be</p>
+<p><span class="math display">\[
+\phi_X(t)
+=\mathbb{E}[e^{it0}]
+=
+1,
+\]</span></p>
+<p>which contradicts <span class="math inline">\(\phi_X(t)=e^{-|t|^\alpha}\)</span> for <span class="math inline">\(t\neq0\)</span>. Therefore the only possible range is <span class="math inline">\(0&lt;\alpha\leq2\)</span>. Note that the condition we used: <span class="math inline">\(\phi(0)=1\)</span> is actually the normalization condition for a probability distribution, the results above indicates that a probability distribution can not have normalization and <span class="math inline">\(\alpha&gt;2\)</span> at the same time.</p>
+<p>For <span class="math inline">\(\alpha&lt;2\)</span>, stable distributions are fundamentally different from the Gaussian. They possess heavy power-law tails. For a symmetric <span class="math inline">\(\alpha\)</span>-stable distribution <span class="math inline">\(\phi_X(t)=e^{-|t|^\alpha}\)</span>, its probability density behaves asymptotically as: <span class="math display">\[
+f_X(x)\sim |x|^{-(1+\alpha)},
+\qquad
+|x|\to\infty
+\]</span></p>
+<p>Correspondingly, the tail probability satisfies <span class="math inline">\(\Pr(|X|&gt;x)\sim x^{-\alpha}\)</span>. The <span class="math inline">\(\alpha\)</span> in the Characteristic Function’s exponent and the <span class="math inline">\(\alpha\)</span> in the pdf are the same, and I’m gonna explain why.</p>
+<p>Suppose that <span class="math inline">\(f(x)\sim |x|^{-(1+\alpha)}\)</span>, for a symmetric distribution,</p>
+<p><span class="math display">\[
+\phi(t)=
+\int_{-\infty}^{\infty}
+e^{itx}f(x)\,dx=
+\int_{-\infty}^{\infty}
+\cos(tx)f(x)\,dx
+\]</span></p>
+<p>Instead of expanding <span class="math inline">\(\phi(t)\)</span> directly, consider <span class="math inline">\(1-\phi(t)\)</span></p>
+<p>Since</p>
+<p><span class="math display">\[
+\int_{-\infty}^{\infty}f(x),dx=1,
+\]</span></p>
+<p>we have</p>
+<p>$$ 1-(t) =========</p>
+<p>_{-}^{} f(x),dx. $$</p>
+<p>Using symmetry and the power-law tail,</p>
+<p><span class="math display">\[
+1-\phi(t)
+\sim
+2C
+\int_0^\infty
+\left[1-\cos(tx)\right]
+x^{-(1+\alpha)}
+,dx.
+\]</span></p>
+<p>Now let</p>
+<p><span class="math display">\[
+u=|t|x,
+\qquad
+dx=\frac{du}{|t|}.
+\]</span></p>
+<p>Then</p>
+<p>$$ x^{-(1+)} ===============</p>
+</section>
+<section id="section" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> ()^{-(1+)}</h1>
+<p>|t|<sup>{1+}u</sup>{-(1+)}. $$</p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+1-\phi(t)
+\sim
+2C|t|^\alpha
+\int_0^\infty
+\frac{1-\cos u}{u^{1+\alpha}}
+,du.
+\]</span></p>
+<p>The integral is a constant independent of <span class="math inline">\(t\)</span>, so we may write</p>
+<p><span class="math display">\[
+1-\phi(t)
+\sim
+K|t|^\alpha.
+\]</span></p>
+<p>Hence, near <span class="math inline">\(t=0\)</span>,</p>
+<p>$$ $$</p>
+<p>This is exactly the leading-order behavior of</p>
+<p><span class="math display">\[
+e^{-K|t|^\alpha},
+\]</span></p>
+<p>because</p>
+<p>$$ e<sup>{-K|t|</sup>} ================</p>
+<p>1-K|t|^ + o(|t|^). $$</p>
+<p>Thus the power-law tail</p>
+<p><span class="math display">\[
+f(x)\sim |x|^{-(1+\alpha)}
+\]</span></p>
+<p>and the nonanalytic characteristic-function behavior</p>
+<p><span class="math display">\[
+1-\phi(t)\sim |t|^\alpha
+\]</span></p>
+<p>are two manifestations of the same exponent <span class="math inline">\(\alpha\)</span>.</p>
+<hr>
+<section id="special-case-the-cauchy-distribution" class="level3" data-number="1.0.1">
+<h3 data-number="1.0.1" class="anchored" data-anchor-id="special-case-the-cauchy-distribution"><span class="header-section-number">1.0.1</span> Special Case: the Cauchy Distribution</h3>
+<p>When</p>
+<p><span class="math display">\[
+\alpha=1,
+\]</span></p>
+<p>we obtain the standard Cauchy distribution.</p>
+<p>Its characteristic function is</p>
+<p><span class="math display">\[
+\boxed{
+\phi_X(t)=e^{-|t|}.
+}
+\]</span></p>
+<p>The corresponding probability density is</p>
+<p>$$ $$</p>
+<p>For large <span class="math inline">\(|x|\)</span>,</p>
+<p><span class="math display">\[
+f_X(x)
+\sim
+\frac{1}{\pi x^2},
+\]</span></p>
+<p>which agrees with the general stable-tail relation</p>
+<p><span class="math display">\[
+f_X(x)\sim |x|^{-(1+\alpha)}
+\]</span></p>
+<p>for <span class="math inline">\(\alpha=1\)</span>.</p>
+<p>One can verify its characteristic function directly:</p>
+<p>$$ _X(t) =========</p>
+<p>_{-}^{} ,dx ===</p>
+<p>e^{-|t|}. $$</p>
+<p>For <span class="math inline">\(t&gt;0\)</span>, closing the contour in the upper half-plane gives a single pole at</p>
+<p><span class="math display">\[
+z=i.
+\]</span></p>
+<p>Thus,</p>
+<p>$$ ,dz ===</p>
+<p>2i . $$</p>
+<p>The residue is</p>
+<p>$$ _{z=i} ==========================</p>
+<p>, $$</p>
+<p>and therefore</p>
+<p><span class="math display">\[
+\phi_X(t)=e^{-t},
+\qquad t&gt;0.
+\]</span></p>
+<p>Similarly, for <span class="math inline">\(t&lt;0\)</span> one closes the contour in the lower half-plane and obtains</p>
+<p><span class="math display">\[
+\phi_X(t)=e^t.
+\]</span></p>
+<p>Combining the two cases,</p>
+<p><span class="math display">\[
+\boxed{
+\phi_X(t)=e^{-|t|}.
+}
+\]</span></p>
+<p>This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and therefore lies outside the ordinary Central Limit Theorem.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

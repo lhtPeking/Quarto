@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Haotian Li">
+<meta name="dcterms.date" content="2026-08-01">
 
-<title>Haotian’s Blog</title>
+<title>Random Forest Algorithm – Haotian’s Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,32 +25,65 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-5685cd926c25366c96d9f1407e584118.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-5685cd926c25366c96d9f1407e584118.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,35 +111,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script>
 window.MathJax = {
   tex: {
@@ -154,7 +160,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -326,7 +332,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Haotian’s Blog</span>
     </a>
   </div>
@@ -337,11 +343,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts/index.html"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item compact">
@@ -358,26 +364,55 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="QmVoYXZpb3IlMjBBbmFseXNpcw==">Behavior Analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW1hZ2UlMjAlMjYlMjBJbWFnaW5n">Image &amp; Imaging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWFjaGluZSUyMExlYXJuaW5n">Machine Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWF0aA==">Math <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWF0aA==">math <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGh5c2ljcw==">Physics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cXVhcnRv">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U3RhdGlzdGljYWwlMjBQaHlzaWNz">Statistical Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U3RhdGlzdGljcw==">Statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGhlb3JldGljYWwlMjBNZWNoYW5pY3M=">Theoretical Mechanics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGhlb3JldGljYWwlMjBOZXVyb3NjaWVuY2U=">Theoretical Neuroscience <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#a-simple-random-forest-example" id="toc-a-simple-random-forest-example" class="nav-link" data-scroll-target="#a-simple-random-forest-example"><span class="header-section-number">2</span> A Simple Random Forest Example</a></li>
+  <li><a href="#training-the-random-forest" id="toc-training-the-random-forest" class="nav-link" data-scroll-target="#training-the-random-forest"><span class="header-section-number">3</span> Training the Random Forest</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">4</span> Prediction</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">5</span> Evaluation</a></li>
+  <li><a href="#using-your-own-data" id="toc-using-your-own-data" class="nav-link" data-scroll-target="#using-your-own-data"><span class="header-section-number">6</span> Using Your Own Data</a></li>
+  <li><a href="#random-forest-regression" id="toc-random-forest-regression" class="nav-link" data-scroll-target="#random-forest-regression"><span class="header-section-number">7</span> Random Forest Regression</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Haotian’s Blog</h1>
-</div>
+<h1 class="title">Random Forest Algorithm</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Machine Learning</div>
+    <div class="quarto-category">Image &amp; Imaging</div>
+  </div>
+  </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Haotian Li </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 1, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -387,229 +422,190 @@ window.Quarto = {
 </header>
 
 
-<p>Welcome. This Quarto blog is set up for posts with dense mathematical notation, numbered equations, theorem-style blocks, and cross references.</p>
-<p>Start with the sample post below, then duplicate it for new notes.</p>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Random Forest is a machine learning algorithm based on an ensemble of decision trees.</p>
+<p>Instead of relying on a single decision tree, Random Forest trains many trees and combines their predictions.</p>
+<p>For a classification problem, the final prediction is usually determined by majority voting:</p>
+<p><span class="math display">\[
+\hat{y}
+=
+\operatorname{mode}
+\left(
+\hat{y}_1,
+\hat{y}_2,
+\ldots,
+\hat{y}_N
+\right),
+\]</span></p>
+<p>where <span class="math inline">\(\hat{y}_i\)</span> is the prediction made by the <span class="math inline">\(i\)</span>-th decision tree.</p>
+<p>For regression, the predictions are usually averaged:</p>
+<p><span class="math display">\[
+\hat{y}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\hat{y}_i.
+\]</span></p>
+</section>
+<section id="a-simple-random-forest-example" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="a-simple-random-forest-example"><span class="header-section-number">2</span> A Simple Random Forest Example</h2>
+<p>We first import the required packages.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here we use the Iris dataset as a simple classification example.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> load_iris()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.data</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data.target</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The matrix <code>X</code> contains the input features, while <code>y</code> contains the corresponding class labels.</p>
+<p>We then divide the dataset into a training set and a test set.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    X,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    y,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    test_size<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here, <code>test_size=0.2</code> means that 20% of the data is used for testing and the remaining 80% is used for training.</p>
+</section>
+<section id="training-the-random-forest" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="training-the-random-forest"><span class="header-section-number">3</span> Training the Random Forest</h2>
+<p>We can construct a random forest using <code>RandomForestClassifier</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    max_depth<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The parameter</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_estimators<span class="op">=</span><span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>means that the random forest contains 100 decision trees.</p>
+<p>We then train the model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Conceptually, the random forest can be written as</p>
+<p><span class="math display">\[
+\text{Random Forest}
+=
+\{
+\text{Tree}_1,
+\text{Tree}_2,
+\ldots,
+\text{Tree}_N
+\}.
+\]</span></p>
+<p>Each tree is trained using a slightly different subset of the data and features.</p>
+</section>
+<section id="prediction" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="prediction"><span class="header-section-number">4</span> Prediction</h2>
+<p>After training, we can use the model to make predictions on the test set.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each decision tree produces its own prediction.</p>
+<p>For example,</p>
+<p><span class="math display">\[
+\text{Tree}_1 \rightarrow 0,
+\]</span></p>
+<p><span class="math display">\[
+\text{Tree}_2 \rightarrow 1,
+\]</span></p>
+<p><span class="math display">\[
+\text{Tree}_3 \rightarrow 1,
+\]</span></p>
+<p><span class="math display">\[
+\text{Tree}_4 \rightarrow 1.
+\]</span></p>
+<p>Since most trees predict class <span class="math inline">\(1\)</span>, the final prediction of the random forest is</p>
+<p><span class="math display">\[
+\hat{y}=1.
+\]</span></p>
+</section>
+<section id="evaluation" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">5</span> Evaluation</h2>
+<p>The classification accuracy can be calculated using</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The accuracy is defined as</p>
+<p><span class="math display">\[
+\text{Accuracy}
+=
+\frac{
+\text{Number of correct predictions}
+}{
+\text{Total number of predictions}
+}.
+\]</span></p>
+</section>
+<section id="using-your-own-data" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="using-your-own-data"><span class="header-section-number">6</span> Using Your Own Data</h2>
+<p>For example, suppose we have a small dataset with two features:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">1.2</span>, <span class="fl">3.4</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">2.1</span>, <span class="fl">4.2</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">5.3</span>, <span class="fl">1.2</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">6.1</span>, <span class="fl">0.8</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can train a random forest directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then we can classify a new sample:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="op">=</span> model.predict([</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">2.0</span>, <span class="fl">3.0</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prediction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="random-forest-regression" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="random-forest-regression"><span class="header-section-number">7</span> Random Forest Regression</h2>
+<p>Random Forest can also be used for regression.</p>
+<p>Instead of <code>RandomForestClassifier</code>, we use <code>RandomForestRegressor</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For regression, each tree predicts a numerical value:</p>
+<p><span class="math display">\[
+\hat{y}_1,
+\hat{y}_2,
+\ldots,
+\hat{y}_N.
+\]</span></p>
+<p>The final prediction is the average:</p>
+<p><span class="math display">\[
+\hat{y}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\hat{y}_i.
+\]</span></p>
+</section>
+<section id="summary" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="summary"><span class="header-section-number">8</span> Summary</h2>
+<p>The basic workflow of a Random Forest model is:</p>
+<ol type="1">
+<li>Prepare the input features <span class="math inline">\(X\)</span> and labels <span class="math inline">\(y\)</span>.</li>
+<li>Split the dataset into training and testing sets.</li>
+<li>Construct multiple decision trees.</li>
+<li>Train the Random Forest.</li>
+<li>Combine the predictions from different trees.</li>
+<li>Evaluate the performance on the test set.</li>
+</ol>
+<p>The key advantage of Random Forest is that combining many different decision trees usually gives better generalization than relying on a single tree.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1784125579140" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail"><a href="./posts/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/index.html" class="no-external">Posts</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/index.html" class="no-external">
-
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-date-sort" data-direction="asc">
-        Date - Oldest
-      </option>
-      <option value="listing-date-sort" data-direction="desc">
-        Date - Newest
-      </option>
-      <option value="listing-title-sort" data-direction="asc">
-        Title
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
- …</div></div><table class="quarto-listing-table table"><thead><tr><th></th><th></th><th></th><th></th></tr></thead><tbody class="list"><tr data-index="0" data-categories="UGh5c2ljcyUyQ1N0YXRpc3RpY2FsJTIwUGh5c2ljcyUyQ0JlaGF2aW9yJTIwQW5hbHlzaXM=" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1785080169222" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1" data-listing-title-sort="A quantitative theory of ﬂocking:" data-listing-filename-sort="index.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-description">
-
-
-
-</span></td><td><span class="listing-categories"></span></td></tr><tr data-index="1" data-categories="TWFjaGluZSUyMExlYXJuaW5nJTJDSW1hZ2UlMjAlMjYlMjBJbWFnaW5n" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1786554386091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="468" data-listing-title-sort="Random Forest Algorithm" data-listing-filename-sort="index.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-description">Random Forest is a machine learning algorithm based on an ensemble of decision trees.</span></td><td><span class="listing-categories"></span></td></tr><tr data-index="2" data-categories="TWF0aCUyQ1N0YXRpc3RpY3MlMkNUaGVvcmV0aWNhbCUyME5ldXJvc2NpZW5jZQ==" data-listing-date-sort="1784476800000" data-listing-file-modified-sort="1786554055770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1342" data-listing-title-sort="Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience" data-listing-filename-sort="index.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-description"></span></td><td><span class="listing-categories"></span></td></tr><tr data-index="3" data-categories="cXVhcnRvJTJDbWF0aA==" data-listing-date-sort="1784044800000" data-listing-file-modified-sort="1784125636501" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="250" data-listing-title-sort="A Math-Heavy Quarto Post" data-listing-filename-sort="index.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-description"></span></td><td><span class="listing-categories"></span></td></tr><tr data-index="4" data-categories="UGh5c2ljcyUyQ1RoZW9yZXRpY2FsJTIwTWVjaGFuaWNz" data-listing-date-sort="1784044800000" data-listing-file-modified-sort="1784203655003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1831" data-listing-title-sort="Lagrangian Mechanics: The Principle of Least Action and Noether's Theorem" data-listing-filename-sort="index.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-description"></span></td><td><span class="listing-categories"></span></td></tr></tbody></table><div class="listing-no-matching d-none"></div>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UGh5c2ljcyUyQ1N0YXRpc3RpY2FsJTIwUGh5c2ljcyUyQ0JlaGF2aW9yJTIwQW5hbHlzaXM=" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1785080169222" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail"><a href="./posts/theory-of-ﬂocking/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/theory-of-ﬂocking/index.html" class="no-external">A quantitative theory of ﬂocking:</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UGh5c2ljcw=='); return false;">Physics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U3RhdGlzdGljYWwlMjBQaHlzaWNz'); return false;">Statistical Physics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('QmVoYXZpb3IlMjBBbmFseXNpcw=='); return false;">Behavior Analysis</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/theory-of-ﬂocking/index.html" class="no-external">
-
-
-
-
-
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/theory-of-ﬂocking/index.html" class="no-external">
-<div class="listing-date">
-Aug 1, 2026
-</div>
-<div class="listing-author">
-Haotian Li
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TWFjaGluZSUyMExlYXJuaW5nJTJDSW1hZ2UlMjAlMjYlMjBJbWFnaW5n" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1786554386091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="468">
-<div class="thumbnail"><a href="./posts/random-forest/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/random-forest/index.html" class="no-external">Random Forest Algorithm</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZSUyMExlYXJuaW5n'); return false;">Machine Learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjAlMjYlMjBJbWFnaW5n'); return false;">Image &amp; Imaging</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/random-forest/index.html" class="no-external">
-Random Forest is a machine learning algorithm based on an ensemble of decision trees.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/random-forest/index.html" class="no-external">
-<div class="listing-date">
-Aug 1, 2026
-</div>
-<div class="listing-author">
-Haotian Li
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TWF0aCUyQ1N0YXRpc3RpY3MlMkNUaGVvcmV0aWNhbCUyME5ldXJvc2NpZW5jZQ==" data-listing-date-sort="1784476800000" data-listing-file-modified-sort="1786554055770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1342">
-<div class="thumbnail"><a href="./posts/alpha-stable/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/alpha-stable/index.html" class="no-external">Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWF0aA=='); return false;">Math</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U3RhdGlzdGljcw=='); return false;">Statistics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGhlb3JldGljYWwlMjBOZXVyb3NjaWVuY2U='); return false;">Theoretical Neuroscience</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/alpha-stable/index.html" class="no-external">
-<p>Why Gaussian is not the whole story?</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/alpha-stable/index.html" class="no-external">
-<div class="listing-date">
-Jul 20, 2026
-</div>
-<div class="listing-author">
-Haotian Li
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="cXVhcnRvJTJDbWF0aA==" data-listing-date-sort="1784044800000" data-listing-file-modified-sort="1784125636501" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="250">
-<div class="thumbnail"><a href="./posts/math-heavy-example/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/math-heavy-example/index.html" class="no-external">A Math-Heavy Quarto Post</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cXVhcnRv'); return false;">quarto</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWF0aA=='); return false;">math</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/math-heavy-example/index.html" class="no-external">
-<p>A compact example with macros, equation numbering, theorem blocks, and cross references.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/math-heavy-example/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2026
-</div>
-<div class="listing-author">
-Haotian Li
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UGh5c2ljcyUyQ1RoZW9yZXRpY2FsJTIwTWVjaGFuaWNz" data-listing-date-sort="1784044800000" data-listing-file-modified-sort="1784203655003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1831">
-<div class="thumbnail"><a href="./posts/Lagrangian/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Lagrangian/index.html" class="no-external">Lagrangian Mechanics: The Principle of Least Action and Noether’s Theorem</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UGh5c2ljcw=='); return false;">Physics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGhlb3JldGljYWwlMjBNZWNoYW5pY3M='); return false;">Theoretical Mechanics</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/Lagrangian/index.html" class="no-external">
-<p>From Newton to Lagrange, the prologue of symmetry and modern physics.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/Lagrangian/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2026
-</div>
-<div class="listing-author">
-Haotian Li
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
