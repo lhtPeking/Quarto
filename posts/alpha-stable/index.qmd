@@ -281,7 +281,7 @@ $$
 \phi_{Z_n}(t)=e^{-t^2/2}
 $$
 
-Meanwhile, $e^{-t^2/2}$ is exactly the characteristic function of the standard Gaussian distribution $\frac{1}{\sqrt{2\pi}}e^{-x^2/2}$ (easy to calculate). Hence,
+Meanwhile, $e^{-t^2/2}$ is exactly the characteristic function of the standard Gaussian distribution $\frac{1}{\sqrt{2\pi}}e^{-x^2/2}$ (easy to calculate, use the relation $\phi_X'(t)=-t\phi_X(t)$). Hence,
 $$
 Z_n
 =
@@ -293,10 +293,359 @@ Z_n
 }
 \sim
 \mathcal{N}(0,1)
-
 $$
 
 as $n\to\infty$. This proves the Central Limit Theorem.
 
-## Stable distribution: invariance under summation
+## Stable Distribution: Invariance Under Summation
 
+The Central Limit Theorem tells us that, for random variables with finite variance, repeated summation followed by a proper rescaling leads to a Gaussian distribution. This naturally raises a more general question:
+
+Are there other distributions whose shape is preserved under summation?
+
+The answer is YES, and such distributions are called **stable distributions**.
+
+For a standard Gaussian random variable, its Characteristic Function is $\phi_Z(t)=e^{-t^2/2}$. A more general family with the same invariance property is given by
+
+$$
+\phi_X(t)=e^{-|t|^\alpha}
+,
+\qquad
+0<\alpha\leq 2
+$$
+
+We call distributions that have this kind of Characteristic Function the "$\alpha$-stable distribution class". The Gaussian corresponds to the special case $\alpha=2$. Now consider i.i.d. random variables $X_1,\ldots,X_n$ with characteristic function $\phi_X(t)=e^{-|t|^\alpha}$, let's prove their "summation invariance".
+
+The characteristic function of their sum is
+
+$$
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+\left[\phi_X(t)\right]^n
+=
+e^{-n|t|^\alpha}
+$$
+
+Since $n|t|^\alpha=\left|n^{1/\alpha}t\right|^\alpha$, we obtain
+
+$$
+\phi_{\sum_{i=1}^n X_i}(t)
+=
+e^{-\left|n^{1/\alpha}t\right|^\alpha}
+=
+\phi_X\left(n^{1/\alpha}t\right)
+$$
+
+Since 
+$$
+\phi_X\left(n^{1/\alpha}t\right)=\mathbb{E}\left[e^{in^{1/\alpha}tX}\right]=
+\mathbb{E}\left[e^{it(n^{1/\alpha}X)}\right]=\phi_{n^{1/\alpha}X}\left(t\right)
+$$
+
+therefore the "summation" operation doesn't change the Characteristic Function and thus doesn't change the distribution shape at all, as long as we do a rescale $X'=n^{1/\alpha}X$ before summation. Or equivalently,
+
+$$
+\frac{X_1+\cdots+X_n}{n^{1/\alpha}}
+\overset{d}{=}X
+$$
+
+Summation changes only the scale of the distribution, while leaving its functional form unchanged. This is the defining feature of a stable distribution. For the Gaussian case $\alpha=2$, the scaling factor becomes $n^{1/\alpha}=\sqrt{n}$, which is exactly the $\sqrt{n}$ scaling appearing in the Central Limit Theorem.
+
+But why must $\alpha\leq 2$? At first sight, one may ask whether $\phi(t)=e^{-|t|^\alpha}$ could also define a probability distribution for $\alpha>2$. Recall that if the second moment exists, $\phi''(0)=-\mathbb{E}[X^2]$. Using the second-order difference quotient：
+
+$$
+\phi''(0)
+=
+\lim_{h\to 0}
+\frac{
+\phi(h)-2\phi(0)+\phi(-h)
+}{
+h^2
+}
+$$
+
+Since $\phi(t)$ is even and $\phi(0)=1$,
+
+$$
+\phi''(0)
+=
+\lim_{h\to0}
+\frac{
+2\left(e^{-|h|^\alpha}-1\right)
+}{
+h^2
+}.
+$$
+
+For small $h$, $e^{-|h|^\alpha}-1=-|h|^\alpha+o(|h|^\alpha)$, therefore:
+
+$$
+\phi''(0)
+=
+\lim_{h\to0}
+\left[
+-2|h|^{\alpha-2}
++
+o\left(|h|^{\alpha-2}\right)
+\right].
+$$
+
+If $\alpha>2$, we must have $\phi''(0)=0$, and the relation $\phi''(0)=-\mathbb{E}[X^2]$ will lead to $\mathbb{E}[X^2]=0$. Since $X^2\geq0$, this implies $X=0$. But in that case its characteristic function would have to be
+
+$$
+\phi_X(t)
+=\mathbb{E}[e^{it0}]
+=
+1,
+$$
+
+which contradicts $\phi_X(t)=e^{-|t|^\alpha}$ for $t\neq0$. Therefore the only possible range is $0<\alpha\leq2$. Note that the condition we used: $\phi(0)=1$ is actually the normalization condition for a probability distribution, the results above indicates that a probability distribution can not have normalization and $\alpha>2$ at the same time.
+
+For $\alpha<2$, stable distributions are fundamentally different from the Gaussian. They possess heavy power-law tails. For a symmetric $\alpha$-stable distribution $\phi_X(t)=e^{-|t|^\alpha}$, its probability density behaves asymptotically as:
+$$
+f_X(x)\sim |x|^{-(1+\alpha)},
+\qquad
+|x|\to\infty
+$$
+
+Correspondingly, the tail probability satisfies $\Pr(|X|>x)\sim x^{-\alpha}$. The $\alpha$ in the Characteristic Function's exponent and the $\alpha$ in the pdf are the same, and I'm gonna explain why. Suppose that $f(x)\sim |x|^{-(1+\alpha)}$, for a symmetric distribution,
+
+$$
+\phi(t)=
+\int_{-\infty}^{\infty}
+e^{itx}f(x)\,dx=
+\int_{-\infty}^{\infty}
+\cos(tx)f(x)\,dx
+$$
+
+Instead of expanding $\phi(t)$ directly, consider
+
+$$
+1-\phi(t).
+$$
+
+Since
+
+$$
+\int_{-\infty}^{\infty}f(x),dx=1,
+$$
+
+we have
+
+$$
+1-\phi(t)
+=========
+
+\int_{-\infty}^{\infty}
+\left[1-\cos(tx)\right]f(x),dx.
+$$
+
+Using symmetry and the power-law tail,
+
+$$
+1-\phi(t)
+\sim
+2C
+\int_0^\infty
+\left[1-\cos(tx)\right]
+x^{-(1+\alpha)}
+,dx.
+$$
+
+Now let
+
+$$
+u=|t|x,
+\qquad
+dx=\frac{du}{|t|}.
+$$
+
+Then
+
+$$
+x^{-(1+\alpha)}
+===============
+
+# \left(\frac{u}{|t|}\right)^{-(1+\alpha)}
+
+|t|^{1+\alpha}u^{-(1+\alpha)}.
+$$
+
+Therefore,
+
+$$
+1-\phi(t)
+\sim
+2C|t|^\alpha
+\int_0^\infty
+\frac{1-\cos u}{u^{1+\alpha}}
+,du.
+$$
+
+The integral is a constant independent of $t$, so we may write
+
+$$
+1-\phi(t)
+\sim
+K|t|^\alpha.
+$$
+
+Hence, near $t=0$,
+
+$$
+\boxed{
+\phi(t)
+=======
+
+1-K|t|^\alpha
++
+o(|t|^\alpha).
+}
+$$
+
+This is exactly the leading-order behavior of
+
+$$
+e^{-K|t|^\alpha},
+$$
+
+because
+
+$$
+e^{-K|t|^\alpha}
+================
+
+1-K|t|^\alpha
++
+o(|t|^\alpha).
+$$
+
+Thus the power-law tail
+
+$$
+f(x)\sim |x|^{-(1+\alpha)}
+$$
+
+and the nonanalytic characteristic-function behavior
+
+$$
+1-\phi(t)\sim |t|^\alpha
+$$
+
+are two manifestations of the same exponent $\alpha$.
+
+---
+
+### Special Case: the Cauchy Distribution
+
+When
+
+$$
+\alpha=1,
+$$
+
+we obtain the standard Cauchy distribution.
+
+Its characteristic function is
+
+$$
+\boxed{
+\phi_X(t)=e^{-|t|}.
+}
+$$
+
+The corresponding probability density is
+
+$$
+\boxed{
+f_X(x)
+======
+
+\frac{1}{\pi(1+x^2)}.
+}
+$$
+
+For large $|x|$,
+
+$$
+f_X(x)
+\sim
+\frac{1}{\pi x^2},
+$$
+
+which agrees with the general stable-tail relation
+
+$$
+f_X(x)\sim |x|^{-(1+\alpha)}
+$$
+
+for $\alpha=1$.
+
+One can verify its characteristic function directly:
+
+$$
+\phi_X(t)
+=========
+
+\int_{-\infty}^{\infty}
+\frac{e^{itx}}{\pi(1+x^2)}
+,dx
+===
+
+e^{-|t|}.
+$$
+
+For $t>0$, closing the contour in the upper half-plane gives a single pole at
+
+$$
+z=i.
+$$
+
+Thus,
+
+$$
+\oint
+\frac{e^{itz}}{\pi(1+z^2)}
+,dz
+===
+
+2\pi i
+\operatorname{Res}
+\left[
+\frac{e^{itz}}{\pi(1+z^2)},
+z=i
+\right].
+$$
+
+The residue is
+
+$$
+\operatorname{Res}_{z=i}
+\frac{e^{itz}}{\pi(1+z^2)}
+==========================
+
+\frac{e^{-t}}{2\pi i},
+$$
+
+and therefore
+
+$$
+\phi_X(t)=e^{-t},
+\qquad t>0.
+$$
+
+Similarly, for $t<0$ one closes the contour in the lower half-plane and obtains
+
+$$
+\phi_X(t)=e^t.
+$$
+
+Combining the two cases,
+
+$$
+\boxed{
+\phi_X(t)=e^{-|t|}.
+}
+$$
+
+This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and therefore lies outside the ordinary Central Limit Theorem.
