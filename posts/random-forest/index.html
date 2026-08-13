@@ -426,9 +426,7 @@ window.Quarto = {
 
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>Random Forest is a machine learning algorithm based on an ensemble of decision trees.</p>
-<p>Instead of relying on a single decision tree, Random Forest trains many trees and combines their predictions.</p>
-<p>For a classification problem, the final prediction is usually determined by majority voting:</p>
+<p>Random Forest is a machine learning algorithm based on an ensemble of decision trees. Instead of relying on a single decision tree, Random Forest trains many trees and combines their predictions. For a classification problem, the final prediction is usually determined by majority voting:</p>
 <p><span class="math display">\[
 \hat{y}
 =
@@ -440,8 +438,7 @@ window.Quarto = {
 \hat{y}_N
 \right),
 \]</span></p>
-<p>where <span class="math inline">\(\hat{y}_i\)</span> is the prediction made by the <span class="math inline">\(i\)</span>-th decision tree.</p>
-<p>For regression, the predictions are usually averaged:</p>
+<p>where <span class="math inline">\(\hat{y}_i\)</span> is the prediction made by the <span class="math inline">\(i\)</span>-th decision tree. For regression, the predictions are usually averaged:</p>
 <p><span class="math display">\[
 \hat{y}
 =
@@ -464,7 +461,7 @@ E(\text{parent})-
 \sum_i
 w_i E(\text{child}_i),
 \]</span></p>
-<p>where <span class="math inline">\(\frac{N_i}{N}\)</span> is the proportion of samples assigned to the <span class="math inline">\(i\)</span>-th child node. Therefore, the tree prefers a split that produces children with lower entropy.</p>
+<p>where <span class="math inline">\(w_i=\frac{N_i}{N}\)</span> is the proportion of samples assigned to the <span class="math inline">\(i\)</span>-th child node. Therefore, the tree prefers a split that produces children with lower entropy.</p>
 <p>Since <span class="math inline">\(E(\text{parent})\)</span> is fixed when choosing a split at a particular node,</p>
 <p><span class="math display">\[
 \max IG
