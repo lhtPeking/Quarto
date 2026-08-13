@@ -154,52 +154,59 @@
     "text": "Random Forest is a machine learning algorithm based on an ensemble of decision trees.\nInstead of relying on a single decision tree, Random Forest trains many trees and combines their predictions.\nFor a classification problem, the final prediction is usually determined by majority voting:\n\\[\n\\hat{y}\n=\n\\operatorname{mode}\n\\left(\n\\hat{y}_1,\n\\hat{y}_2,\n\\ldots,\n\\hat{y}_N\n\\right),\n\\]\nwhere \\(\\hat{y}_i\\) is the prediction made by the \\(i\\)-th decision tree.\nFor regression, the predictions are usually averaged:\n\\[\n\\hat{y}\n=\n\\frac{1}{N}\n\\sum_{i=1}^{N}\n\\hat{y}_i.\n\\]"
   },
   {
+    "objectID": "posts/random-forest/index.html#entropy-and-ig-information-gain",
+    "href": "posts/random-forest/index.html#entropy-and-ig-information-gain",
+    "title": "Random Forest Algorithm",
+    "section": "2 Entropy and IG (Information Gain)",
+    "text": "2 Entropy and IG (Information Gain)\nThe key idea behind a decision tree is to progressively split the dataset into increasingly homogeneous groups. To measure how mixed a node is, we can use entropy:\n\\[\n-\\sum_{i=1}^{N}\np_i \\log p_i,\n\\]\nwhere \\(p_i\\) is the proportion of samples belonging to class \\(i\\). A node has low entropy when most samples belong to the same class, while a highly mixed node has high entropy. For example, in a binary classification problem: \\(E=0\\) if all samples belong to the same class, whereas \\(E=1\\) when the two classes are equally represented.\nWhen considering a possible split, the decision tree calculates the Information Gain (IG): \\[\nIG=\nE(\\text{parent})-\n\\sum_i\nw_i E(\\text{child}_i),\n\\]\nwhere \\(\\frac{N_i}{N}\\) is the proportion of samples assigned to the \\(i\\)-th child node. Therefore, the tree prefers a split that produces children with lower entropy.\nSince \\(E(\\text{parent})\\) is fixed when choosing a split at a particular node,\n\\[\n\\max IG\n\\quad\\Longleftrightarrow\\quad\n\\min\n\\sum_i w_i E(\\text{child}_i).\n\\]\nIn this sense, the construction of a decision tree can be viewed as a greedy process that locally minimizes the uncertainty of the data at every step."
+  },
+  {
     "objectID": "posts/random-forest/index.html#a-simple-random-forest-example",
     "href": "posts/random-forest/index.html#a-simple-random-forest-example",
     "title": "Random Forest Algorithm",
-    "section": "2 A Simple Random Forest Example",
-    "text": "2 A Simple Random Forest Example\nWe first import the required packages.\nfrom sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import accuracy_score\nHere we use the Iris dataset as a simple classification example.\ndata = load_iris()\n\nX = data.data\ny = data.target\nThe matrix X contains the input features, while y contains the corresponding class labels.\nWe then divide the dataset into a training set and a test set.\nX_train, X_test, y_train, y_test = train_test_split(\n    X,\n    y,\n    test_size=0.2,\n    random_state=42\n)\nHere, test_size=0.2 means that 20% of the data is used for testing and the remaining 80% is used for training."
+    "section": "3 A Simple Random Forest Example",
+    "text": "3 A Simple Random Forest Example\nWe first import the required packages.\nfrom sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import accuracy_score\nHere we use the Iris dataset as a simple classification example.\ndata = load_iris()\n\nX = data.data\ny = data.target\nThe matrix X contains the input features, while y contains the corresponding class labels.\nWe then divide the dataset into a training set and a test set.\nX_train, X_test, y_train, y_test = train_test_split(\n    X,\n    y,\n    test_size=0.2,\n    random_state=42\n)\nHere, test_size=0.2 means that 20% of the data is used for testing and the remaining 80% is used for training."
   },
   {
     "objectID": "posts/random-forest/index.html#training-the-random-forest",
     "href": "posts/random-forest/index.html#training-the-random-forest",
     "title": "Random Forest Algorithm",
-    "section": "3 Training the Random Forest",
-    "text": "3 Training the Random Forest\nWe can construct a random forest using RandomForestClassifier.\nmodel = RandomForestClassifier(\n    n_estimators=100,\n    max_depth=None,\n    random_state=42\n)\nThe parameter\nn_estimators=100\nmeans that the random forest contains 100 decision trees.\nWe then train the model:\nmodel.fit(X_train, y_train)\nConceptually, the random forest can be written as\n\\[\n\\text{Random Forest}\n=\n\\{\n\\text{Tree}_1,\n\\text{Tree}_2,\n\\ldots,\n\\text{Tree}_N\n\\}.\n\\]\nEach tree is trained using a slightly different subset of the data and features."
+    "section": "4 Training the Random Forest",
+    "text": "4 Training the Random Forest\nWe can construct a random forest using RandomForestClassifier.\nmodel = RandomForestClassifier(\n    n_estimators=100,\n    max_depth=None,\n    random_state=42\n)\nThe parameter\nn_estimators=100\nmeans that the random forest contains 100 decision trees.\nWe then train the model:\nmodel.fit(X_train, y_train)\nConceptually, the random forest can be written as\n\\[\n\\text{Random Forest}\n=\n\\{\n\\text{Tree}_1,\n\\text{Tree}_2,\n\\ldots,\n\\text{Tree}_N\n\\}.\n\\]\nEach tree is trained using a slightly different subset of the data and features."
   },
   {
     "objectID": "posts/random-forest/index.html#prediction",
     "href": "posts/random-forest/index.html#prediction",
     "title": "Random Forest Algorithm",
-    "section": "4 Prediction",
-    "text": "4 Prediction\nAfter training, we can use the model to make predictions on the test set.\ny_pred = model.predict(X_test)\nEach decision tree produces its own prediction.\nFor example,\n\\[\n\\text{Tree}_1 \\rightarrow 0,\n\\]\n\\[\n\\text{Tree}_2 \\rightarrow 1,\n\\]\n\\[\n\\text{Tree}_3 \\rightarrow 1,\n\\]\n\\[\n\\text{Tree}_4 \\rightarrow 1.\n\\]\nSince most trees predict class \\(1\\), the final prediction of the random forest is\n\\[\n\\hat{y}=1.\n\\]"
+    "section": "5 Prediction",
+    "text": "5 Prediction\nAfter training, we can use the model to make predictions on the test set.\ny_pred = model.predict(X_test)\nEach decision tree produces its own prediction.\nFor example,\n\\[\n\\text{Tree}_1 \\rightarrow 0,\n\\]\n\\[\n\\text{Tree}_2 \\rightarrow 1,\n\\]\n\\[\n\\text{Tree}_3 \\rightarrow 1,\n\\]\n\\[\n\\text{Tree}_4 \\rightarrow 1.\n\\]\nSince most trees predict class \\(1\\), the final prediction of the random forest is\n\\[\n\\hat{y}=1.\n\\]"
   },
   {
     "objectID": "posts/random-forest/index.html#evaluation",
     "href": "posts/random-forest/index.html#evaluation",
     "title": "Random Forest Algorithm",
-    "section": "5 Evaluation",
-    "text": "5 Evaluation\nThe classification accuracy can be calculated using\naccuracy = accuracy_score(y_test, y_pred)\n\nprint(\"Accuracy:\", accuracy)\nThe accuracy is defined as\n\\[\n\\text{Accuracy}\n=\n\\frac{\n\\text{Number of correct predictions}\n}{\n\\text{Total number of predictions}\n}.\n\\]"
+    "section": "6 Evaluation",
+    "text": "6 Evaluation\nThe classification accuracy can be calculated using\naccuracy = accuracy_score(y_test, y_pred)\n\nprint(\"Accuracy:\", accuracy)\nThe accuracy is defined as\n\\[\n\\text{Accuracy}\n=\n\\frac{\n\\text{Number of correct predictions}\n}{\n\\text{Total number of predictions}\n}.\n\\]"
   },
   {
     "objectID": "posts/random-forest/index.html#using-your-own-data",
     "href": "posts/random-forest/index.html#using-your-own-data",
     "title": "Random Forest Algorithm",
-    "section": "6 Using Your Own Data",
-    "text": "6 Using Your Own Data\nFor example, suppose we have a small dataset with two features:\nX = [\n    [1.2, 3.4],\n    [2.1, 4.2],\n    [5.3, 1.2],\n    [6.1, 0.8]\n]\n\ny = [0, 0, 1, 1]\nWe can train a random forest directly:\nfrom sklearn.ensemble import RandomForestClassifier\n\nmodel = RandomForestClassifier(\n    n_estimators=100,\n    random_state=42\n)\n\nmodel.fit(X, y)\nThen we can classify a new sample:\nprediction = model.predict([\n    [2.0, 3.0]\n])\n\nprint(prediction)"
+    "section": "7 Using Your Own Data",
+    "text": "7 Using Your Own Data\nFor example, suppose we have a small dataset with two features:\nX = [\n    [1.2, 3.4],\n    [2.1, 4.2],\n    [5.3, 1.2],\n    [6.1, 0.8]\n]\n\ny = [0, 0, 1, 1]\nWe can train a random forest directly:\nfrom sklearn.ensemble import RandomForestClassifier\n\nmodel = RandomForestClassifier(\n    n_estimators=100,\n    random_state=42\n)\n\nmodel.fit(X, y)\nThen we can classify a new sample:\nprediction = model.predict([\n    [2.0, 3.0]\n])\n\nprint(prediction)"
   },
   {
     "objectID": "posts/random-forest/index.html#random-forest-regression",
     "href": "posts/random-forest/index.html#random-forest-regression",
     "title": "Random Forest Algorithm",
-    "section": "7 Random Forest Regression",
-    "text": "7 Random Forest Regression\nRandom Forest can also be used for regression.\nInstead of RandomForestClassifier, we use RandomForestRegressor.\nfrom sklearn.ensemble import RandomForestRegressor\n\nmodel = RandomForestRegressor(\n    n_estimators=100,\n    random_state=42\n)\nFor regression, each tree predicts a numerical value:\n\\[\n\\hat{y}_1,\n\\hat{y}_2,\n\\ldots,\n\\hat{y}_N.\n\\]\nThe final prediction is the average:\n\\[\n\\hat{y}\n=\n\\frac{1}{N}\n\\sum_{i=1}^{N}\n\\hat{y}_i.\n\\]"
+    "section": "8 Random Forest Regression",
+    "text": "8 Random Forest Regression\nRandom Forest can also be used for regression.\nInstead of RandomForestClassifier, we use RandomForestRegressor.\nfrom sklearn.ensemble import RandomForestRegressor\n\nmodel = RandomForestRegressor(\n    n_estimators=100,\n    random_state=42\n)\nFor regression, each tree predicts a numerical value:\n\\[\n\\hat{y}_1,\n\\hat{y}_2,\n\\ldots,\n\\hat{y}_N.\n\\]\nThe final prediction is the average:\n\\[\n\\hat{y}\n=\n\\frac{1}{N}\n\\sum_{i=1}^{N}\n\\hat{y}_i.\n\\]"
   },
   {
     "objectID": "posts/random-forest/index.html#summary",
     "href": "posts/random-forest/index.html#summary",
     "title": "Random Forest Algorithm",
-    "section": "8 Summary",
-    "text": "8 Summary\nThe basic workflow of a Random Forest model is:\n\nPrepare the input features \\(X\\) and labels \\(y\\).\nSplit the dataset into training and testing sets.\nConstruct multiple decision trees.\nTrain the Random Forest.\nCombine the predictions from different trees.\nEvaluate the performance on the test set.\n\nThe key advantage of Random Forest is that combining many different decision trees usually gives better generalization than relying on a single tree."
+    "section": "9 Summary",
+    "text": "9 Summary\nThe basic workflow of a Random Forest model is:\n\nPrepare the input features \\(X\\) and labels \\(y\\).\nSplit the dataset into training and testing sets.\nConstruct multiple decision trees.\nTrain the Random Forest.\nCombine the predictions from different trees.\nEvaluate the performance on the test set.\n\nThe key advantage of Random Forest is that combining many different decision trees usually gives better generalization than relying on a single tree."
   }
 ]
