@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haotian Li">
-<meta name="dcterms.date" content="2026-08-01">
+<meta name="dcterms.date" content="2026-08-13">
 
 <title>Random Forest Algorithm – Haotian’s Blog</title>
 <style>
@@ -374,13 +374,14 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#entropy-and-ig-information-gain" id="toc-entropy-and-ig-information-gain" class="nav-link" data-scroll-target="#entropy-and-ig-information-gain"><span class="header-section-number">2</span> Entropy and IG (Information Gain)</a></li>
-  <li><a href="#a-simple-random-forest-example" id="toc-a-simple-random-forest-example" class="nav-link" data-scroll-target="#a-simple-random-forest-example"><span class="header-section-number">3</span> A Simple Random Forest Example</a></li>
-  <li><a href="#training-the-random-forest" id="toc-training-the-random-forest" class="nav-link" data-scroll-target="#training-the-random-forest"><span class="header-section-number">4</span> Training the Random Forest</a></li>
-  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">5</span> Prediction</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">6</span> Evaluation</a></li>
-  <li><a href="#using-your-own-data" id="toc-using-your-own-data" class="nav-link" data-scroll-target="#using-your-own-data"><span class="header-section-number">7</span> Using Your Own Data</a></li>
-  <li><a href="#random-forest-regression" id="toc-random-forest-regression" class="nav-link" data-scroll-target="#random-forest-regression"><span class="header-section-number">8</span> Random Forest Regression</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9</span> Summary</a></li>
+  <li><a href="#why-is-it-called-a-random-forest" id="toc-why-is-it-called-a-random-forest" class="nav-link" data-scroll-target="#why-is-it-called-a-random-forest"><span class="header-section-number">3</span> Why Is It Called a Random Forest?</a></li>
+  <li><a href="#a-simple-random-forest-example" id="toc-a-simple-random-forest-example" class="nav-link" data-scroll-target="#a-simple-random-forest-example"><span class="header-section-number">4</span> A Simple Random Forest Example</a></li>
+  <li><a href="#training-the-random-forest" id="toc-training-the-random-forest" class="nav-link" data-scroll-target="#training-the-random-forest"><span class="header-section-number">5</span> Training the Random Forest</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">6</span> Prediction</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">7</span> Evaluation</a></li>
+  <li><a href="#using-your-own-data" id="toc-using-your-own-data" class="nav-link" data-scroll-target="#using-your-own-data"><span class="header-section-number">8</span> Using Your Own Data</a></li>
+  <li><a href="#random-forest-regression" id="toc-random-forest-regression" class="nav-link" data-scroll-target="#random-forest-regression"><span class="header-section-number">9</span> Random Forest Regression</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -411,7 +412,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 1, 2026</p>
+      <p class="date">August 13, 2026</p>
     </div>
   </div>
   
@@ -472,9 +473,26 @@ w_i E(\text{child}_i),
 \sum_i w_i E(\text{child}_i).
 \]</span></p>
 <p>In this sense, the construction of a decision tree can be viewed as a greedy process that locally minimizes the uncertainty of the data at every step.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ig.png" class="img-fluid figure-img"></p>
+<figcaption>Information Gain</figcaption>
+</figure>
+</div>
 </section>
-<section id="a-simple-random-forest-example" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="a-simple-random-forest-example"><span class="header-section-number">3</span> A Simple Random Forest Example</h2>
+<section id="why-is-it-called-a-random-forest" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="why-is-it-called-a-random-forest"><span class="header-section-number">3</span> Why Is It Called a Random Forest?</h2>
+<p>A Random Forest is called “random” because randomness is deliberately introduced when constructing each decision tree. Instead of training every tree on exactly the same dataset, each tree is trained on a bootstrap sample, which is generated by randomly sampling observations from the original dataset with replacement. Therefore, some samples may appear multiple times while others may not appear at all. In addition, when a tree decides how to split a node, it does not necessarily consider all available features. Instead, it randomly selects a subset of features and then chooses the best split among them, typically by maximizing the Information Gain (or equivalently minimizing the impurity after the split). For example, if the original dataset contains features <span class="math inline">\(x_0,x_1,x_2,x_3,x_4\)</span>, one split may only consider <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>, while another may consider <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_4\)</span>. As a result, different trees are exposed to different samples and different candidate features, so they naturally develop different structures and make somewhat different predictions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="rf.png" class="img-fluid figure-img"></p>
+<figcaption>Randomness</figcaption>
+</figure>
+</div>
+<p>After all trees have been trained, their predictions are combined through a voting process. For a classification problem, the same input sample is passed through every tree, and each tree independently outputs a predicted class. The Random Forest then counts how many trees voted for each class and chooses the class receiving the largest number of votes. For example, if five trees produce predictions <span class="math inline">\([0,1,1,1,0]\)</span>, then class <span class="math inline">\(1\)</span> receives three votes while class <span class="math inline">\(0\)</span> receives two, so the final prediction is class <span class="math inline">\(1\)</span>. In general, this can be written as <span class="math inline">\(\hat{y}=\operatorname{mode}(\hat{y}_1,\hat{y}_2,\ldots,\hat{y}_T)\)</span>, where <span class="math inline">\(T\)</span> is the number of trees. For regression, there is no majority vote because the outputs are continuous values; instead, the predictions from all trees are averaged. This aggregation is important because a single decision tree can be unstable and sensitive to the particular training samples it sees, while combining many partially independent trees tends to cancel out individual errors and produces a more stable prediction. Therefore, the name Random Forest is quite literal: “random” refers to the random sampling of training observations and candidate features, while “forest” refers to the collection of many decision trees whose outputs are finally combined by voting or averaging.</p>
+</section>
+<section id="a-simple-random-forest-example" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="a-simple-random-forest-example"><span class="header-section-number">4</span> A Simple Random Forest Example</h2>
 <p>We first import the required packages.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -495,8 +513,8 @@ w_i E(\text{child}_i),
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here, <code>test_size=0.2</code> means that 20% of the data is used for testing and the remaining 80% is used for training.</p>
 </section>
-<section id="training-the-random-forest" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="training-the-random-forest"><span class="header-section-number">4</span> Training the Random Forest</h2>
+<section id="training-the-random-forest" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="training-the-random-forest"><span class="header-section-number">5</span> Training the Random Forest</h2>
 <p>We can construct a random forest using <code>RandomForestClassifier</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">100</span>,</span>
@@ -521,8 +539,8 @@ w_i E(\text{child}_i),
 \]</span></p>
 <p>Each tree is trained using a slightly different subset of the data and features.</p>
 </section>
-<section id="prediction" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="prediction"><span class="header-section-number">5</span> Prediction</h2>
+<section id="prediction" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="prediction"><span class="header-section-number">6</span> Prediction</h2>
 <p>After training, we can use the model to make predictions on the test set.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Each decision tree produces its own prediction.</p>
@@ -544,8 +562,8 @@ w_i E(\text{child}_i),
 \hat{y}=1.
 \]</span></p>
 </section>
-<section id="evaluation" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">6</span> Evaluation</h2>
+<section id="evaluation" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">7</span> Evaluation</h2>
 <p>The classification accuracy can be calculated using</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -561,8 +579,8 @@ w_i E(\text{child}_i),
 }.
 \]</span></p>
 </section>
-<section id="using-your-own-data" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="using-your-own-data"><span class="header-section-number">7</span> Using Your Own Data</h2>
+<section id="using-your-own-data" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="using-your-own-data"><span class="header-section-number">8</span> Using Your Own Data</h2>
 <p>For example, suppose we have a small dataset with two features:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">1.2</span>, <span class="fl">3.4</span>],</span>
@@ -588,8 +606,8 @@ w_i E(\text{child}_i),
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prediction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="random-forest-regression" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="random-forest-regression"><span class="header-section-number">8</span> Random Forest Regression</h2>
+<section id="random-forest-regression" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="random-forest-regression"><span class="header-section-number">9</span> Random Forest Regression</h2>
 <p>Random Forest can also be used for regression.</p>
 <p>Instead of <code>RandomForestClassifier</code>, we use <code>RandomForestRegressor</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
@@ -614,8 +632,8 @@ w_i E(\text{child}_i),
 \hat{y}_i.
 \]</span></p>
 </section>
-<section id="summary" class="level2" data-number="9">
-<h2 data-number="9" class="anchored" data-anchor-id="summary"><span class="header-section-number">9</span> Summary</h2>
+<section id="summary" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="summary"><span class="header-section-number">10</span> Summary</h2>
 <p>The basic workflow of a Random Forest model is:</p>
 <ol type="1">
 <li>Prepare the input features <span class="math inline">\(X\)</span> and labels <span class="math inline">\(y\)</span>.</li>
