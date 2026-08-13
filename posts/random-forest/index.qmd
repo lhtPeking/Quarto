@@ -38,6 +38,39 @@ $$
 \hat{y}_i.
 $$
 
+## Entropy and IG (Information Gain)
+The key idea behind a decision tree is to progressively split the dataset into increasingly homogeneous groups. To measure how mixed a node is, we can use entropy:
+
+$$
+-\sum_{i=1}^{N}
+p_i \log p_i,
+$$
+
+where $p_i$ is the proportion of samples belonging to class $i$. A node has low entropy when most samples belong to the same class, while a highly mixed node has high entropy. For example, in a binary classification problem: $E=0$ if all samples belong to the same class, whereas $E=1$ when the two classes are equally represented.
+
+When considering a possible split, the decision tree calculates the Information Gain (IG):
+$$
+IG=
+E(\text{parent})-
+\sum_i
+w_i E(\text{child}_i),
+$$
+
+where $\frac{N_i}{N}$ is the proportion of samples assigned to the $i$-th child node. Therefore, the tree prefers a split that produces children with lower entropy.
+
+Since $E(\text{parent})$ is fixed when choosing a split at a particular node,
+
+$$
+\max IG
+\quad\Longleftrightarrow\quad
+\min
+\sum_i w_i E(\text{child}_i).
+$$
+
+In this sense, the construction of a decision tree can be viewed as a greedy process that locally minimizes the uncertainty of the data at every step.
+
+
+
 ## A Simple Random Forest Example
 
 We first import the required packages.
