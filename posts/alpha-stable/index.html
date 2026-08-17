@@ -338,13 +338,18 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">0.1</span> Motivation</a></li>
-  <li><a href="#the-introduction-of-the-characteristic-function" id="toc-the-introduction-of-the-characteristic-function" class="nav-link" data-scroll-target="#the-introduction-of-the-characteristic-function"><span class="header-section-number">0.2</span> The introduction of the Characteristic Function</a></li>
-  <li><a href="#the-proof-of-the-central-limit-theorem" id="toc-the-proof-of-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-proof-of-the-central-limit-theorem"><span class="header-section-number">0.3</span> The proof of the Central Limit Theorem</a></li>
-  <li><a href="#stable-distribution-invariance-under-summation" id="toc-stable-distribution-invariance-under-summation" class="nav-link" data-scroll-target="#stable-distribution-invariance-under-summation"><span class="header-section-number">0.4</span> Stable Distribution: Invariance Under Summation</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">1</span> ()^{-(1+)}</a>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#the-introduction-of-the-characteristic-function" id="toc-the-introduction-of-the-characteristic-function" class="nav-link" data-scroll-target="#the-introduction-of-the-characteristic-function"><span class="header-section-number">2</span> The introduction of the Characteristic Function</a></li>
+  <li><a href="#the-proof-of-the-central-limit-theorem" id="toc-the-proof-of-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</a></li>
+  <li><a href="#stable-distribution-invariance-under-summation" id="toc-stable-distribution-invariance-under-summation" class="nav-link" data-scroll-target="#stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable Distribution: Invariance Under Summation</a></li>
+  <li><a href="#heavy-tail-weighted-neural-networks-prl-2020" id="toc-heavy-tail-weighted-neural-networks-prl-2020" class="nav-link" data-scroll-target="#heavy-tail-weighted-neural-networks-prl-2020"><span class="header-section-number">5</span> Heavy-Tail Weighted Neural Networks (PRL, 2020)</a>
   <ul class="collapse">
-  <li><a href="#special-case-the-cauchy-distribution" id="toc-special-case-the-cauchy-distribution" class="nav-link" data-scroll-target="#special-case-the-cauchy-distribution"><span class="header-section-number">1.0.1</span> Special Case: the Cauchy Distribution</a></li>
+  <li><a href="#why-does-the-cauchy-weight-scale-as-1n" id="toc-why-does-the-cauchy-weight-scale-as-1n" class="nav-link" data-scroll-target="#why-does-the-cauchy-weight-scale-as-1n"><span class="header-section-number">5.1</span> Why does the Cauchy weight scale as <span class="math inline">\(1/N\)</span>?</a></li>
+  <li><a href="#mean-field-dynamics" id="toc-mean-field-dynamics" class="nav-link" data-scroll-target="#mean-field-dynamics"><span class="header-section-number">5.2</span> Mean-Field Dynamics</a></li>
+  <li><a href="#mean-field-equation" id="toc-mean-field-equation" class="nav-link" data-scroll-target="#mean-field-equation"><span class="header-section-number">5.3</span> Mean-Field Equation</a></li>
+  <li><a href="#critical-point" id="toc-critical-point" class="nav-link" data-scroll-target="#critical-point"><span class="header-section-number">5.4</span> Critical Point</a></li>
+  <li><a href="#continuous-phase-transition" id="toc-continuous-phase-transition" class="nav-link" data-scroll-target="#continuous-phase-transition"><span class="header-section-number">5.5</span> Continuous Phase Transition</a></li>
+  <li><a href="#autocrat-connections" id="toc-autocrat-connections" class="nav-link" data-scroll-target="#autocrat-connections"><span class="header-section-number">5.6</span> Autocrat Connections</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -394,12 +399,12 @@ window.Quarto = {
 </header>
 
 
-<section id="motivation" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">0.1</span> Motivation</h2>
+<section id="motivation" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
 <p>In one’s daily life, the Gaussian distribution can be found everywhere: the height of crowds, the cumulative point summation of tosses, the random errors measured from a certain rig, etc. This phenomenon is due to the Central Limit Theorem, which will be proved by us later using the characteristic function. However, when a system approaches criticality, such as a sandpile undergoing avalanches, a lot of properties within it will follow a heavy-tailed distribution, normally a power-law distribution. Our neural system has long been conjectured to be a near-critical system because some properties, for example, the synaptic weight and the scale of a single activity propagation, follow a power-law distribution. In this blog, I will introduce the concept of the characteristic function and the Generalized Central Limit Theorem, and discuss a beautiful PRL paper on how the heavy-tailed synaptic weights affect the dynamics of a neural network and cause a second-order phase transition.</p>
 </section>
-<section id="the-introduction-of-the-characteristic-function" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="the-introduction-of-the-characteristic-function"><span class="header-section-number">0.2</span> The introduction of the Characteristic Function</h2>
+<section id="the-introduction-of-the-characteristic-function" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-introduction-of-the-characteristic-function"><span class="header-section-number">2</span> The introduction of the Characteristic Function</h2>
 <p>The central limit theorem states that the sum or average of a large number of independent random variables with finite variance tends to follow a normal distribution, regardless of the original distribution. To prove this, there are two interesting facts in this statement that we need to focus on. The first one is “sum”, which means this theorem emerges under the “sum” operation. The second one is “finite variance”; this is a strong constraint to meet, and if it is violated, we are then in the playground of the Generalized Central Limit Theorem.</p>
 <p>Let’s first look into the summation operation. Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are i.i.d. variables, let <span class="math inline">\(Z=X+Y\)</span>. The probability distribution of <span class="math inline">\(Z\)</span> could be written as: <span class="math display">\[
 f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) dx=f_X * f_Y(z)
@@ -522,8 +527,8 @@ it\,\mathbb{E}[X]
 \]</span></p>
 <p>And we could use this expansion form to prove CLT (Central Limit Theorem).</p>
 </section>
-<section id="the-proof-of-the-central-limit-theorem" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="the-proof-of-the-central-limit-theorem"><span class="header-section-number">0.3</span> The proof of the Central Limit Theorem</h2>
+<section id="the-proof-of-the-central-limit-theorem" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-proof-of-the-central-limit-theorem"><span class="header-section-number">3</span> The proof of the Central Limit Theorem</h2>
 <p>Suppose we have a sequence of i.i.d. random variables <span class="math inline">\(X_1,X_2,\ldots,X_n,\)</span> with finite mean and variance: <span class="math display">\[
 \mathbb{E}[X_i]=\mu,
 \qquad
@@ -618,8 +623,8 @@ Z_n
 \]</span></p>
 <p>as <span class="math inline">\(n\to\infty\)</span>. This proves the Central Limit Theorem.</p>
 </section>
-<section id="stable-distribution-invariance-under-summation" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="stable-distribution-invariance-under-summation"><span class="header-section-number">0.4</span> Stable Distribution: Invariance Under Summation</h2>
+<section id="stable-distribution-invariance-under-summation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="stable-distribution-invariance-under-summation"><span class="header-section-number">4</span> Stable Distribution: Invariance Under Summation</h2>
 <p>The Central Limit Theorem tells us that, for random variables with finite variance, repeated summation followed by a proper rescaling leads to a Gaussian distribution. This naturally raises a more general question:</p>
 <p>Are there other distributions whose shape is preserved under summation?</p>
 <p>The answer is YES, and such distributions are called <strong>stable distributions</strong>.</p>
@@ -712,126 +717,264 @@ e^{itx}f(x)\,dx=
 \int_{-\infty}^{\infty}
 \cos(tx)f(x)\,dx
 \]</span></p>
-<p>Instead of expanding <span class="math inline">\(\phi(t)\)</span> directly, consider <span class="math inline">\(1-\phi(t)\)</span></p>
-<p>Since</p>
+<p>To explain how these two <span class="math inline">\(\alpha\)</span> are connected, we are curious about the second-order term in the Taylor expansion of <span class="math inline">\(\phi(t)\)</span> (the first-order term is trivial, i.e.&nbsp;<span class="math inline">\(\phi(0)=1\)</span>). Consider:</p>
 <p><span class="math display">\[
-\int_{-\infty}^{\infty}f(x),dx=1,
+\phi(t)=\int_{-\infty}^{\infty}
+\cos(tx)f(x)\,dx
+=1-\int_{-\infty}^{\infty}
+\left(1-\cos(tx)\right)f(x)\,dx
 \]</span></p>
-<p>we have</p>
-<p>$$ 1-(t) =========</p>
-<p>_{-}^{} f(x),dx. $$</p>
-<p>Using symmetry and the power-law tail,</p>
+<p>Given that <span class="math inline">\(f(x)\sim |x|^{-(1+\alpha)}\)</span>, we have:</p>
+<p><span class="math display">\[
+1-\phi(t)\sim
+\int_{-\infty}^{\infty}
+\left(1-\cos(tx)\right)\cdot|x|^{-(1+\alpha)}\,dx
+\]</span></p>
+<p>Now let <span class="math inline">\(u=|t|x,\,dx=\frac{du}{|t|}\)</span>. Then:</p>
 <p><span class="math display">\[
 1-\phi(t)
 \sim
-2C
-\int_0^\infty
-\left[1-\cos(tx)\right]
-x^{-(1+\alpha)}
-,dx.
-\]</span></p>
-<p>Now let</p>
-<p><span class="math display">\[
-u=|t|x,
-\qquad
-dx=\frac{du}{|t|}.
-\]</span></p>
-<p>Then</p>
-<p>$$ x^{-(1+)} ===============</p>
-</section>
-<section id="section" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> ()^{-(1+)}</h1>
-<p>|t|<sup>{1+}u</sup>{-(1+)}. $$</p>
-<p>Therefore,</p>
-<p><span class="math display">\[
-1-\phi(t)
-\sim
-2C|t|^\alpha
-\int_0^\infty
+|t|^\alpha
+\int_{-\infty}^{\infty}
 \frac{1-\cos u}{u^{1+\alpha}}
-,du.
+\,du
 \]</span></p>
 <p>The integral is a constant independent of <span class="math inline">\(t\)</span>, so we may write</p>
 <p><span class="math display">\[
 1-\phi(t)
 \sim
-K|t|^\alpha.
+|t|^\alpha
 \]</span></p>
 <p>Hence, near <span class="math inline">\(t=0\)</span>,</p>
-<p>$$ $$</p>
-<p>This is exactly the leading-order behavior of</p>
 <p><span class="math display">\[
-e^{-K|t|^\alpha},
+\phi(t)=
+1-K|t|^\alpha
++
+o(|t|^\alpha)
 \]</span></p>
-<p>because</p>
-<p>$$ e<sup>{-K|t|</sup>} ================</p>
-<p>1-K|t|^ + o(|t|^). $$</p>
-<p>Thus the power-law tail</p>
-<p><span class="math display">\[
-f(x)\sim |x|^{-(1+\alpha)}
+<p>This is exactly the leading-order behavior of <span class="math inline">\(e^{-K|t|^\alpha}\)</span>. Thus the power-law tail <span class="math inline">\(f(x)\sim |x|^{-(1+\alpha)}\)</span> and the nonanalytic Characteristic Function behavior <span class="math inline">\(1-\phi(t)\sim |t|^\alpha\)</span> are two manifestations of the same exponent <span class="math inline">\(\alpha\)</span>.</p>
+<p>I also want to introduce a special case of this <span class="math inline">\(\alpha\)</span>-stable distribution family, the Cauchy distribution (<span class="math inline">\(\alpha=1\)</span>). Its characteristic function is <span class="math inline">\(\phi_X(t)=e^{-|t|}\)</span>.</p>
+<p>Cauchy distribution has an analytic probability density function: <span class="math display">\[
+f_X(x)=
+\frac{1}{\pi(1+x^2)}\xrightarrow{\text{large} \,|x|}\frac{1}{\pi x^2}
 \]</span></p>
-<p>and the nonanalytic characteristic-function behavior</p>
+<p>The asymptotic result agrees with the general stable tail relation <span class="math inline">\(f_X(x)\sim |x|^{-(1+\alpha)}\)</span>. We can verify its characteristic function using the residue theorem (the following derivation shows the <span class="math inline">\(t&gt;0\)</span> case, but <span class="math inline">\(t&lt;0\)</span> case works in a similar fashion, just choose the lower arc and the polar point <span class="math inline">\(-i\)</span> to meet the Jordan’s lemma):</p>
 <p><span class="math display">\[
-1-\phi(t)\sim |t|^\alpha
+\phi_X(t)=
+\int_{-\infty}^{\infty}
+\frac{e^{itx}}{\pi(1+x^2)}
+\,dx=
+\oint
+\frac{e^{itz}}{\pi(1+z^2)}
+\,dz
+=
+2\pi i
+\operatorname{Res}
+\left[
+\frac{e^{itz}}{\pi(1+z^2)},
+z=i
+\right]
+=
+e^{-t},\qquad t&gt;0
 \]</span></p>
-<p>are two manifestations of the same exponent <span class="math inline">\(\alpha\)</span>.</p>
-<hr>
-<section id="special-case-the-cauchy-distribution" class="level3" data-number="1.0.1">
-<h3 data-number="1.0.1" class="anchored" data-anchor-id="special-case-the-cauchy-distribution"><span class="header-section-number">1.0.1</span> Special Case: the Cauchy Distribution</h3>
-<p>When</p>
+<p>This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and this distribution is widely used when we need an analytic result, which we will see in the next section.</p>
+</section>
+<section id="heavy-tail-weighted-neural-networks-prl-2020" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="heavy-tail-weighted-neural-networks-prl-2020"><span class="header-section-number">5</span> Heavy-Tail Weighted Neural Networks (PRL, 2020)</h2>
+<p>Let’s look into a beautiful work published in Physical Reviews Letters about how the heavy-tailed connection weights affect the dynamics of a recurrent neural network. The network dynamics is defined by:</p>
 <p><span class="math display">\[
-\alpha=1,
+x_i(t+1)=
+\sum_{j=1}^N
+J_{ij}\Theta(x_j(t)),
 \]</span></p>
-<p>we obtain the standard Cauchy distribution.</p>
-<p>Its characteristic function is</p>
+<p>where <span class="math inline">\(\Theta(x)\)</span> is a threshold activation function,</p>
 <p><span class="math display">\[
-\boxed{
-\phi_X(t)=e^{-|t|}.
-}
+\Theta(x)=
+\begin{cases}
+1, &amp; x&gt;\theta\\
+0, &amp; x\leq\theta
+\end{cases}
 \]</span></p>
-<p>The corresponding probability density is</p>
-<p>$$ $$</p>
-<p>For large <span class="math inline">\(|x|\)</span>,</p>
+<p>Instead of choosing Gaussian synaptic weights, suppose that the connections follow a Cauchy distribution:</p>
 <p><span class="math display">\[
-f_X(x)
+J_{ij}
 \sim
-\frac{1}{\pi x^2},
+\mathrm{Cauchy}
+\left(
+0,\frac{g}{N}
+\right)
 \]</span></p>
-<p>which agrees with the general stable-tail relation</p>
+<p>Here <span class="math inline">\(g\)</span> controls the overall coupling strength of the network.</p>
+<section id="why-does-the-cauchy-weight-scale-as-1n" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="why-does-the-cauchy-weight-scale-as-1n"><span class="header-section-number">5.1</span> Why does the Cauchy weight scale as <span class="math inline">\(1/N\)</span>?</h3>
+<p>The system is a fully connected network. For stability, we want the summation of the synapses w.r.t. each neuron, namely the input strength of each neuron, to be <span class="math inline">\(O(1)\)</span>. Therefore we need to weaken the synapses as the neuron number increases. Recall that the standard Cauchy distribution has probability density <span class="math inline">\(p(z)=\frac{1}{\pi(1+z^2)}\)</span> and characteristic function <span class="math inline">\(\phi_Z(k)=e^{-|k|}\)</span>. The summation of N random Cauchy varianbles <span class="math inline">\(S=\sum_{i=1}^{N}J_i\)</span> has the characteristic funtion:</p>
 <p><span class="math display">\[
-f_X(x)\sim |x|^{-(1+\alpha)}
+\phi_{\sum_{i=1}^{N}J_i}(k)=\mathbb{E}[e^{ikN|J|}]
 \]</span></p>
-<p>for <span class="math inline">\(\alpha=1\)</span>.</p>
-<p>One can verify its characteristic function directly:</p>
-<p>$$ _X(t) =========</p>
-<p>_{-}^{} ,dx ===</p>
-<p>e^{-|t|}. $$</p>
-<p>For <span class="math inline">\(t&gt;0\)</span>, closing the contour in the upper half-plane gives a single pole at</p>
+<p>Since we want the summation has the same scale as the original one, we expect their Characteristic Function to be the same. S we update the random varianble as <span class="math inline">\(J'=\frac{1}{N}\cdot J\)</span>, thus:</p>
 <p><span class="math display">\[
-z=i.
+\phi_{\sum_{i=1}^{N}J'_i}(k)=\mathbb{E}[e^{ikN|J'|}]=\mathbb{E}[e^{ik|J|}]=\phi_{J}(k)
 \]</span></p>
-<p>Thus,</p>
-<p>$$ ,dz ===</p>
-<p>2i . $$</p>
-<p>The residue is</p>
-<p>$$ _{z=i} ==========================</p>
-<p>, $$</p>
-<p>and therefore</p>
+<p>Therefore the synapse strength should be scaled as <span class="math inline">\(\frac{g}{N}\)</span>. For the same reason, a Gaussian weighted network should be scaled as <span class="math inline">\(\frac{g}{\sqrt{N}}\)</span>, since <span class="math inline">\(\phi_{\sum_{i=1}^{N}J_i}(k)=\mathbb{E}[e^{ikNJ^2}]=\mathbb{E}[e^{ik(\sqrt{N}J)^2}]\)</span>.</p>
+<p>To meet the normalization condition, the scaled Cauchy variable <span class="math inline">\(J=\frac{g}{N}\cdot Z\)</span> has the PDF:</p>
 <p><span class="math display">\[
-\phi_X(t)=e^{-t},
-\qquad t&gt;0.
+p(J_{ij})=\frac{g}{N}\cdot p(\frac{g}{N}\cdot Z)=\frac{g/N}{\pi\left(1+(\frac{g}{N}z)^2\right)}=
+\frac{1}{\pi}
+\frac{g/N}{(g/N)^2+J_{ij}^2}
 \]</span></p>
-<p>Similarly, for <span class="math inline">\(t&lt;0\)</span> one closes the contour in the lower half-plane and obtains</p>
+<p>and Characteristic Function:</p>
 <p><span class="math display">\[
-\phi_X(t)=e^t.
+\phi_{J_{ij}}(k)=
+e^{-\frac{g}{N}|k|}
 \]</span></p>
-<p>Combining the two cases,</p>
+</section>
+<section id="mean-field-dynamics" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="mean-field-dynamics"><span class="header-section-number">5.2</span> Mean-Field Dynamics</h3>
+<p>Now return to the network equation <span class="math inline">\(x_i(t+1)=\sum_j J_{ij}\Theta(x_j(t))\)</span>. Conditioned on the activities <span class="math inline">\(\Theta(x_j(t))\)</span>, the terms in the sum are independent. Therefore, the characteristic function of <span class="math inline">\(x_i(t+1)\)</span> is</p>
 <p><span class="math display">\[
-\boxed{
-\phi_X(t)=e^{-|t|}.
-}
+\phi_{x_i(t+1)}(k)=
+\mathbb{E}\left[e^{ik\sum_j J_{ij}\Theta(x_j(t))}\right]
+=
+\prod_j
+\mathbb{E}
+\left[
+e^{ikJ_{ij}\Theta(x_j(t))}
+\right]
 \]</span></p>
-<p>This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and therefore lies outside the ordinary Central Limit Theorem.</p>
+<p>Since <span class="math inline">\(J_{ij}\)</span> has a clear distribution form <span class="math inline">\(\phi_{J_{ij}}(k)=e^{-\frac{g}{N}|k|}\)</span>, we have: <span class="math display">\[
+\phi_{x_i(t+1)}(k)=\prod_j\mathbb{E}
+\left[
+e^{i[\Theta(x_j(t))k]J_{ij}}
+\right]=
+\prod_j\phi_{J_{ij}}(\Theta(x_j(t))k)
+\]</span></p>
+<p><span class="math display">\[
+=
+\prod_j\exp
+\left[
+-\frac{g}{N}
+|k|
+\Theta(x_j(t))
+\right]
+=
+\exp
+\left[
+-\frac{g}{N}
+|k|
+\sum_j
+\Theta(x_j(t))
+\right]
+\]</span></p>
+<p>Define the mean activity of the network at time <span class="math inline">\(t\)</span> as <span class="math inline">\(m_t:=\frac{1}{N}\sum_j\Theta(x_j(t))\)</span>, then</p>
+<p><span class="math display">\[
+\phi_{x_i(t+1)}(k)=
+e^{-gm_t|k|}
+\]</span></p>
+<p>This is exactly the characteristic function of a Cauchy distribution with scale <span class="math inline">\(gm_t\)</span>. Therefore, <span class="math inline">\(x_i(t+1)\sim\mathrm{Cauchy}(0,gm_t)\)</span>. Equivalently, we can write</p>
+<p><span class="math display">\[
+x_i(t+1)=
+gm_t z,
+\qquad
+z\sim\mathrm{Cauchy}(0,1)
+\]</span></p>
+<p>This is the key simplification produced by the stability of the Cauchy distribution: the entire high-dimensional random network can now be reduced to a one-dimensional evolution equation for the mean activity <span class="math inline">\(m_t\)</span>.</p>
+</section>
+<section id="mean-field-equation" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="mean-field-equation"><span class="header-section-number">5.3</span> Mean-Field Equation</h3>
+<p>A neuron is active whenever <span class="math inline">\(x_i(t+1)&gt;\theta\)</span>. Using <span class="math inline">\(x_i(t+1)=gm_tz\)</span> we obtain:</p>
+<p><span class="math display">\[
+m_{t+1}=
+\Pr\left(
+x_i(t+1)&gt;\theta
+\right)=\Pr
+\left(
+z&gt;\frac{\theta}{gm_t}
+\right)
+\]</span></p>
+<p>For a standard Cauchy variable, <span class="math inline">\(\Pr(Z&gt;z)=\frac{1}{2}-\frac{1}{\pi}\arctan z\)</span>, therefore</p>
+<p><span class="math display">\[
+m_{t+1}
+=\frac{1}{2}
+-
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{\theta}{gm_t}
+\right)
+\]</span></p>
+<p>Using <span class="math inline">\(\arctan x+\arctan\frac{1}{x}=\frac{\pi}{2}\)</span>, we arrive at the mean-field equation</p>
+<p><span class="math display">\[
+m_{t+1}
+=F(m_t)=
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{g}{\theta}m_t
+\right)
+\]</span></p>
+<p>This equation completely determines the macroscopic activity of the network.</p>
+</section>
+<section id="critical-point" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="critical-point"><span class="header-section-number">5.4</span> Critical Point</h3>
+<p>To understand when activity can grow from a small perturbation, expand the mean-field equation around <span class="math inline">\(m_t=0\)</span>. Using <span class="math inline">\(\arctan x=x-\frac{x^3}{3}+O(x^5)\)</span> we obtain:</p>
+<p>$$ m_{t+1}=m_t-</p>
+<p>m_t^3 + O(m_t^5) $$</p>
+<p>For very small activity, the leading-order dynamics is therefore <span class="math inline">\(m_{t+1}\approx\frac{g}{\pi\theta}m_t\)</span>. Hence the zero-activity fixed point changes stability when <span class="math inline">\(\frac{g}{\pi\theta}=1\)</span>, the critical coupling is therefore</p>
+<p><span class="math display">\[
+g_c=\pi\theta
+\]</span></p>
+<p>When <span class="math inline">\(g&lt;g_c\)</span>, small activity decays back to zero, whereas for <span class="math inline">\(g&gt;g_c\)</span>, small activity grows and the network approaches a nonzero active state. At the critical point, <span class="math inline">\(g=g_c\)</span> i.e.&nbsp;<span class="math inline">\(F'(0)=1\)</span>, the system is precisely balanced between extinction and amplification of activity.</p>
+</section>
+<section id="continuous-phase-transition" class="level3" data-number="5.5">
+<h3 data-number="5.5" class="anchored" data-anchor-id="continuous-phase-transition"><span class="header-section-number">5.5</span> Continuous Phase Transition</h3>
+<p>If there exists a non-zero fixed point <span class="math inline">\(m^\ast\)</span>, it should satisfy <span class="math inline">\(m^\ast=\frac{1}{\pi}\arctan\left(\frac{g}{\theta}m^\ast\right)\)</span>. If <span class="math inline">\(m^\ast\)</span> is near zero, using the cubic expansion gives</p>
+<p>$$ m^ =m^-</p>
+<p>(m<sup>)</sup>3 + O((m<sup>)</sup>5) $$</p>
+<p>Just solve the equation. And since <span class="math inline">\(g_c=\pi\theta\)</span>, we could express <span class="math inline">\(m^\ast\)</span> as:</p>
+<p><span class="math display">\[
+m^\ast
+\approx
+\sqrt{3}
+\left(
+\frac{g}{\theta}
+\right)^{-3/2}
+\frac{1}{\sqrt{\theta}}
+\sqrt{g-g_c}.
+\]</span></p>
+<p>As <span class="math inline">\(g\)</span> gradually increases from <span class="math inline">\(g_c\)</span>, there is a near-zero fixed point gradually grows from zero and at the scale <span class="math inline">\(m^\ast\propto(g-g_c)^{1/2}\)</span>. The activity of the network grows continuously after <span class="math inline">\(g\)</span> passes <span class="math inline">\(g_c\)</span>, thus the Cauchy network undergoes a second-order phase transition as the control parameter grows.</p>
+</section>
+<section id="autocrat-connections" class="level3" data-number="5.6">
+<h3 data-number="5.6" class="anchored" data-anchor-id="autocrat-connections"><span class="header-section-number">5.6</span> Autocrat Connections</h3>
+<p>The heavy-tailed nature of the synaptic weights gives a useful microscopic interpretation of this continuous transition. Consider the probability that a single synaptic connection is strong enough to activate a postsynaptic neuron by itself (we can call such exceptionally strong synapses autocrat connections), namely <span class="math inline">\(J_{ij}&gt;\theta\)</span>. For <span class="math inline">\(J_{ij}\sim\mathrm{Cauchy}\left(0,\frac{g}{N}\right)\)</span>, we have</p>
+<p>$$ (J_{ij}&gt;) =-</p>
+<p>( )=</p>
+<p>( ) $$</p>
+<p>For large <span class="math inline">\(N\)</span>, <span class="math inline">\(\frac{g}{N\theta}\to 0\)</span>, <span class="math inline">\(\arctan x\sim x\)</span>. So</p>
+<p><span class="math display">\[
+\Pr(J_{ij}&gt;\theta)
+\approx
+\frac{g}{\pi N\theta}
+\sim
+\frac{1}{N}
+\]</span></p>
+<p>The probability for an individual connection to be suprathreshold therefore vanishes as <span class="math inline">\(1/N\)</span>. However, each neuron receives <span class="math inline">\(N\)</span> such connections. The expected number of suprathreshold incoming connections is <span class="math inline">\(O(1)\)</span>.</p>
+<p>When the activity of the network is very low, namely only the neurons are sparsely activated, the evolution of the network can be viewed as a branching process, and only the autocrat connection could produce an offspring. The <span class="math inline">\(O(1)\)</span> autocrat connections provide the foundation of the activity maintainance in a sparsely activated network.</p>
+<p>For comparison, suppose the synaptic weights are Gaussian with the usual scaling <span class="math inline">\(J_{ij}\sim\mathcal{N}\left(0,\frac{g^2}{N}\right)\)</span>. A single weight has typical magnitude <span class="math inline">\(J_{ij}\sim O(N^{-1/2})\)</span>, and the probability of finding an <span class="math inline">\(O(1)\)</span> suprathreshold connection satisfies approximately</p>
+<p><span class="math display">\[
+\Pr(J_{ij}&gt;\theta)
+\sim
+\frac{g}{\theta\sqrt{2\pi N}}
+\exp
+\left(
+-\frac{N\theta^2}{2g^2}
+\right)
+\]</span></p>
+<p>Consequently,</p>
+<p><span class="math display">\[
+N\Pr(J_{ij}&gt;\theta)
+\longrightarrow0
+\]</span></p>
+<p>Thus, in a Gaussian network, the probability that any particular neuron possesses an <span class="math inline">\(O(1)\)</span> autocrat connection vanishes in the thermodynamic limit. Gaussian networks can still amplify activity through the collective effect of many weak synapses, but the single-link branching mechanism described above is absent, and therefore there isn’t a continuous phase transition in the Gaussian network.</p>
 
 
 </section>
