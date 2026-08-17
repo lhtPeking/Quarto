@@ -420,64 +420,32 @@ e^{itx}f(x)\,dx=
 \cos(tx)f(x)\,dx
 $$
 
-Instead of expanding $\phi(t)$ directly, consider $1-\phi(t)$
-
-Since
+To explain how these two $\alpha$ are connected, we are curious about the second-order term in the Taylor expansion of $\phi(t)$ (the first-order term is trivial, i.e. $\phi(0)=1$). Consider:
 
 $$
-\int_{-\infty}^{\infty}f(x),dx=1,
+\phi(t)=\int_{-\infty}^{\infty}
+\cos(tx)f(x)\,dx
+=1-\int_{-\infty}^{\infty}
+\left(1-\cos(tx)\right)f(x)\,dx
 $$
 
-we have
+Given that $f(x)\sim |x|^{-(1+\alpha)}$, we have:
 
 $$
-1-\phi(t)
-=========
-
+1-\phi(t)\sim
 \int_{-\infty}^{\infty}
-\left[1-\cos(tx)\right]f(x),dx.
+\left(1-\cos(tx)\right)\cdot|x|^{-(1+\alpha)}\,dx
 $$
 
-Using symmetry and the power-law tail,
-
-$$
-1-\phi(t)
-\sim
-2C
-\int_0^\infty
-\left[1-\cos(tx)\right]
-x^{-(1+\alpha)}
-,dx.
-$$
-
-Now let
-
-$$
-u=|t|x,
-\qquad
-dx=\frac{du}{|t|}.
-$$
-
-Then
-
-$$
-x^{-(1+\alpha)}
-===============
-
-# \left(\frac{u}{|t|}\right)^{-(1+\alpha)}
-
-|t|^{1+\alpha}u^{-(1+\alpha)}.
-$$
-
-Therefore,
+Now let $u=|t|x,\,dx=\frac{du}{|t|}$. Then:
 
 $$
 1-\phi(t)
 \sim
-2C|t|^\alpha
-\int_0^\infty
+|t|^\alpha
+\int_{-\infty}^{\infty}
 \frac{1-\cos u}{u^{1+\alpha}}
-,du.
+\,du
 $$
 
 The integral is a constant independent of $t$, so we may write
@@ -485,165 +453,319 @@ The integral is a constant independent of $t$, so we may write
 $$
 1-\phi(t)
 \sim
-K|t|^\alpha.
+|t|^\alpha
 $$
 
 Hence, near $t=0$,
 
 $$
-\boxed{
-\phi(t)
-=======
-
+\phi(t)=
 1-K|t|^\alpha
 +
-o(|t|^\alpha).
-}
+o(|t|^\alpha)
 $$
 
-This is exactly the leading-order behavior of
+This is exactly the leading-order behavior of $e^{-K|t|^\alpha}$. Thus the power-law tail $f(x)\sim |x|^{-(1+\alpha)}$ and the nonanalytic Characteristic Function behavior $1-\phi(t)\sim |t|^\alpha$ are two manifestations of the same exponent $\alpha$.
 
+I also want to introduce a special case of this $\alpha$-stable distribution family, the Cauchy distribution ($\alpha=1$). Its characteristic function is $\phi_X(t)=e^{-|t|}$.
+
+Cauchy distribution has an analytic probability density function:
 $$
-e^{-K|t|^\alpha},
-$$
-
-because
-
-$$
-e^{-K|t|^\alpha}
-================
-
-1-K|t|^\alpha
-+
-o(|t|^\alpha).
+f_X(x)=
+\frac{1}{\pi(1+x^2)}\xrightarrow{\text{large} \,|x|}\frac{1}{\pi x^2}
 $$
 
-Thus the power-law tail
+The asymptotic result agrees with the general stable tail relation $f_X(x)\sim |x|^{-(1+\alpha)}$. We can verify its characteristic function using the residue theorem (the following derivation shows the $t>0$ case, but $t<0$ case works in a similar fashion, just choose the lower arc and the polar point $-i$ to meet the Jordan's lemma):
 
 $$
-f(x)\sim |x|^{-(1+\alpha)}
-$$
-
-and the nonanalytic characteristic-function behavior
-
-$$
-1-\phi(t)\sim |t|^\alpha
-$$
-
-are two manifestations of the same exponent $\alpha$.
-
----
-
-### Special Case: the Cauchy Distribution
-
-When
-
-$$
-\alpha=1,
-$$
-
-we obtain the standard Cauchy distribution.
-
-Its characteristic function is
-
-$$
-\boxed{
-\phi_X(t)=e^{-|t|}.
-}
-$$
-
-The corresponding probability density is
-
-$$
-\boxed{
-f_X(x)
-======
-
-\frac{1}{\pi(1+x^2)}.
-}
-$$
-
-For large $|x|$,
-
-$$
-f_X(x)
-\sim
-\frac{1}{\pi x^2},
-$$
-
-which agrees with the general stable-tail relation
-
-$$
-f_X(x)\sim |x|^{-(1+\alpha)}
-$$
-
-for $\alpha=1$.
-
-One can verify its characteristic function directly:
-
-$$
-\phi_X(t)
-=========
-
+\phi_X(t)=
 \int_{-\infty}^{\infty}
 \frac{e^{itx}}{\pi(1+x^2)}
-,dx
-===
-
-e^{-|t|}.
-$$
-
-For $t>0$, closing the contour in the upper half-plane gives a single pole at
-
-$$
-z=i.
-$$
-
-Thus,
-
-$$
+\,dx=
 \oint
 \frac{e^{itz}}{\pi(1+z^2)}
-,dz
-===
-
+\,dz
+=
 2\pi i
 \operatorname{Res}
 \left[
 \frac{e^{itz}}{\pi(1+z^2)},
 z=i
-\right].
+\right]
+=
+e^{-t},\qquad t>0
 $$
 
-The residue is
+This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and this distribution is widely used when we need an analytic result, which we will see in the next section.
+
+
+## Heavy-Tail Weighted Neural Networks (PRL, 2020)
+
+Let's look into a beautiful work published in Physical Reviews Letters about how the heavy-tailed connection weights affect the dynamics of a recurrent neural network. The network dynamics is defined by:
 
 $$
-\operatorname{Res}_{z=i}
-\frac{e^{itz}}{\pi(1+z^2)}
-==========================
-
-\frac{e^{-t}}{2\pi i},
+x_i(t+1)=
+\sum_{j=1}^N
+J_{ij}\Theta(x_j(t)),
 $$
 
-and therefore
+where $\Theta(x)$ is a threshold activation function,
 
 $$
-\phi_X(t)=e^{-t},
-\qquad t>0.
+\Theta(x)=
+\begin{cases}
+1, & x>\theta\\
+0, & x\leq\theta
+\end{cases}
 $$
 
-Similarly, for $t<0$ one closes the contour in the lower half-plane and obtains
+Instead of choosing Gaussian synaptic weights, suppose that the connections follow a Cauchy distribution:
 
 $$
-\phi_X(t)=e^t.
+J_{ij}
+\sim
+\mathrm{Cauchy}
+\left(
+0,\frac{g}{N}
+\right)
 $$
 
-Combining the two cases,
+Here $g$ controls the overall coupling strength of the network.
+
+### Why does the Cauchy weight scale as $1/N$?
+
+The system is a fully connected network. For stability, we want the summation of the synapses w.r.t. each neuron, namely the input strength of each neuron, to be $O(1)$. Therefore we need to weaken the synapses as the neuron number increases. Recall that the standard Cauchy distribution has probability density $p(z)=\frac{1}{\pi(1+z^2)}$ and characteristic function $\phi_Z(k)=e^{-|k|}$. The summation of N random Cauchy varianbles $S=\sum_{i=1}^{N}J_i$ has the characteristic funtion:
 
 $$
-\boxed{
-\phi_X(t)=e^{-|t|}.
-}
+\phi_{\sum_{i=1}^{N}J_i}(k)=\mathbb{E}[e^{ikN|J|}]
 $$
 
-This provides a concrete example of a heavy-tailed stable distribution whose variance does not exist, and therefore lies outside the ordinary Central Limit Theorem.
+Since we want the summation has the same scale as the original one, we expect their Characteristic Function to be the same. S we update the random varianble as $J'=\frac{1}{N}\cdot J$, thus:
+
+$$
+\phi_{\sum_{i=1}^{N}J'_i}(k)=\mathbb{E}[e^{ikN|J'|}]=\mathbb{E}[e^{ik|J|}]=\phi_{J}(k)
+$$
+
+Therefore the synapse strength should be scaled as $\frac{g}{N}$. For the same reason, a Gaussian weighted network should be scaled as $\frac{g}{\sqrt{N}}$, since $\phi_{\sum_{i=1}^{N}J_i}(k)=\mathbb{E}[e^{ikNJ^2}]=\mathbb{E}[e^{ik(\sqrt{N}J)^2}]$.
+
+To meet the normalization condition, the scaled Cauchy variable $J=\frac{g}{N}\cdot Z$ has the PDF:
+
+$$
+p(J_{ij})=\frac{g}{N}\cdot p(\frac{g}{N}\cdot Z)=\frac{g/N}{\pi\left(1+(\frac{g}{N}z)^2\right)}=
+\frac{1}{\pi}
+\frac{g/N}{(g/N)^2+J_{ij}^2}
+$$
+
+and Characteristic Function:
+
+$$
+\phi_{J_{ij}}(k)=
+e^{-\frac{g}{N}|k|}
+$$
+
+### Mean-Field Dynamics
+
+Now return to the network equation $x_i(t+1)=\sum_j J_{ij}\Theta(x_j(t))$. Conditioned on the activities $\Theta(x_j(t))$, the terms in the sum are independent. Therefore, the characteristic function of $x_i(t+1)$ is
+
+$$
+\phi_{x_i(t+1)}(k)=
+\mathbb{E}\left[e^{ik\sum_j J_{ij}\Theta(x_j(t))}\right]
+=
+\prod_j
+\mathbb{E}
+\left[
+e^{ikJ_{ij}\Theta(x_j(t))}
+\right]
+$$
+
+Since $J_{ij}$ has a clear distribution form $\phi_{J_{ij}}(k)=e^{-\frac{g}{N}|k|}$, we have:
+$$
+\phi_{x_i(t+1)}(k)=\prod_j\mathbb{E}
+\left[
+e^{i[\Theta(x_j(t))k]J_{ij}}
+\right]=
+\prod_j\phi_{J_{ij}}(\Theta(x_j(t))k)
+$$
+
+$$
+=
+\prod_j\exp
+\left[
+-\frac{g}{N}
+|k|
+\Theta(x_j(t))
+\right]
+=
+\exp
+\left[
+-\frac{g}{N}
+|k|
+\sum_j
+\Theta(x_j(t))
+\right]
+$$
+
+
+Define the mean activity of the network at time $t$ as $m_t:=\frac{1}{N}\sum_j\Theta(x_j(t))$, then
+
+$$
+\phi_{x_i(t+1)}(k)=
+e^{-gm_t|k|}
+$$
+
+This is exactly the characteristic function of a Cauchy distribution with scale $gm_t$. Therefore, $x_i(t+1)\sim\mathrm{Cauchy}(0,gm_t)$. Equivalently, we can write
+
+$$
+x_i(t+1)=
+gm_t z,
+\qquad
+z\sim\mathrm{Cauchy}(0,1)
+$$
+
+This is the key simplification produced by the stability of the Cauchy distribution: the entire high-dimensional random network can now be reduced to a one-dimensional evolution equation for the mean activity $m_t$.
+
+### Mean-Field Equation
+
+A neuron is active whenever $x_i(t+1)>\theta$. Using $x_i(t+1)=gm_tz$ we obtain:
+
+$$
+m_{t+1}=
+\Pr\left(
+x_i(t+1)>\theta
+\right)=\Pr
+\left(
+z>\frac{\theta}{gm_t}
+\right)
+$$
+
+For a standard Cauchy variable, $\Pr(Z>z)=\frac{1}{2}-\frac{1}{\pi}\arctan z$, therefore
+
+$$
+m_{t+1}
+=\frac{1}{2}
+-
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{\theta}{gm_t}
+\right)
+$$
+
+Using $\arctan x+\arctan\frac{1}{x}=\frac{\pi}{2}$, we arrive at the mean-field equation
+
+$$
+m_{t+1}
+=F(m_t)=
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{g}{\theta}m_t
+\right)
+$$
+
+This equation completely determines the macroscopic activity of the network.
+
+### Critical Point
+
+To understand when activity can grow from a small perturbation, expand the mean-field equation around $m_t=0$. Using $\arctan x=x-\frac{x^3}{3}+O(x^5)$ we obtain:
+
+$$
+m_{t+1}=\frac{g}{\pi\theta}m_t-
+
+\frac{g^3}{3\pi\theta^3}m_t^3
++
+O(m_t^5)
+$$
+
+For very small activity, the leading-order dynamics is therefore $m_{t+1}\approx\frac{g}{\pi\theta}m_t$. Hence the zero-activity fixed point changes stability when $\frac{g}{\pi\theta}=1$, the critical coupling is therefore
+
+$$
+g_c=\pi\theta
+$$
+
+When $g<g_c$, small activity decays back to zero, whereas for $g>g_c$, small activity grows and the network approaches a nonzero active state. At the critical point, $g=g_c$ i.e. $F'(0)=1$, the system is precisely balanced between extinction and amplification of activity.
+
+### Continuous Phase Transition
+
+If there exists a non-zero fixed point $m^\ast$, it should satisfy $m^\ast=\frac{1}{\pi}\arctan\left(\frac{g}{\theta}m^\ast\right)$. If $m^\ast$ is near zero, using the cubic expansion gives
+
+$$
+m^\ast
+=\frac{g}{\pi\theta}m^\ast-
+
+\frac{g^3}{3\pi\theta^3}
+(m^\ast)^3
++
+O((m^\ast)^5)
+$$
+
+Just solve the equation. And since $g_c=\pi\theta$, we could express $m^\ast$ as:
+
+$$
+m^\ast
+\approx
+\sqrt{3}
+\left(
+\frac{g}{\theta}
+\right)^{-3/2}
+\frac{1}{\sqrt{\theta}}
+\sqrt{g-g_c}.
+$$
+
+As $g$ gradually increases from $g_c$, there is a near-zero fixed point gradually grows from zero and at the scale $m^\ast\propto(g-g_c)^{1/2}$. The activity of the network grows continuously after $g$ passes $g_c$, thus the Cauchy network undergoes a second-order phase transition as the control parameter grows.
+
+### Autocrat Connections
+
+The heavy-tailed nature of the synaptic weights gives a useful microscopic interpretation of this continuous transition. Consider the probability that a single synaptic connection is strong enough to activate a postsynaptic neuron by itself (we can call such exceptionally strong synapses autocrat connections), namely $J_{ij}>\theta$. For $J_{ij}\sim\mathrm{Cauchy}\left(0,\frac{g}{N}\right)$, we have
+
+$$
+\Pr(J_{ij}>\theta)
+=\frac{1}{2}-
+
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{N\theta}{g}
+\right)=
+
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{g}{N\theta}
+\right)
+$$
+
+For large $N$, $\frac{g}{N\theta}\to 0$, $\arctan x\sim x$. So
+
+$$
+\Pr(J_{ij}>\theta)
+\approx
+\frac{g}{\pi N\theta}
+\sim
+\frac{1}{N}
+$$
+
+The probability for an individual connection to be suprathreshold therefore vanishes as $1/N$. However, each neuron receives $N$ such connections. The expected number of suprathreshold incoming connections is $O(1)$.
+
+When the activity of the network is very low, namely only the neurons are sparsely activated, the evolution of the network can be viewed as a branching process, and only the autocrat connection could produce an offspring. The $O(1)$ autocrat connections provide the foundation of the activity maintainance in a sparsely activated network.
+
+For comparison, suppose the synaptic weights are Gaussian with the usual scaling $J_{ij}\sim\mathcal{N}\left(0,\frac{g^2}{N}\right)$. A single weight has typical magnitude $J_{ij}\sim O(N^{-1/2})$, and the probability of finding an $O(1)$ suprathreshold connection satisfies approximately
+
+$$
+\Pr(J_{ij}>\theta)
+\sim
+\frac{g}{\theta\sqrt{2\pi N}}
+\exp
+\left(
+-\frac{N\theta^2}{2g^2}
+\right)
+$$
+
+Consequently,
+
+$$
+N\Pr(J_{ij}>\theta)
+\longrightarrow0
+$$
+
+Thus, in a Gaussian network, the probability that any particular neuron possesses an $O(1)$ autocrat connection vanishes in the thermodynamic limit. Gaussian networks can still amplify activity through the collective effect of many weak synapses, but the single-link branching mechanism described above is absent, and therefore there isn't a continuous phase transition in the Gaussian network.
