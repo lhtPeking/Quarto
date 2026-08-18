@@ -1,7 +1,7 @@
 ---
 title: "Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience"
 description: "Why Gaussian is not the whole story?"
-date: 2026-07-20
+date: 2026-08-18
 categories: [Math, Statistics, Theoretical Neuroscience]
 author: "Haotian Li"
 ---
@@ -16,6 +16,7 @@ Let’s first look into the summation operation. Suppose $X$ and $Y$ are i.i.d. 
 $$
 f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) dx=f_X * f_Y(z)
 $$
+
 Therefore, the summation of random variables corresponds to the convolution of probabilistic distribution functions. However, we do not like convolutions, it's better to turn that into a simpler operation. Fourier space provides a good angel to this problem according to the Convolution Theorem.
 
 ::: {#thm-conv}
@@ -692,7 +693,6 @@ If there exists a non-zero fixed point $m^\ast$, it should satisfy $m^\ast=\frac
 $$
 m^\ast
 =\frac{g}{\pi\theta}m^\ast-
-
 \frac{g^3}{3\pi\theta^3}
 (m^\ast)^3
 +
@@ -714,6 +714,8 @@ $$
 
 As $g$ gradually increases from $g_c$, there is a near-zero fixed point gradually grows from zero and at the scale $m^\ast\propto(g-g_c)^{1/2}$. The activity of the network grows continuously after $g$ passes $g_c$, thus the Cauchy network undergoes a second-order phase transition as the control parameter grows.
 
+![The Cauchy network activity exhibits a continuous phase transition while tuning the parameter g, whereas the Gaussian network exhibits a abrupt phase transition. (Łukasz Kusmierz, Shun Ogawa, and Taro Toyoizumi. Phys. Rev. Lett. 2020.)](prl.png)
+
 ### Autocrat Connections
 
 The heavy-tailed nature of the synaptic weights gives a useful microscopic interpretation of this continuous transition. Consider the probability that a single synaptic connection is strong enough to activate a postsynaptic neuron by itself (we can call such exceptionally strong synapses autocrat connections), namely $J_{ij}>\theta$. For $J_{ij}\sim\mathrm{Cauchy}\left(0,\frac{g}{N}\right)$, we have
@@ -721,13 +723,11 @@ The heavy-tailed nature of the synaptic weights gives a useful microscopic inter
 $$
 \Pr(J_{ij}>\theta)
 =\frac{1}{2}-
-
 \frac{1}{\pi}
 \arctan
 \left(
 \frac{N\theta}{g}
 \right)=
-
 \frac{1}{\pi}
 \arctan
 \left(
