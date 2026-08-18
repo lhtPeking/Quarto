@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haotian Li">
-<meta name="dcterms.date" content="2026-07-20">
+<meta name="dcterms.date" content="2026-08-18">
 <meta name="description" content="Why Gaussian is not the whole story?">
 
 <title>Heavy-Tailed Randomness: Characteristic Functions, Stable Distributions, and Applications in Neuroscience – Haotian’s Blog</title>
@@ -387,7 +387,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 20, 2026</p>
+      <p class="date">August 18, 2026</p>
     </div>
   </div>
   
@@ -408,7 +408,8 @@ window.Quarto = {
 <p>The central limit theorem states that the sum or average of a large number of independent random variables with finite variance tends to follow a normal distribution, regardless of the original distribution. To prove this, there are two interesting facts in this statement that we need to focus on. The first one is “sum”, which means this theorem emerges under the “sum” operation. The second one is “finite variance”; this is a strong constraint to meet, and if it is violated, we are then in the playground of the Generalized Central Limit Theorem.</p>
 <p>Let’s first look into the summation operation. Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are i.i.d. variables, let <span class="math inline">\(Z=X+Y\)</span>. The probability distribution of <span class="math inline">\(Z\)</span> could be written as: <span class="math display">\[
 f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) dx=f_X * f_Y(z)
-\]</span> Therefore, the summation of random variables corresponds to the convolution of probabilistic distribution functions. However, we do not like convolutions, it’s better to turn that into a simpler operation. Fourier space provides a good angel to this problem according to the Convolution Theorem.</p>
+\]</span></p>
+<p>Therefore, the summation of random variables corresponds to the convolution of probabilistic distribution functions. However, we do not like convolutions, it’s better to turn that into a simpler operation. Fourier space provides a good angel to this problem according to the Convolution Theorem.</p>
 <div id="thm-conv" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Convolution Theorem)</strong></span> The Fourier Transform of the convolution equals the product of the Fourier transforms of these two functions. Note that the formula expression below regard Fourier Transform as “the inner product with <span class="math inline">\(e^{itx}\)</span>”, which is different from our convention <span class="math inline">\(e^{-itx}\)</span>. It actually doesn’t matter which one we choose, both of these could separate the <span class="math inline">\(sin\)</span> and <span class="math inline">\(cos\)</span> components, and what we should do is just adjust the inverse Fourier Transform forms to match the Fourier Transform form.</p>
 <p><span class="math display">\[
@@ -928,8 +929,14 @@ g_c=\pi\theta
 <section id="continuous-phase-transition" class="level3" data-number="5.5">
 <h3 data-number="5.5" class="anchored" data-anchor-id="continuous-phase-transition"><span class="header-section-number">5.5</span> Continuous Phase Transition</h3>
 <p>If there exists a non-zero fixed point <span class="math inline">\(m^\ast\)</span>, it should satisfy <span class="math inline">\(m^\ast=\frac{1}{\pi}\arctan\left(\frac{g}{\theta}m^\ast\right)\)</span>. If <span class="math inline">\(m^\ast\)</span> is near zero, using the cubic expansion gives</p>
-<p>$$ m^ =m^-</p>
-<p>(m<sup>)</sup>3 + O((m<sup>)</sup>5) $$</p>
+<p><span class="math display">\[
+m^\ast
+=\frac{g}{\pi\theta}m^\ast-
+\frac{g^3}{3\pi\theta^3}
+(m^\ast)^3
++
+O((m^\ast)^5)
+\]</span></p>
 <p>Just solve the equation. And since <span class="math inline">\(g_c=\pi\theta\)</span>, we could express <span class="math inline">\(m^\ast\)</span> as:</p>
 <p><span class="math display">\[
 m^\ast
@@ -942,13 +949,30 @@ m^\ast
 \sqrt{g-g_c}.
 \]</span></p>
 <p>As <span class="math inline">\(g\)</span> gradually increases from <span class="math inline">\(g_c\)</span>, there is a near-zero fixed point gradually grows from zero and at the scale <span class="math inline">\(m^\ast\propto(g-g_c)^{1/2}\)</span>. The activity of the network grows continuously after <span class="math inline">\(g\)</span> passes <span class="math inline">\(g_c\)</span>, thus the Cauchy network undergoes a second-order phase transition as the control parameter grows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="prl.png" class="img-fluid figure-img"></p>
+<figcaption>The Cauchy network activity exhibits a continuous phase transition while tuning the parameter g, whereas the Gaussian network exhibits a abrupt phase transition. (Łukasz Kusmierz, Shun Ogawa, and Taro Toyoizumi. Phys. Rev.&nbsp;Lett. 2020.)</figcaption>
+</figure>
+</div>
 </section>
 <section id="autocrat-connections" class="level3" data-number="5.6">
 <h3 data-number="5.6" class="anchored" data-anchor-id="autocrat-connections"><span class="header-section-number">5.6</span> Autocrat Connections</h3>
 <p>The heavy-tailed nature of the synaptic weights gives a useful microscopic interpretation of this continuous transition. Consider the probability that a single synaptic connection is strong enough to activate a postsynaptic neuron by itself (we can call such exceptionally strong synapses autocrat connections), namely <span class="math inline">\(J_{ij}&gt;\theta\)</span>. For <span class="math inline">\(J_{ij}\sim\mathrm{Cauchy}\left(0,\frac{g}{N}\right)\)</span>, we have</p>
-<p>$$ (J_{ij}&gt;) =-</p>
-<p>( )=</p>
-<p>( ) $$</p>
+<p><span class="math display">\[
+\Pr(J_{ij}&gt;\theta)
+=\frac{1}{2}-
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{N\theta}{g}
+\right)=
+\frac{1}{\pi}
+\arctan
+\left(
+\frac{g}{N\theta}
+\right)
+\]</span></p>
 <p>For large <span class="math inline">\(N\)</span>, <span class="math inline">\(\frac{g}{N\theta}\to 0\)</span>, <span class="math inline">\(\arctan x\sim x\)</span>. So</p>
 <p><span class="math display">\[
 \Pr(J_{ij}&gt;\theta)
