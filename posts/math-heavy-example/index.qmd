@@ -2,7 +2,7 @@
 title: "A Math-Heavy Quarto Post"
 description: "A compact example with macros, equation numbering, theorem blocks, and cross references."
 date: 2026-07-15
-categories: [quarto, math]
+categories: [Quarto, Math]
 author: "Haotian Li"
 ---
 

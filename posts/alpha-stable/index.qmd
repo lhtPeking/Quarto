@@ -714,7 +714,7 @@ $$
 
 As $g$ gradually increases from $g_c$, there is a near-zero fixed point gradually grows from zero and at the scale $m^\ast\propto(g-g_c)^{1/2}$. The activity of the network grows continuously after $g$ passes $g_c$, thus the Cauchy network undergoes a second-order phase transition as the control parameter grows.
 
-![The Cauchy network activity exhibits a continuous phase transition while tuning the parameter g, whereas the Gaussian network exhibits a abrupt phase transition. (Łukasz Kusmierz, Shun Ogawa, and Taro Toyoizumi. Phys. Rev. Lett. 2020.)](prl.png)
+![The Cauchy network activity exhibits a continuous phase transition while tuning the parameter g, whereas the Gaussian network exhibits an abrupt phase transition. (Łukasz Kusmierz, Shun Ogawa, and Taro Toyoizumi. Phys. Rev. Lett. 2020.)](prl.png)
 
 ### Autocrat Connections
 

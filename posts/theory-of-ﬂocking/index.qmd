@@ -1,0 +1,130 @@
+---
+title: "Noise-induced Schooling of Fish"
+description: ""
+date: 2026-09-01
+categories: [Physics, Statistical Physics, Behavior Analysis]
+author: "Haotian Li"
+---
+
+## 2D Random Walk
+If we represent the direction of fish $i$ as a unit vector $\vec{​v_i}$ and define the group polarization index as:
+$$
+\vec M=\frac{1}{N}\sum _i \vec{​v_i}
+$$
+
+then in the totally random case, $\sum _i \vec{​v_i}$ is the result of a 2D random walk. Rewrite $\vec{​v_i}$ in the matrix form:
+
+$$
+\vec{v_i}
+=
+\begin{pmatrix}
+\cos\theta_i \\
+\sin\theta_i
+\end{pmatrix},
+\qquad
+\sum _i \vec{​v_i}=
+\begin{pmatrix}
+\sum _i\cos\theta_i \\
+\sum _i\sin\theta_i
+\end{pmatrix}
+$$
+
+Given that $\mathbb{E}[\cos\theta_i]=\mathbb{E}[\sin\theta_i]=0$ and their second moments:
+$$
+\mathbb{E}[\cos^2\theta_i]=\mathbb{E}[\sin^2\theta_i]=\frac{1}{2\pi}\int_0^{2\pi}d\theta_i\,\sin^2\theta_i=\frac{1}{2}
+$$
+
+The variance should be 
+$$
+\text{Var}[\cos\theta_i]=\text{Var}[\sin\theta_i]=\mathbb{E}[\sin^2\theta_i]-\mathbb{E}^2[\sin\theta_i]=\frac{1}{2}
+$$
+
+We can add up independent variances and write the variance of $\sum _i\cos\theta_i$ as:
+$$
+\text{Var}[\sum _i\cos\theta_i]=\sum _i\text{Var}[\cos\theta_i]=\frac{N}{2}
+$$
+
+In a coarse fashion, the radius has the scale $\sqrt{\left(\sqrt\frac{N}{2}\right)^2+\left(\sqrt\frac{N}{2}\right)^2}=\sqrt{N}$. More precisely, since $\cos\theta_i$ has a finite expectation and variance, the addition of itself should follow a Gaussian distribution as N goes to infinity. Therefore, the radius is given by:
+
+$$
+R=\sqrt{X^2+Y^2}, \qquad X,Y\sim \mathcal{N}(0,\frac{N}{2})
+$$
+
+The joint probability density of $X,Y$ is
+
+$$
+p_{X,Y}(x,y)
+=
+\frac{1}{\pi N}
+\exp\left(
+-\frac{x^2+y^2}{N}
+\right)
+$$
+
+Now represent the whole system in terms of radius $R$ and angle $\phi$, the joint density of $(R,\Phi)$ is
+
+$$
+p_{R,\Phi}(r,\phi)
+=
+p_{X,Y}(r\cos\phi,r\sin\phi)\,r
+=
+\frac{r}{\pi N}
+\exp\left(
+-\frac{r^2}{N}
+\right)
+$$
+
+Integrating over the angular variable $\phi\in[0,2\pi)$ gives the marginal distribution of $R$ (Rayleigh distribution):
+
+$$
+p_R(r)
+=
+\int_0^{2\pi}
+p_{R,\Phi}(r,\phi)\,d\phi
+=
+\frac{2r}{N}
+\exp\left(
+-\frac{r^2}{N}
+\right),
+\qquad r\ge0
+$$
+
+The expectation of $R$ is therefore
+
+$$
+\mathbb E[R]
+=
+\int_0^\infty
+dr\,r\,p_R(r)
+=
+\frac{2}{N}
+\int_0^\infty
+r^2
+\exp\left(
+-\frac{r^2}{N}
+\right)
+dr=\frac{\sqrt{\pi}}{2}\cdot \sqrt{N}
+$$
+
+The length of polarization index is $\frac{R}{N}$, i.e.
+$$
+\mathbb E[|\vec M|]=\frac{\sqrt{\pi}}{2}\cdot \frac{1}{\sqrt{N}}
+$$
+
+This partly explains why researchers found that large groups have lower polarization index. However, experiments in Etroplus suratensis show that when $N$ is small (15 fishes), the modulus of $\vec M$ is approximately $1$, which is highly unlikely to happen in a random walk system. 
+
+![The probability distribution of the polarizatio index. Note that even if we see a peak in the middle in N=15 case, the probability of |M|~0 is still small because of its small radius, just like when we calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)](1.png)
+
+The researchers proposed a noise-induced model to explain this phenomenon, which is very intuitive. If the differentiation of polarization $\vec M$ could be expressed in terms of the addition of a drift term and a random term:
+
+$$
+d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\eta}(t) \cdot dt
+$$
+
+If $\mathbf{B}(\vec M)$ is very large when $|\vec M|\to 0$, then the random fluctuations will bring $|\vec M|$ to approximately $1$ again, thus this mechanism will make the system highly polarized. The final form of this SDE given by this article is:
+
+$$
+d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\eta}(t) dt
+$$
+
+Consistent with what we said before, the fluctuation term is the largest when $|\vec M|\to 0$. The following section will explain how this SDE is derived from data.

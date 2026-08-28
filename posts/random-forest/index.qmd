@@ -1,6 +1,6 @@
 ---
 title: "Random Forest Algorithm"
-description: ""
+description: "A machine learning algorithm."
 date: 2026-08-13
 categories: [Machine Learning, Image & Imaging]
 author: "Haotian Li"
