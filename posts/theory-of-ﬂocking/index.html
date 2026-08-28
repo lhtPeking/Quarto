@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haotian Li">
-<meta name="dcterms.date" content="2026-08-01">
+<meta name="dcterms.date" content="2026-09-01">
 
-<title>A Quantitative Theory of Flocking: The Vicsek Model, Field-Theoretic Renormalization Group, and the Toner–Tu Equation – Haotian’s Blog</title>
+<title>Noise-induced Schooling of Fish – Haotian’s Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -95,6 +95,35 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -308,7 +337,7 @@ window.MathJax = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#d-random-walk" id="toc-d-random-walk" class="nav-link active" data-scroll-target="#d-random-walk"><span class="header-section-number">1</span> 2D Random Walk</a></li>
   </ul>
 </nav>
     </div>
@@ -318,7 +347,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Quantitative Theory of Flocking: The Vicsek Model, Field-Theoretic Renormalization Group, and the Toner–Tu Equation</h1>
+<h1 class="title">Noise-induced Schooling of Fish</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Physics</div>
     <div class="quarto-category">Statistical Physics</div>
@@ -340,7 +369,7 @@ window.MathJax = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 1, 2026</p>
+      <p class="date">September 1, 2026</p>
     </div>
   </div>
   
@@ -352,8 +381,106 @@ window.MathJax = {
 </header>
 
 
-<section id="motivation" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
+<section id="d-random-walk" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="d-random-walk"><span class="header-section-number">1</span> 2D Random Walk</h2>
+<p>If we represent the direction of fish <span class="math inline">\(i\)</span> as a unit vector <span class="math inline">\(\vec{​v_i}\)</span> and define the group polarization index as: <span class="math display">\[
+\vec M=\frac{1}{N}\sum _i \vec{​v_i}
+\]</span></p>
+<p>then in the totally random case, <span class="math inline">\(\sum _i \vec{​v_i}\)</span> is the result of a 2D random walk. Rewrite <span class="math inline">\(\vec{​v_i}\)</span> in the matrix form:</p>
+<p><span class="math display">\[
+\vec{v_i}
+=
+\begin{pmatrix}
+\cos\theta_i \\
+\sin\theta_i
+\end{pmatrix},
+\qquad
+\sum _i \vec{​v_i}=
+\begin{pmatrix}
+\sum _i\cos\theta_i \\
+\sum _i\sin\theta_i
+\end{pmatrix}
+\]</span></p>
+<p>Given that <span class="math inline">\(\mathbb{E}[\cos\theta_i]=\mathbb{E}[\sin\theta_i]=0\)</span> and their second moments: <span class="math display">\[
+\mathbb{E}[\cos^2\theta_i]=\mathbb{E}[\sin^2\theta_i]=\frac{1}{2\pi}\int_0^{2\pi}d\theta_i\,\sin^2\theta_i=\frac{1}{2}
+\]</span></p>
+<p>The variance should be <span class="math display">\[
+\text{Var}[\cos\theta_i]=\text{Var}[\sin\theta_i]=\mathbb{E}[\sin^2\theta_i]-\mathbb{E}^2[\sin\theta_i]=\frac{1}{2}
+\]</span></p>
+<p>We can add up independent variances and write the variance of <span class="math inline">\(\sum _i\cos\theta_i\)</span> as: <span class="math display">\[
+\text{Var}[\sum _i\cos\theta_i]=\sum _i\text{Var}[\cos\theta_i]=\frac{N}{2}
+\]</span></p>
+<p>In a coarse fashion, the radius has the scale <span class="math inline">\(\sqrt{\left(\sqrt\frac{N}{2}\right)^2+\left(\sqrt\frac{N}{2}\right)^2}=\sqrt{N}\)</span>. More precisely, since <span class="math inline">\(\cos\theta_i\)</span> has a finite expectation and variance, the addition of itself should follow a Gaussian distribution as N goes to infinity. Therefore, the radius is given by:</p>
+<p><span class="math display">\[
+R=\sqrt{X^2+Y^2}, \qquad X,Y\sim \mathcal{N}(0,\frac{N}{2})
+\]</span></p>
+<p>The joint probability density of <span class="math inline">\(X,Y\)</span> is</p>
+<p><span class="math display">\[
+p_{X,Y}(x,y)
+=
+\frac{1}{\pi N}
+\exp\left(
+-\frac{x^2+y^2}{N}
+\right)
+\]</span></p>
+<p>Now represent the whole system in terms of radius <span class="math inline">\(R\)</span> and angle <span class="math inline">\(\phi\)</span>, the joint density of <span class="math inline">\((R,\Phi)\)</span> is</p>
+<p><span class="math display">\[
+p_{R,\Phi}(r,\phi)
+=
+p_{X,Y}(r\cos\phi,r\sin\phi)\,r
+=
+\frac{r}{\pi N}
+\exp\left(
+-\frac{r^2}{N}
+\right)
+\]</span></p>
+<p>Integrating over the angular variable <span class="math inline">\(\phi\in[0,2\pi)\)</span> gives the marginal distribution of <span class="math inline">\(R\)</span> (Rayleigh distribution):</p>
+<p><span class="math display">\[
+p_R(r)
+=
+\int_0^{2\pi}
+p_{R,\Phi}(r,\phi)\,d\phi
+=
+\frac{2r}{N}
+\exp\left(
+-\frac{r^2}{N}
+\right),
+\qquad r\ge0
+\]</span></p>
+<p>The expectation of <span class="math inline">\(R\)</span> is therefore</p>
+<p><span class="math display">\[
+\mathbb E[R]
+=
+\int_0^\infty
+dr\,r\,p_R(r)
+=
+\frac{2}{N}
+\int_0^\infty
+r^2
+\exp\left(
+-\frac{r^2}{N}
+\right)
+dr=\frac{\sqrt{\pi}}{2}\cdot \sqrt{N}
+\]</span></p>
+<p>The length of polarization index is <span class="math inline">\(\frac{R}{N}\)</span>, i.e. <span class="math display">\[
+\mathbb E[|\vec M|]=\frac{\sqrt{\pi}}{2}\cdot \frac{1}{\sqrt{N}}
+\]</span></p>
+<p>This partly explains why researchers found that large groups have lower polarization index. However, experiments in Etroplus suratensis show that when <span class="math inline">\(N\)</span> is small (15 fishes), the modulus of <span class="math inline">\(\vec M\)</span> is approximately <span class="math inline">\(1\)</span>, which is highly unlikely to happen in a random walk system.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="1.png" class="img-fluid figure-img"></p>
+<figcaption>The probability distribution of the polarizatio index. Note that even if we see a peak in the middle in N=15 case, the probability of |M|~0 is still small because of its small radius, just like when we calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)</figcaption>
+</figure>
+</div>
+<p>The researchers proposed a noise-induced model to explain this phenomenon, which is very intuitive. If the differentiation of polarization <span class="math inline">\(\vec M\)</span> could be expressed in terms of the addition of a drift term and a random term:</p>
+<p><span class="math display">\[
+d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\eta}(t) \cdot dt
+\]</span></p>
+<p>If <span class="math inline">\(\mathbf{B}(\vec M)\)</span> is very large when <span class="math inline">\(|\vec M|\to 0\)</span>, then the random fluctuations will bring <span class="math inline">\(|\vec M|\)</span> to approximately <span class="math inline">\(1\)</span> again, thus this mechanism will make the system highly polarized. The final form of this SDE given by this article is:</p>
+<p><span class="math display">\[
+d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\eta}(t) dt
+\]</span></p>
+<p>Consistent with what we said before, the fluctuation term is the largest when <span class="math inline">\(|\vec M|\to 0\)</span>. The following section will explain how this SDE is derived from data.</p>
 
 
 </section>
