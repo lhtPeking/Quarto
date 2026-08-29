@@ -4,9 +4,10 @@
     "items": [
       "/posts/Ising/index.html",
       "/posts/theory-of-ﬂocking/index.html",
+      "/posts/Lagrangian/index.html",
+      "/posts/ObliquePM/index.html",
       "/posts/alpha-stable/index.html",
       "/posts/random-forest/index.html",
-      "/posts/Lagrangian/index.html",
       "/posts/math-heavy-example/index.html"
     ]
   },
@@ -14,11 +15,12 @@
     "listing": "/posts/index.html",
     "items": [
       "/posts/theory-of-ﬂocking/index.html",
-      "/posts/Ising/index.html",
-      "/posts/alpha-stable/index.html",
-      "/posts/random-forest/index.html",
       "/posts/math-heavy-example/index.html",
-      "/posts/Lagrangian/index.html"
+      "/posts/ObliquePM/index.html",
+      "/posts/alpha-stable/index.html",
+      "/posts/Lagrangian/index.html",
+      "/posts/Ising/index.html",
+      "/posts/random-forest/index.html"
     ]
   }
 ]

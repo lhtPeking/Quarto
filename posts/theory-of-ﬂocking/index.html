@@ -337,7 +337,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#d-random-walk" id="toc-d-random-walk" class="nav-link active" data-scroll-target="#d-random-walk"><span class="header-section-number">1</span> 2D Random Walk</a></li>
+  <li><a href="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" id="toc-two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="nav-link active" data-scroll-target="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">1</span> Two Dimensional Random Walk: How does the radius scale with step number N?</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2</span> </a></li>
   </ul>
 </nav>
     </div>
@@ -381,8 +382,8 @@ window.Quarto = {
 </header>
 
 
-<section id="d-random-walk" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="d-random-walk"><span class="header-section-number">1</span> 2D Random Walk</h2>
+<section id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">1</span> Two Dimensional Random Walk: How does the radius scale with step number N?</h2>
 <p>If we represent the direction of fish <span class="math inline">\(i\)</span> as a unit vector <span class="math inline">\(\vec{​v_i}\)</span> and define the group polarization index as: <span class="math display">\[
 \vec M=\frac{1}{N}\sum _i \vec{​v_i}
 \]</span></p>
@@ -423,7 +424,7 @@ p_{X,Y}(x,y)
 -\frac{x^2+y^2}{N}
 \right)
 \]</span></p>
-<p>Now represent the whole system in terms of radius <span class="math inline">\(R\)</span> and angle <span class="math inline">\(\phi\)</span>, the joint density of <span class="math inline">\((R,\Phi)\)</span> is</p>
+<p>Now represent the whole system in terms of radius <span class="math inline">\(r\)</span> and angle <span class="math inline">\(\phi\)</span>, the joint density of <span class="math inline">\((R,\Phi)\)</span> is</p>
 <p><span class="math display">\[
 p_{R,\Phi}(r,\phi)
 =
@@ -469,18 +470,21 @@ dr=\frac{\sqrt{\pi}}{2}\cdot \sqrt{N}
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="1.png" class="img-fluid figure-img"></p>
-<figcaption>The probability distribution of the polarizatio index. Note that even if we see a peak in the middle in N=15 case, the probability of |M|~0 is still small because of its small radius, just like when we calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)</figcaption>
+<figcaption>The probability distribution of the polarization index. Note that even if we see a peak in the middle of the N=15 case (fig d), the probability of |M|~0 is still small because of its small radius, just like when calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)</figcaption>
 </figure>
 </div>
 <p>The researchers proposed a noise-induced model to explain this phenomenon, which is very intuitive. If the differentiation of polarization <span class="math inline">\(\vec M\)</span> could be expressed in terms of the addition of a drift term and a random term:</p>
 <p><span class="math display">\[
-d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\eta}(t) \cdot dt
+d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\vec\eta}(t) \cdot dt
 \]</span></p>
 <p>If <span class="math inline">\(\mathbf{B}(\vec M)\)</span> is very large when <span class="math inline">\(|\vec M|\to 0\)</span>, then the random fluctuations will bring <span class="math inline">\(|\vec M|\)</span> to approximately <span class="math inline">\(1\)</span> again, thus this mechanism will make the system highly polarized. The final form of this SDE given by this article is:</p>
 <p><span class="math display">\[
-d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\eta}(t) dt
+d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\vec\eta}(t) dt
 \]</span></p>
-<p>Consistent with what we said before, the fluctuation term is the largest when <span class="math inline">\(|\vec M|\to 0\)</span>. The following section will explain how this SDE is derived from data.</p>
+<p>Consistent with what we said before, the fluctuation term is the largest when <span class="math inline">\(|\vec M|\to 0\)</span>. Meanwhile, the smaller <span class="math inline">\(N\)</span> is, the larger fluctuation is, so fish group will be more aligned with smaller <span class="math inline">\(N\)</span>. The following section will explain how this SDE is derived from data.</p>
+</section>
+<section id="section" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="section"><span class="header-section-number">2</span> </h2>
 
 
 </section>
