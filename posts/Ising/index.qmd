@@ -1,7 +1,9 @@
 ---
 title: "Ising Model and the Renormalization Group Theory"
 description: "Position-Space Renormalization Group is applied to solving 1D and 2D Ising model problems."
-date: 2026-09-01
+date: "Comming Soon"
 categories: [Physics, Statistical Physics]
 author: "Haotian Li"
 ---
+
+See link https://xhslink.cn/o/1nE8P8Cf9Vd for my writing notes.

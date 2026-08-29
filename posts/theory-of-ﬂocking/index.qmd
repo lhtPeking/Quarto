@@ -6,7 +6,7 @@ categories: [Physics, Statistical Physics, Behavior Analysis]
 author: "Haotian Li"
 ---
 
-## 2D Random Walk
+## Two Dimensional Random Walk: How does the radius scale with step number N?
 If we represent the direction of fish $i$ as a unit vector $\vec{​v_i}$ and define the group polarization index as:
 $$
 \vec M=\frac{1}{N}\sum _i \vec{​v_i}
@@ -61,7 +61,7 @@ p_{X,Y}(x,y)
 \right)
 $$
 
-Now represent the whole system in terms of radius $R$ and angle $\phi$, the joint density of $(R,\Phi)$ is
+Now represent the whole system in terms of radius $r$ and angle $\phi$, the joint density of $(R,\Phi)$ is
 
 $$
 p_{R,\Phi}(r,\phi)
@@ -113,18 +113,20 @@ $$
 
 This partly explains why researchers found that large groups have lower polarization index. However, experiments in Etroplus suratensis show that when $N$ is small (15 fishes), the modulus of $\vec M$ is approximately $1$, which is highly unlikely to happen in a random walk system. 
 
-![The probability distribution of the polarizatio index. Note that even if we see a peak in the middle in N=15 case, the probability of |M|~0 is still small because of its small radius, just like when we calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)](1.png)
+![The probability distribution of the polarization index. Note that even if we see a peak in the middle of the N=15 case (fig d), the probability of |M|~0 is still small because of its small radius, just like when calculating the Maxwell–Boltzmann distribution. (Jitesh Jhawar, et al., Nature Physics. 2020.)](1.png)
 
 The researchers proposed a noise-induced model to explain this phenomenon, which is very intuitive. If the differentiation of polarization $\vec M$ could be expressed in terms of the addition of a drift term and a random term:
 
 $$
-d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\eta}(t) \cdot dt
+d\vec M=\mathbf{A}(\vec M)dt+\mathbf{B}(\vec M)\cdot \mathbf{\vec\eta}(t) \cdot dt
 $$
 
 If $\mathbf{B}(\vec M)$ is very large when $|\vec M|\to 0$, then the random fluctuations will bring $|\vec M|$ to approximately $1$ again, thus this mechanism will make the system highly polarized. The final form of this SDE given by this article is:
 
 $$
-d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\eta}(t) dt
+d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathbf{\vec\eta}(t) dt
 $$
 
-Consistent with what we said before, the fluctuation term is the largest when $|\vec M|\to 0$. The following section will explain how this SDE is derived from data.
+Consistent with what we said before, the fluctuation term is the largest when $|\vec M|\to 0$. Meanwhile, the smaller $N$ is, the larger fluctuation is, so fish group will be more aligned with smaller $N$. The following section will explain how this SDE is derived from data.
+
+## 
