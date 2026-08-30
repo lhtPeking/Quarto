@@ -1,13 +1,15 @@
 ---
 title: "Noise-induced Schooling of Fish"
-description: ""
-date: 2026-09-01
+description: "A very powerful insight into the collective behavior."
+date: 2026-08-30
 categories: [Physics, Statistical Physics, Behavior Analysis]
 author: "Haotian Li"
 ---
+## Motivation
+Theories of active matter have long been used to describe collective motion in systems ranging from self-propelled particles and bacteria to animal groups. In particular, the Toner–Tu theory predicts that long-range polar order can persist as $N\to\infty$. In contrast, a 2020 study published in Nature Physics reported that, for the fish schools studied experimentally, highly polarized motion became more likely as group size decreased. The authors explained this behavior using a finite-size multiplicative-noise SDE. More strikingly, they inferred a remarkably simple microscopic pairwise copying mechanism that reproduces the functional form of the empirically extracted SDE. This microscopic-to-mesoscopic derivation feels very much like a physicist’s way of explaining a phenomenon and makes me admire it deeply.
 
 ## Two Dimensional Random Walk: How does the radius scale with step number N?
-If we represent the direction of fish $i$ as a unit vector $\vec{​v_i}$ and define the group polarization index as:
+Before discussing the interaction-induced ordering of fish schools, it is useful to first establish the polarization expected from a completely disordered group purely due to finite-size fluctuations. If we represent the direction of fish $i$ as a unit vector $\vec{​v_i}$ and define the group polarization index as:
 $$
 \vec M=\frac{1}{N}\sum _i \vec{​v_i}
 $$
@@ -129,4 +131,68 @@ $$
 
 Consistent with what we said before, the fluctuation term is the largest when $|\vec M|\to 0$. Meanwhile, the smaller $N$ is, the larger fluctuation is, so fish group will be more aligned with smaller $N$. The following section will explain how this SDE is derived from data.
 
-## 
+## Extraction of an SDE from data
+First, we assume that the mesoscopic dynamics can be approximated by an Itô SDE driven by Gaussian white noise (the markov property is implemented by choosing a proper timescale that could diminish the temperal correlation). Under this assumption, the dynamics can be written as (just set $B$ to $0$ if the process is deterministic):
+$$
+d\vec M=\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W=
+\begin{pmatrix}
+A_x \\
+A_y
+\end{pmatrix}dt+
+\begin{pmatrix}
+B_{11} \, B_{12} \\
+B_{21} \, B_{22}
+\end{pmatrix}
+\begin{pmatrix}
+dW_x \\
+dW_y
+\end{pmatrix}=
+\begin{pmatrix}
+A_xdt+B_{11}dW_x+B_{12}dW_y \\
+A_ydt+B_{11}dW_x+B_{12}dW_y
+\end{pmatrix}
+$$
+
+where $dW_x$ and $dW_y$ are the brownian increments in two different dimensions:
+$$
+dW_x=\xi_x \cdot \sqrt{dt}\,,\,dW_x=\xi_y \cdot \sqrt{dt}\,, \qquad\xi_x,\xi_y\sim\mathcal{N}(0,1)
+$$
+
+To extract the stochaticity, let's define two expectations that pretty much like the moments of a random variable. The first one is called "first jump moment" and is defined as $\mathbb{E}\left[\frac{d\vec M}{dt}\right]$. To calculate this, we need to keep in mind that the expectation of brownian increments is always $0$, thus:
+$$
+\mathbb{E}\left[\frac{d\vec M}{dt}\right]=
+\mathbb{E}\left[
+\begin{pmatrix}
+A_x+\frac{1}{dt}B_{11}dW_x+\frac{1}{dt}B_{12}dW_y \\
+A_y+\frac{1}{dt}B_{11}dW_x+\frac{1}{dt}B_{12}dW_y
+\end{pmatrix}
+\right]=
+\begin{pmatrix}
+A_x \\
+A_y
+\end{pmatrix}
+$$
+
+Therefore, the first jump momemt represents the deterministic part of the system, i.e. $\vec A(\vec M)$ in the SDE. The "second jump moment" is defined as $\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]$, again:
+$$
+\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=
+\mathbb{E}\left[\frac{\left(\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W\right)\left(\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W\right)^T}{dt}\right]
+$$
+
+$$
+=\mathbb{E}\left[\frac{\vec A\vec A^Tdt^2+\mathbf{B}d\vec WA^Tdt+Ad\vec W^T\mathbf{B}^Tdt+\mathbf{B}d\vec Wd\vec W^T\mathbf{B}^T}{dt}\right]=
+\mathbb{E}\left[\vec A\vec A^Tdt\right]+\mathbb{E}\left[\mathbf{B}d\vec Wd\vec W^T\mathbf{B}^T/dt\right]
+$$
+
+Given that the brownian nature of $d\vec W$, $\mathbb{E}[d\vec Wd\vec W^T]$ should be $\mathbf{I} \cdot dt$, therefore
+$$
+\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=\mathbb{E}\left[\vec A\vec A^T\right]dt+\mathbb{E}\left[\mathbf{B}\mathbf{B}^T\right]\frac{dt}{dt}\xrightarrow{dt\to0}\mathbf{B}\mathbf{B}^T
+$$
+
+The second jump moment represents the stochastic part of the system, but it's not directly $\mathbf{B}(\vec M)$, it's $\mathbf{B}\mathbf{B}^T(\vec M)$ instead. Through experiments, we could easily calculate the first and second jump moments by replacing $\frac{d\vec M}{dt}$ with $\frac{\Delta \vec M}{\Delta t}$. By doing this, the researchers could obtain $\vec A(\vec M)$ and $\mathbf{B}\mathbf{B}^T(\vec M)$ at every $\vec M$.
+
+![Empirical fitting of the first and second jump moments reveals that schooling is noise induced.](2.png)
+
+
+
+## The exact PDF of polarization index induced by pair-wise copying

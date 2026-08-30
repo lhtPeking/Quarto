@@ -1,0 +1,9 @@
+---
+title: "From Individuals to Flocks: The Toner–Tu Theory"
+description: "How collective motion emerges and survives at macroscopic scales."
+date: "Comming Soon."
+categories: [Physics, Statistical Physics, Behavior Analysis]
+author: "Haotian Li"
+---
+
+Comming soon.
