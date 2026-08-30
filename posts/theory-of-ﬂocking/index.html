@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haotian Li">
-<meta name="dcterms.date" content="2026-09-01">
+<meta name="dcterms.date" content="2026-08-30">
+<meta name="description" content="A very powerful insight into the collective behavior.">
 
 <title>Noise-induced Schooling of Fish – Haotian’s Blog</title>
 <style>
@@ -337,8 +338,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" id="toc-two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="nav-link active" data-scroll-target="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">1</span> Two Dimensional Random Walk: How does the radius scale with step number N?</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2</span> </a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" id="toc-two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="nav-link" data-scroll-target="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">2</span> Two Dimensional Random Walk: How does the radius scale with step number N?</a></li>
+  <li><a href="#extraction-of-an-sde-from-data" id="toc-extraction-of-an-sde-from-data" class="nav-link" data-scroll-target="#extraction-of-an-sde-from-data"><span class="header-section-number">3</span> Extraction of an SDE from data</a></li>
+  <li><a href="#the-exact-pdf-of-polarization-index-induced-by-pair-wise-copying" id="toc-the-exact-pdf-of-polarization-index-induced-by-pair-wise-copying" class="nav-link" data-scroll-target="#the-exact-pdf-of-polarization-index-induced-by-pair-wise-copying"><span class="header-section-number">4</span> The exact PDF of polarization index induced by pair-wise copying</a></li>
   </ul>
 </nav>
     </div>
@@ -356,6 +359,11 @@ window.Quarto = {
   </div>
   </div>
 
+<div>
+  <div class="description">
+    A very powerful insight into the collective behavior.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -370,7 +378,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 1, 2026</p>
+      <p class="date">August 30, 2026</p>
     </div>
   </div>
   
@@ -382,9 +390,13 @@ window.Quarto = {
 </header>
 
 
-<section id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">1</span> Two Dimensional Random Walk: How does the radius scale with step number N?</h2>
-<p>If we represent the direction of fish <span class="math inline">\(i\)</span> as a unit vector <span class="math inline">\(\vec{​v_i}\)</span> and define the group polarization index as: <span class="math display">\[
+<section id="motivation" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
+<p>Theories of active matter have long been used to describe collective motion in systems ranging from self-propelled particles and bacteria to animal groups. In particular, the Toner–Tu theory predicts that long-range polar order can persist as <span class="math inline">\(N\to\infty\)</span>. In contrast, a 2020 study published in Nature Physics reported that, for the fish schools studied experimentally, highly polarized motion became more likely as group size decreased. The authors explained this behavior using a finite-size multiplicative-noise SDE. More strikingly, they inferred a remarkably simple microscopic pairwise copying mechanism that reproduces the functional form of the empirically extracted SDE. This microscopic-to-mesoscopic derivation feels very much like a physicist’s way of explaining a phenomenon and makes me admire it deeply.</p>
+</section>
+<section id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">2</span> Two Dimensional Random Walk: How does the radius scale with step number N?</h2>
+<p>Before discussing the interaction-induced ordering of fish schools, it is useful to first establish the polarization expected from a completely disordered group purely due to finite-size fluctuations. If we represent the direction of fish <span class="math inline">\(i\)</span> as a unit vector <span class="math inline">\(\vec{​v_i}\)</span> and define the group polarization index as: <span class="math display">\[
 \vec M=\frac{1}{N}\sum _i \vec{​v_i}
 \]</span></p>
 <p>then in the totally random case, <span class="math inline">\(\sum _i \vec{​v_i}\)</span> is the result of a 2D random walk. Rewrite <span class="math inline">\(\vec{​v_i}\)</span> in the matrix form:</p>
@@ -483,8 +495,64 @@ d\vec M=-\alpha \vec Mdt+\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\cdot \mathb
 \]</span></p>
 <p>Consistent with what we said before, the fluctuation term is the largest when <span class="math inline">\(|\vec M|\to 0\)</span>. Meanwhile, the smaller <span class="math inline">\(N\)</span> is, the larger fluctuation is, so fish group will be more aligned with smaller <span class="math inline">\(N\)</span>. The following section will explain how this SDE is derived from data.</p>
 </section>
-<section id="section" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="section"><span class="header-section-number">2</span> </h2>
+<section id="extraction-of-an-sde-from-data" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="extraction-of-an-sde-from-data"><span class="header-section-number">3</span> Extraction of an SDE from data</h2>
+<p>First, we assume that the mesoscopic dynamics can be approximated by an Itô SDE driven by Gaussian white noise (the markov property is implemented by choosing a proper timescale that could diminish the temperal correlation). Under this assumption, the dynamics can be written as (just set <span class="math inline">\(B\)</span> to <span class="math inline">\(0\)</span> if the process is deterministic): <span class="math display">\[
+d\vec M=\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W=
+\begin{pmatrix}
+A_x \\
+A_y
+\end{pmatrix}dt+
+\begin{pmatrix}
+B_{11} \, B_{12} \\
+B_{21} \, B_{22}
+\end{pmatrix}
+\begin{pmatrix}
+dW_x \\
+dW_y
+\end{pmatrix}=
+\begin{pmatrix}
+A_xdt+B_{11}dW_x+B_{12}dW_y \\
+A_ydt+B_{11}dW_x+B_{12}dW_y
+\end{pmatrix}
+\]</span></p>
+<p>where <span class="math inline">\(dW_x\)</span> and <span class="math inline">\(dW_y\)</span> are the brownian increments in two different dimensions: <span class="math display">\[
+dW_x=\xi_x \cdot \sqrt{dt}\,,\,dW_x=\xi_y \cdot \sqrt{dt}\,, \qquad\xi_x,\xi_y\sim\mathcal{N}(0,1)
+\]</span></p>
+<p>To extract the stochaticity, let’s define two expectations that pretty much like the moments of a random variable. The first one is called “first jump moment” and is defined as <span class="math inline">\(\mathbb{E}\left[\frac{d\vec M}{dt}\right]\)</span>. To calculate this, we need to keep in mind that the expectation of brownian increments is always <span class="math inline">\(0\)</span>, thus: <span class="math display">\[
+\mathbb{E}\left[\frac{d\vec M}{dt}\right]=
+\mathbb{E}\left[
+\begin{pmatrix}
+A_x+\frac{1}{dt}B_{11}dW_x+\frac{1}{dt}B_{12}dW_y \\
+A_y+\frac{1}{dt}B_{11}dW_x+\frac{1}{dt}B_{12}dW_y
+\end{pmatrix}
+\right]=
+\begin{pmatrix}
+A_x \\
+A_y
+\end{pmatrix}
+\]</span></p>
+<p>Therefore, the first jump momemt represents the deterministic part of the system, i.e.&nbsp;<span class="math inline">\(\vec A(\vec M)\)</span> in the SDE. The “second jump moment” is defined as <span class="math inline">\(\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]\)</span>, again: <span class="math display">\[
+\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=
+\mathbb{E}\left[\frac{\left(\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W\right)\left(\vec A(\vec M)dt+\mathbf{B}(\vec M)d\vec W\right)^T}{dt}\right]
+\]</span></p>
+<p><span class="math display">\[
+=\mathbb{E}\left[\frac{\vec A\vec A^Tdt^2+\mathbf{B}d\vec WA^Tdt+Ad\vec W^T\mathbf{B}^Tdt+\mathbf{B}d\vec Wd\vec W^T\mathbf{B}^T}{dt}\right]=
+\mathbb{E}\left[\vec A\vec A^Tdt\right]+\mathbb{E}\left[\mathbf{B}d\vec Wd\vec W^T\mathbf{B}^T/dt\right]
+\]</span></p>
+<p>Given that the brownian nature of <span class="math inline">\(d\vec W\)</span>, <span class="math inline">\(\mathbb{E}[d\vec Wd\vec W^T]\)</span> should be <span class="math inline">\(\mathbf{I} \cdot dt\)</span>, therefore <span class="math display">\[
+\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=\mathbb{E}\left[\vec A\vec A^T\right]dt+\mathbb{E}\left[\mathbf{B}\mathbf{B}^T\right]\frac{dt}{dt}\xrightarrow{dt\to0}\mathbf{B}\mathbf{B}^T
+\]</span></p>
+<p>The second jump moment represents the stochastic part of the system, but it’s not directly <span class="math inline">\(\mathbf{B}(\vec M)\)</span>, it’s <span class="math inline">\(\mathbf{B}\mathbf{B}^T(\vec M)\)</span> instead. Through experiments, we could easily calculate the first and second jump moments by replacing <span class="math inline">\(\frac{d\vec M}{dt}\)</span> with <span class="math inline">\(\frac{\Delta \vec M}{\Delta t}\)</span>. By doing this, the researchers could obtain <span class="math inline">\(\vec A(\vec M)\)</span> and <span class="math inline">\(\mathbf{B}\mathbf{B}^T(\vec M)\)</span> at every <span class="math inline">\(\vec M\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.png" class="img-fluid figure-img"></p>
+<figcaption>Empirical fitting of the first and second jump moments reveals that schooling is noise induced.</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-exact-pdf-of-polarization-index-induced-by-pair-wise-copying" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-exact-pdf-of-polarization-index-induced-by-pair-wise-copying"><span class="header-section-number">4</span> The exact PDF of polarization index induced by pair-wise copying</h2>
 
 
 </section>
