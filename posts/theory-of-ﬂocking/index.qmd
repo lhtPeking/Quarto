@@ -189,10 +189,533 @@ $$
 \mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=\mathbb{E}\left[\vec A\vec A^T\right]dt+\mathbb{E}\left[\mathbf{B}\mathbf{B}^T\right]\frac{dt}{dt}\xrightarrow{dt\to0}\mathbf{B}\mathbf{B}^T
 $$
 
-The second jump moment represents the stochastic part of the system, but it's not directly $\mathbf{B}(\vec M)$, it's $\mathbf{B}\mathbf{B}^T(\vec M)$ instead. Through experiments, we could easily calculate the first and second jump moments by replacing $\frac{d\vec M}{dt}$ with $\frac{\Delta \vec M}{\Delta t}$. By doing this, the researchers could obtain $\vec A(\vec M)$ and $\mathbf{B}\mathbf{B}^T(\vec M)$ at every $\vec M$.
+The second jump moment represents the stochastic part of the system, but it's not directly $\mathbf{B}(\vec M)$, it's $\mathbf{B}\mathbf{B}^T(\vec M)$ instead. Through experiments, we could easily calculate the first and second jump moments by replacing $\frac{d\vec M}{dt}$ with $\frac{\Delta \vec M}{\Delta t}$. By doing this, the researchers could obtain $\vec A(\vec M)$ and $\mathbf{B}\mathbf{B}^T(\vec M)$ at every $\vec M$:
 
 ![Empirical fitting of the first and second jump moments reveals that schooling is noise induced.](2.png)
 
+From the point cloud in Fig.a and Fig.b we could easily obeserve that the deterministic part of SDE want $\vec M$ to be $0$, and the dynamics in $x$ direction and $y$ direction are independent. More precisely, $0$ is a fixed point on the 2D plane, and $\vec M$ decreases proportional to its own modulus, therefore we can write the determinsitic part as $-\alpha \vec M$. 
 
+For stochastic part, researchers found that the matrix $\mathbf{B}\mathbf{B}^T(\vec M)$ approximately has the form:
+$$
+\mathbf{B}\mathbf{B}^T(\vec M)\approx 
+\text{const} \cdot \mathbf{I}
+$$
 
-## The exact PDF of polarization index induced by pair-wise copying
+The simplest way to interpret this is to assume that $\mathbf{B} \approx \sqrt{\text{const}} \cdot \mathbf{I} $, thereby we could obtain $B_{11}$ and $B_{22}$. Note that this fractorization is not the only way to interpret data, there could be other possibilities. But in the spirit of simplicity, let's first accept this.
+
+From the data we can find that the noise is the strongest when $\vec M \to 0$. This means the noise is actually what keeps fish aligned, instead of the determinstic force. Researchers tried many function candidates and finally decided that the form $\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}$ fits data in the best way. The fish group is less aligned is written in $\mathbf{B}$ is scaled with $O(\frac{1}{\sqrt{N}})$. Also note that the $\alpha$ in the deterministic part and stochastic part is the same, this will be explained in the following section.
+
+## From pair-wise copying to the exact PDF of polarization
+The SDE is cool but not very insightful, we need to know what causes this form instead of just focus on the statistic properties. The coolest part of this research is that they actually had done this. They proposed a pair-wise copying model that explained the complicated form of the SDE.
+
+The microscopic model actually contains two competing processes. First, each fish can spontaneously change its direction:
+
+$$
+\theta_i
+\xrightarrow{s}
+\theta_i+\mu,
+\qquad
+\mu\sim \mathcal{N}(0,\epsilon),
+$$
+
+where $s$ is the rate of spontaneous turning and $\epsilon$ characterizes the variance of the turning angle. Second, a fish can randomly choose another fish and copy its direction:
+
+$$
+\theta_i+\theta_j
+\xrightarrow{c}
+2\theta_j,
+$$
+
+or, equivalently,
+
+$$
+\theta_i\xrightarrow{c}\theta_j.
+$$
+
+Here $c$ is the rate of pair-wise copying.
+
+Let us first consider the spontaneous turning process. It is convenient to represent the orientation of fish $i$ by a complex number
+
+$$
+z_i=e^{i\theta_i}.
+$$
+
+The polarization is then
+
+$$
+m=\frac{1}{N}\sum_i z_i.
+$$
+
+After a spontaneous turn,
+
+$$
+z_i
+\rightarrow
+z_i e^{i\mu}.
+$$
+
+Since $\mu$ is Gaussian,
+
+$$
+\mathbb{E}[e^{i\mu}]
+=
+e^{-\epsilon/2}.
+$$
+
+Therefore, the expected contribution of one fish after a spontaneous turning event becomes
+
+$$
+\mathbb{E}[z_i']
+=
+z_i e^{-\epsilon/2}.
+$$
+
+The fraction of polarization lost in one event is consequently
+
+$$
+1-e^{-\epsilon/2}.
+$$
+
+Since these events occur with rate $s$, the deterministic decay rate of polarization is
+
+$$
+\alpha
+=
+s\left(1-e^{-\epsilon/2}\right).
+$$
+
+Hence spontaneous turning generates the deterministic term
+
+$$
+\frac{d\vec M}{dt}
+=
+-\alpha \vec M.
+$$
+
+This also explains why the same $\alpha$ appears in both the deterministic and stochastic parts of the empirical SDE. Spontaneous turning is itself a stochastic event: although its average effect is to decrease polarization, for a finite number of fish the actual number and direction of turning events fluctuate. Therefore, the same microscopic process also contributes a finite-size noise term proportional to
+
+$$
+\frac{\alpha}{N}.
+$$
+
+Now consider pair-wise copying. If fish $i$ copies fish $j$, the change in polarization is
+
+$$
+\Delta\vec M
+=
+\frac{1}{N}
+\left(
+\hat{\vec v}_j-\hat{\vec v}_i
+\right).
+$$
+
+If $i$ and $j$ are chosen randomly, there is no preferred direction for this change. Therefore,
+
+$$
+\mathbb{E}[\Delta\vec M]_{\mathrm{copy}}
+\approx 0,
+$$
+
+meaning that pair-wise copying does not produce a deterministic alignment force at the mesoscopic level.
+
+However, its variance is nonzero:
+
+$$
+|\Delta\vec M|^2
+=
+\frac{1}{N^2}
+|\hat{\vec v}_j-\hat{\vec v}_i|^2.
+$$
+
+Since both vectors have unit length,
+
+$$
+|\hat{\vec v}_j-\hat{\vec v}_i|^2
+=
+2\left(
+1-\hat{\vec v}_i\cdot\hat{\vec v}_j
+\right).
+$$
+
+Under the mean-field approximation,
+
+$$
+\mathbb{E}
+\left[
+\hat{\vec v}_i\cdot\hat{\vec v}_j
+\right]
+\approx
+|\vec M|^2.
+$$
+
+Therefore,
+
+$$
+\mathbb{E}
+\left[
+|\Delta\vec M|^2
+\right]
+\propto
+\frac{1-|\vec M|^2}{N^2}.
+$$
+
+Since there are $O(Nc)$ copying events per unit time, the accumulated variance per unit time scales as
+
+$$
+\frac{c(1-|\vec M|^2)}{N}.
+$$
+
+Combining spontaneous turning and pair-wise copying gives the mesoscopic SDE
+
+$$
+d\vec M
+=
+-\alpha\vec M\,dt
++
+\sqrt{
+\frac{
+\alpha+c(1-|\vec M|^2)
+}{N}
+}
+\,d\vec W.
+$$
+
+By identifying
+
+$$
+\beta=c,
+$$
+
+we exactly recover the functional form extracted from experimental data:
+
+$$
+d\vec M
+=
+-\alpha\vec M\,dt
++
+\sqrt{
+\frac{
+\alpha+\beta(1-|\vec M|^2)
+}{N}
+}
+\,d\vec W.
+$$
+
+This is the part I find particularly beautiful: the seemingly complicated multiplicative noise is not merely an empirical fitting function, but can emerge naturally from an extremely simple microscopic copying rule.
+
+### Stationary distribution of the polarization
+
+Now that we have the SDE, we can derive the stationary probability distribution of the polarization modulus $|\vec M|$.
+
+Define
+
+$$
+r=|\vec M|
+$$
+
+and
+
+$$
+G(r)
+=
+\alpha+c(1-r^2).
+$$
+
+Then the SDE can be written as
+
+$$
+d\vec M
+=
+-\alpha\vec M\,dt
++
+\sqrt{\frac{G(r)}{N}}
+\,d\vec W.
+$$
+
+Let $p(\vec M,t)$ denote the probability density on the two-dimensional polarization plane. The corresponding Fokker--Planck equation is
+
+$$
+\frac{\partial p}{\partial t}
+=
+\alpha\nabla\cdot(\vec M p)
++
+\frac{1}{2N}
+\nabla^2
+\left[
+G(r)p
+\right].
+$$
+
+Equivalently,
+
+$$
+\frac{\partial p}{\partial t}
+=
+-\nabla\cdot\vec J,
+$$
+
+where the probability current is
+
+$$
+\vec J
+=
+-\alpha\vec M p
+-
+\frac{1}{2N}
+\nabla
+\left[
+G(r)p
+\right].
+$$
+
+At the stationary state, assuming zero probability flux,
+
+$$
+\vec J=0.
+$$
+
+Because the system is rotationally symmetric,
+
+$$
+p(\vec M)=p(r),
+$$
+
+and therefore
+
+$$
+\vec M=r\hat{\vec r}.
+$$
+
+The zero-current condition reduces to
+
+$$
+-\alpha r p(r)
+-
+\frac{1}{2N}
+\frac{d}{dr}
+\left[
+G(r)p(r)
+\right]
+=
+0.
+$$
+
+Thus,
+
+$$
+\frac{d}{dr}
+\left[
+G(r)p(r)
+\right]
+=
+-2N\alpha r p(r).
+$$
+
+Let
+
+$$
+q(r)=G(r)p(r).
+$$
+
+Then
+
+$$
+p(r)=\frac{q(r)}{G(r)},
+$$
+
+so that
+
+$$
+\frac{dq}{dr}
+=
+-\frac{2N\alpha r}{G(r)}q.
+$$
+
+Therefore,
+
+$$
+\frac{d\ln q}{dr}
+=
+-\frac{2N\alpha r}{G(r)}.
+$$
+
+Since
+
+$$
+G(r)
+=
+\alpha+c(1-r^2),
+$$
+
+we have
+
+$$
+\frac{dG}{dr}
+=
+-2cr.
+$$
+
+Hence
+
+$$
+-\frac{2N\alpha r}{G(r)}dr
+=
+\frac{N\alpha}{c}
+\frac{dG}{G}.
+$$
+
+Integrating both sides gives
+
+$$
+\ln q
+=
+\frac{N\alpha}{c}\ln G+\text{const},
+$$
+
+and therefore
+
+$$
+q(r)
+\propto
+G(r)^{N\alpha/c}.
+$$
+
+Since $q=Gp$,
+
+$$
+p(r)
+\propto
+G(r)^{N\alpha/c-1}.
+$$
+
+However, this $p(r)$ is still the probability density per unit area on the two-dimensional $\vec M$ plane. What we actually want is the probability density of the radius $r=|\vec M|$.
+
+The area of an annulus between $r$ and $r+dr$ is
+
+$$
+dA
+=
+2\pi r\,dr.
+$$
+
+Therefore,
+
+$$
+P(r)dr
+=
+2\pi r p(r)dr,
+$$
+
+and, ignoring the normalization constant,
+
+$$
+P(r)
+\propto
+r\,p(r).
+$$
+
+Finally,
+
+$$
+\boxed{
+P(r)
+\propto
+r
+\left[
+\alpha+c(1-r^2)
+\right]^{\frac{N\alpha}{c}-1}
+}
+$$
+
+or equivalently,
+
+$$
+\boxed{
+P(|\vec M|)
+\propto
+|\vec M|
+\left[
+\alpha+c(1-|\vec M|^2)
+\right]^{\frac{N\alpha}{c}-1}.
+}
+$$
+
+The factor $|\vec M|$ in front is purely geometrical: it comes from the Jacobian when converting the two-dimensional probability density into a radial probability density, exactly like the $r$ factor in the Rayleigh distribution discussed earlier.
+
+The remaining factor,
+
+$$
+\left[
+\alpha+c(1-|\vec M|^2)
+\right]^{\frac{N\alpha}{c}-1},
+$$
+
+contains the actual dynamics.
+
+In particular, define
+
+$$
+\gamma
+=
+\frac{N\alpha}{c}-1.
+$$
+
+For the fitted parameters
+
+$$
+\alpha=0.1,
+\qquad
+c=4,
+$$
+
+we obtain
+
+$$
+\gamma(N=15)
+=
+-0.625,
+$$
+
+$$
+\gamma(N=30)
+=
+-0.25,
+$$
+
+and
+
+$$
+\gamma(N=60)
+=
+0.5.
+$$
+
+When $N$ is small, $\gamma<0$. Since
+
+$$
+G(r)=\alpha+c(1-r^2)
+$$
+
+decreases as $r$ increases, a negative exponent makes
+
+$$
+G(r)^\gamma
+$$
+
+increase towards $r=1$. The probability distribution is therefore strongly biased toward highly polarized states.
+
+As $N$ increases, the exponent eventually becomes positive, and the distribution shifts back toward smaller polarization.
+
+Thus the counterintuitive observation
+
+$$
+\boxed{
+\text{smaller group}
+\quad\Longrightarrow\quad
+\text{stronger finite-size noise}
+\quad\Longrightarrow\quad
+\text{stronger schooling}
+}
+$$
+
+emerges directly from the stationary distribution.
