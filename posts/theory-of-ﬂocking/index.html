@@ -564,66 +564,40 @@ A_y
 <section id="from-pair-wise-copying-to-the-exact-pdf-of-polarization" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="from-pair-wise-copying-to-the-exact-pdf-of-polarization"><span class="header-section-number">4</span> From pair-wise copying to the exact PDF of polarization</h2>
 <p>The SDE is cool but not very insightful, we need to know what causes this form instead of just focus on the statistic properties. The coolest part of this research is that they actually had done this. They proposed a pair-wise copying model that explained the complicated form of the SDE.</p>
-<p>The microscopic model actually contains two competing processes. First, each fish can spontaneously change its direction:</p>
+<p>The microscopic model they propose actually contains two competing processes. First, each fish can spontaneously change its direction, this part counts for the deterministic decorrelation:</p>
 <p><span class="math display">\[
 \theta_i
 \xrightarrow{s}
 \theta_i+\mu,
 \qquad
-\mu\sim \mathcal{N}(0,\epsilon),
+\mu\sim \mathcal{N}(0,\epsilon)
 \]</span></p>
 <p>where <span class="math inline">\(s\)</span> is the rate of spontaneous turning and <span class="math inline">\(\epsilon\)</span> characterizes the variance of the turning angle. Second, a fish can randomly choose another fish and copy its direction:</p>
 <p><span class="math display">\[
 \theta_i+\theta_j
 \xrightarrow{c}
-2\theta_j,
+2\theta_j
 \]</span></p>
-<p>or, equivalently,</p>
-<p><span class="math display">\[
-\theta_i\xrightarrow{c}\theta_j.
-\]</span></p>
-<p>Here <span class="math inline">\(c\)</span> is the rate of pair-wise copying.</p>
-<p>Let us first consider the spontaneous turning process. It is convenient to represent the orientation of fish <span class="math inline">\(i\)</span> by a complex number</p>
-<p><span class="math display">\[
-z_i=e^{i\theta_i}.
-\]</span></p>
-<p>The polarization is then</p>
-<p><span class="math display">\[
-m=\frac{1}{N}\sum_i z_i.
-\]</span></p>
-<p>After a spontaneous turn,</p>
+<p>Here <span class="math inline">\(c\)</span> is the rate of pair-wise copying. Let us first consider the spontaneous turning process. It is convenient to represent the orientation of fish <span class="math inline">\(i\)</span> by a complex number <span class="math inline">\(z_i=e^{i\theta_i}\)</span>, the polarization is then <span class="math inline">\(m=\frac{1}{N}\sum_i z_i\)</span>. After a spontaneous turn,</p>
 <p><span class="math display">\[
 z_i
 \rightarrow
-z_i e^{i\mu}.
+z_i e^{i\mu}
 \]</span></p>
-<p>Since <span class="math inline">\(\mu\)</span> is Gaussian,</p>
-<p><span class="math display">\[
-\mathbb{E}[e^{i\mu}]
-=
-e^{-\epsilon/2}.
-\]</span></p>
-<p>Therefore, the expected contribution of one fish after a spontaneous turning event becomes</p>
+<p>Since <span class="math inline">\(\mu\)</span> is Gaussian, its characteristic function is given by <span class="math inline">\(\mathbb{E}[e^{i\mu}]=e^{-\epsilon/2}\)</span>. Therefore, the expected contribution of one fish after a spontaneous turning event becomes</p>
 <p><span class="math display">\[
 \mathbb{E}[z_i']
-=
-z_i e^{-\epsilon/2}.
+=z_i\mathbb{E}[e^{i\mu}]=
+z_i e^{-\epsilon/2}
 \]</span></p>
-<p>The fraction of polarization lost in one event is consequently</p>
-<p><span class="math display">\[
-1-e^{-\epsilon/2}.
+<p>The fraction of polarization lost in one event is consequently <span class="math inline">\(1-e^{-\epsilon/2}\)</span>. The event rate for <span class="math inline">\(N\)</span> fish is <span class="math inline">\(Ns\)</span>, and each event will bring a <span class="math inline">\(-(1-e^{-\epsilon/2})z_i/N\)</span> change to the whole <span class="math inline">\(m\)</span>. Therefore the decrease expectation of polarization in a unit time is: <span class="math display">\[
+\mathbb{E}\left[Ns[-(1-e^{-\epsilon/2})z_i/N]\right]=-s(1-e^{-\epsilon/2})\mathbb{E}[z_i]=-s(1-e^{-\epsilon/2})m
 \]</span></p>
-<p>Since these events occur with rate <span class="math inline">\(s\)</span>, the deterministic decay rate of polarization is</p>
-<p><span class="math display">\[
-\alpha
-=
-s\left(1-e^{-\epsilon/2}\right).
-\]</span></p>
-<p>Hence spontaneous turning generates the deterministic term</p>
+<p>The decay is proportional to itself, classic exponential decay. Hence spontaneous turning generates the deterministic term</p>
 <p><span class="math display">\[
 \frac{d\vec M}{dt}
 =
--\alpha \vec M.
+-\alpha \vec M, \qquad \alpha:=s(1-e^{-\epsilon/2})
 \]</span></p>
 <p>This also explains why the same <span class="math inline">\(\alpha\)</span> appears in both the deterministic and stochastic parts of the empirical SDE. Spontaneous turning is itself a stochastic event: although its average effect is to decrease polarization, for a finite number of fish the actual number and direction of turning events fluctuate. Therefore, the same microscopic process also contributes a finite-size noise term proportional to</p>
 <p><span class="math display">\[
