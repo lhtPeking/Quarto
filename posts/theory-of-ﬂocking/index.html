@@ -781,45 +781,26 @@ G(r)\frac{p(r)}{2\pi r}
 =
 -2N\alpha p(r)
 \]</span></p>
-<p>Define <span class="math inline">\(q(r):=\frac{G(r)p(r)}{r}\)</span></p>
-<p>Then</p>
-<p><span class="math display">\[
-p(r)
-=
-\frac{r\,q(r)}{G(r)}.
-\]</span></p>
-<p>Substituting this back into the differential equation gives</p>
+<p>Let <span class="math inline">\(q(r):=\frac{G(r)p(r)}{r}\)</span>, then <span class="math inline">\(p(r)=\frac{r\,q(r)}{G(r)}\)</span>. Substituting this back into the differential equation gives:</p>
 <p><span class="math display">\[
 \frac{dq}{dr}
 =
 -2N\alpha
 \frac{r}{G(r)}
-q(r).
+q(r)
 \]</span></p>
 <p>Therefore,</p>
 <p><span class="math display">\[
 \frac{d\ln q}{dr}
 =
--\frac{2N\alpha r}{G(r)}.
+-\frac{2N\alpha r}{G(r)}
 \]</span></p>
-<p>Since</p>
-<p><span class="math display">\[
-G(r)
-=
-\alpha+c(1-r^2),
-\]</span></p>
-<p>we have</p>
-<p><span class="math display">\[
-\frac{dG}{dr}
-=
--2cr.
-\]</span></p>
-<p>Hence,</p>
+<p>Since <span class="math inline">\(G(r)=\alpha+c(1-r^2)\)</span>, we have <span class="math inline">\(\frac{dG}{dr}=-2cr\)</span>, hence</p>
 <p><span class="math display">\[
 -\frac{2N\alpha r}{G(r)}\,dr
 =
 \frac{N\alpha}{c}
-\frac{dG}{G}.
+\frac{dG}{G}
 \]</span></p>
 <p>Integrating both sides gives</p>
 <p><span class="math display">\[
@@ -827,100 +808,45 @@ G(r)
 =
 \frac{N\alpha}{c}\ln G
 +
-\text{const},
+\text{const}
 \]</span></p>
 <p>and therefore</p>
 <p><span class="math display">\[
 q(r)
 \propto
-G(r)^{N\alpha/c}.
+G(r)^{N\alpha/c}
 \]</span></p>
-<p>Recalling that</p>
+<p>Recalling that <span class="math inline">\(p(r)=\frac{r\,q(r)}{G(r)}\)</span>, we finally obtain:</p>
 <p><span class="math display">\[
-p(r)
-=
-\frac{r\,q(r)}{G(r)},
-\]</span></p>
-<p>we finally obtain</p>
-<p><span class="math display">\[
-\boxed{
 p(r)
 \propto
 r
 \left[
 \alpha+c(1-r^2)
 \right]^{\frac{N\alpha}{c}-1}
-}.
 \]</span></p>
 <p>Since <span class="math inline">\(r=|\vec M|\)</span>, this can also be written as</p>
 <p><span class="math display">\[
-\boxed{
 p(|\vec M|)
 \propto
 |\vec M|
 \left[
 \alpha+c(1-|\vec M|^2)
 \right]^{\frac{N\alpha}{c}-1}
-}.
 \]</span></p>
-<p>Here <span class="math inline">\(p(r)\)</span> is already the probability density of the polarization magnitude <span class="math inline">\(r=|\vec M|\)</span>. The factor <span class="math inline">\(r\)</span> originates from the geometry of the two-dimensional polarization plane: the set of states with magnitude between <span class="math inline">\(r\)</span> and <span class="math inline">\(r+dr\)</span> forms an annulus whose area is proportional to <span class="math inline">\(r\,dr\)</span>.</p>
-<p>The remaining factor,</p>
-<p><span class="math display">\[
-\left[
-\alpha+c(1-r^2)
-\right]^{\frac{N\alpha}{c}-1},
-\]</span></p>
-<p>contains the actual stochastic dynamics.</p>
-<p>In particular, define</p>
-<p><span class="math display">\[
-\gamma
-=
-\frac{N\alpha}{c}-1.
-\]</span></p>
-<p>For the fitted parameters</p>
-<p><span class="math display">\[
-\alpha=0.1,
-\qquad
-c=4,
-\]</span></p>
-<p>we obtain</p>
-<p><span class="math display">\[
-\gamma(N=15)
-=
--0.625,
-\]</span></p>
-<p><span class="math display">\[
-\gamma(N=30)
-=
--0.25,
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\gamma(N=60)
-=
-0.5.
-\]</span></p>
-<p>When <span class="math inline">\(N\)</span> is small, <span class="math inline">\(\gamma&lt;0\)</span>. Since</p>
-<p><span class="math display">\[
-G(r)
-=
-\alpha+c(1-r^2)
-\]</span></p>
-<p>decreases as <span class="math inline">\(r\)</span> increases, a negative exponent makes</p>
-<p><span class="math display">\[
-G(r)^\gamma
-\]</span></p>
-<p>increase toward <span class="math inline">\(r=1\)</span>. Therefore, the stationary probability distribution becomes strongly biased toward highly polarized states.</p>
-<p>As <span class="math inline">\(N\)</span> increases, the exponent eventually becomes positive, and this bias toward large polarization weakens. The distribution consequently shifts toward less polarized states.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="3.png" class="img-fluid figure-img"></p>
+<figcaption>N dependence of the steady-state PDFs generated from the pairwise model.</figcaption>
+</figure>
+</div>
 <p>Thus,</p>
 <p><span class="math display">\[
-\boxed{
 \text{smaller group}
 \quad\Longrightarrow\quad
 \text{stronger finite-size noise}
 \quad\Longrightarrow\quad
 \text{stronger schooling}
-}
 \]</span></p>
 <p>emerges directly from the stationary distribution.</p>
 
