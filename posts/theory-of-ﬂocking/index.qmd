@@ -1,5 +1,5 @@
 ---
-title: "Noise-induced Schooling of Fish"
+title: "Noise-Induced Schooling: From Microscopic Copying to Collective Dynamics"
 description: "A very powerful insight into the collective behavior."
 date: 2026-08-30
 categories: [Physics, Statistical Physics, Behavior Analysis]
