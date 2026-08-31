@@ -435,30 +435,41 @@ $$
 -\nabla\cdot\vec J
 $$
 
-where the probability current is $\vec J=-\alpha\vec M p-\frac{1}{2N}\nabla\left[G(r)p\right]$. At the stationary state, assuming zero probability flux, i.e. $\vec J=0$, because the system is rotationally symmetric,
+where the probability current is
 
 $$
-p(\vec M)=p(\vec M(r)),
+\vec J
+=
+-\alpha \vec M\,p(\vec M)
+-
+\frac{1}{2N}
+\nabla\left[
+G(r)p(\vec M)
+\right]
 $$
 
-and therefore
+At the stationary state, assuming zero probability flux $\vec J=0$. Because the system is rotationally symmetric, the two-dimensional probability density can be written in terms of the radial probability density $p(r)$ as
 
 $$
-\vec M=r\hat{\vec r}.
+p(\vec M)
+=
+\frac{p(r)}{2\pi r},
+\qquad
+r=|\vec M|
 $$
 
-The zero-current condition reduces to
+Substituting this into the radial component of the zero-current condition gives
 
 $$
--\alpha r p(r)
+-\alpha r\frac{p(r)}{2\pi r}
 -
 \frac{1}{2N}
 \frac{d}{dr}
 \left[
-G(r)p(r)
+G(r)\frac{p(r)}{2\pi r}
 \right]
 =
-0.
+0
 $$
 
 Thus,
@@ -466,30 +477,30 @@ Thus,
 $$
 \frac{d}{dr}
 \left[
-G(r)p(r)
+\frac{G(r)p(r)}{r}
 \right]
 =
--2N\alpha r p(r).
+-2N\alpha p(r)
 $$
 
-Let
-
-$$
-q(r)=G(r)p(r).
-$$
+Define $q(r):=\frac{G(r)p(r)}{r}$
 
 Then
 
 $$
-p(r)=\frac{q(r)}{G(r)},
+p(r)
+=
+\frac{r\,q(r)}{G(r)}.
 $$
 
-so that
+Substituting this back into the differential equation gives
 
 $$
 \frac{dq}{dr}
 =
--\frac{2N\alpha r}{G(r)}q.
+-2N\alpha
+\frac{r}{G(r)}
+q(r).
 $$
 
 Therefore,
@@ -516,10 +527,10 @@ $$
 -2cr.
 $$
 
-Hence
+Hence,
 
 $$
--\frac{2N\alpha r}{G(r)}dr
+-\frac{2N\alpha r}{G(r)}\,dr
 =
 \frac{N\alpha}{c}
 \frac{dG}{G}.
@@ -530,7 +541,9 @@ Integrating both sides gives
 $$
 \ln q
 =
-\frac{N\alpha}{c}\ln G+\text{const},
+\frac{N\alpha}{c}\ln G
++
+\text{const},
 $$
 
 and therefore
@@ -541,77 +554,51 @@ q(r)
 G(r)^{N\alpha/c}.
 $$
 
-Since $q=Gp$,
+Recalling that
 
 $$
 p(r)
-\propto
-G(r)^{N\alpha/c-1}.
-$$
-
-However, this $p(r)$ is still the probability density per unit area on the two-dimensional $\vec M$ plane. What we actually want is the probability density of the radius $r=|\vec M|$.
-
-The area of an annulus between $r$ and $r+dr$ is
-
-$$
-dA
 =
-2\pi r\,dr.
+\frac{r\,q(r)}{G(r)},
 $$
 
-Therefore,
-
-$$
-P(r)dr
-=
-2\pi r p(r)dr,
-$$
-
-and, ignoring the normalization constant,
-
-$$
-P(r)
-\propto
-r\,p(r).
-$$
-
-Finally,
+we finally obtain
 
 $$
 \boxed{
-P(r)
+p(r)
 \propto
 r
 \left[
 \alpha+c(1-r^2)
 \right]^{\frac{N\alpha}{c}-1}
-}
+}.
 $$
 
-or equivalently,
+Since $r=|\vec M|$, this can also be written as
 
 $$
 \boxed{
-P(|\vec M|)
+p(|\vec M|)
 \propto
 |\vec M|
 \left[
 \alpha+c(1-|\vec M|^2)
-\right]^{\frac{N\alpha}{c}-1}.
-}
+\right]^{\frac{N\alpha}{c}-1}
+}.
 $$
 
-The factor $|\vec M|$ in front is purely geometrical: it comes from the Jacobian when converting the two-dimensional probability density into a radial probability density, exactly like the $r$ factor in the Rayleigh distribution discussed earlier.
+Here $p(r)$ is already the probability density of the polarization magnitude $r=|\vec M|$. The factor $r$ originates from the geometry of the two-dimensional polarization plane: the set of states with magnitude between $r$ and $r+dr$ forms an annulus whose area is proportional to $r\,dr$.
 
 The remaining factor,
 
 $$
 \left[
-\alpha+c(1-|\vec M|^2)
+\alpha+c(1-r^2)
 \right]^{\frac{N\alpha}{c}-1},
 $$
 
-contains the actual dynamics.
+contains the actual stochastic dynamics.
 
 In particular, define
 
@@ -654,7 +641,9 @@ $$
 When $N$ is small, $\gamma<0$. Since
 
 $$
-G(r)=\alpha+c(1-r^2)
+G(r)
+=
+\alpha+c(1-r^2)
 $$
 
 decreases as $r$ increases, a negative exponent makes
@@ -663,11 +652,11 @@ $$
 G(r)^\gamma
 $$
 
-increase towards $r=1$. The probability distribution is therefore strongly biased toward highly polarized states.
+increase toward $r=1$. Therefore, the stationary probability distribution becomes strongly biased toward highly polarized states.
 
-As $N$ increases, the exponent eventually becomes positive, and the distribution shifts back toward smaller polarization.
+As $N$ increases, the exponent eventually becomes positive, and this bias toward large polarization weakens. The distribution consequently shifts toward less polarized states.
 
-Thus the counterintuitive observation
+Thus,
 
 $$
 \boxed{
