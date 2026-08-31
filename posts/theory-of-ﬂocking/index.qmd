@@ -205,7 +205,7 @@ The simplest way to interpret this is to assume that $\mathbf{B} \approx \sqrt{\
 
 From the data we can find that the noise is the strongest when $\vec M \to 0$. This means the noise is actually what keeps fish aligned, instead of the determinstic force. Researchers tried many function candidates and finally decided that the form $\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}$ fits data in the best way. The fish group is less aligned is written in $\mathbf{B}$ is scaled with $O(\frac{1}{\sqrt{N}})$. Also note that the $\alpha$ in the deterministic part and stochastic part is the same, this will be explained in the following section.
 
-## From pair-wise copying to the exact PDF of polarization
+## From pair-wise copying to the macroscopic statistics
 The SDE is cool but not very insightful, we need to know what causes this form instead of just focus on the statistic properties. The coolest part of this research is that they actually had done this. They proposed a pair-wise copying model that explained the complicated form of the SDE.
 
 The microscopic model they propose actually contains two competing processes. First, each fish can spontaneously change its direction, this part counts for the deterministic decorrelation:
@@ -242,6 +242,7 @@ $$
 z_i e^{-\epsilon/2}
 $$
 
+
 The fraction of polarization lost in one event is consequently $1-e^{-\epsilon/2}$. The event rate for $N$ fish is $Ns$, and each event will bring a $-(1-e^{-\epsilon/2})z_i/N$ change to the whole $m$. Therefore the decrease expectation of polarization in a unit time is:
 $$
 \mathbb{E}\left[Ns[-(1-e^{-\epsilon/2})z_i/N]\right]=-s(1-e^{-\epsilon/2})\mathbb{E}[z_i]=-s(1-e^{-\epsilon/2})m
@@ -255,80 +256,119 @@ $$
 -\alpha \vec M, \qquad \alpha:=s(1-e^{-\epsilon/2})
 $$
 
-This also explains why the same $\alpha$ appears in both the deterministic and stochastic parts of the empirical SDE. Spontaneous turning is itself a stochastic event: although its average effect is to decrease polarization, for a finite number of fish the actual number and direction of turning events fluctuate. Therefore, the same microscopic process also contributes a finite-size noise term proportional to
+$\alpha$ above is actually the first jump moment. Apart from this drift term, the spontaneous turning will also bring a stochastic part to $\vec m$. To analyze the stochastic part of this spontaneous turning, we need to resort to its secon jump moment, i.e. $\mathbb{E}\left[\frac{d\vec Md\vec M^T }{dt}\right]$. 
+
+For a single spontaneous-turning event of fish $i$, $\delta \vec M=\frac{1}{N}\left(\hat{\vec v}_i'-\hat{\vec v}_i\right)$. Using the complex representation, $\delta m=\frac{1}{N}e^{i\theta_i}\left(e^{i\mu}-1\right)$. Therefore, the squared magnitude of the jump is
 
 $$
-\frac{\alpha}{N}.
+|\delta m|^2
+=
+\frac{1}{N^2}
+\left|
+e^{i\mu}-1
+\right|^2
 $$
 
-Now consider pair-wise copying. If fish $i$ copies fish $j$, the change in polarization is
+Since $\left|e^{i\mu}-1\right|^2=2(1-\cos\mu)$, we obtain
 
 $$
-\Delta\vec M
+\mathbb{E}[|\delta m|^2]
+=
+\frac{2}{N^2}
+\left(
+1-\mathbb{E}[\cos\mu]
+\right)
+$$
+
+Because $\mathbb{E}[\cos\mu]=\mathbb{E}[e^{i\mu}]=e^{-\epsilon/2}$, this becomes
+
+$$
+\mathbb{E}[|\delta m|^2]
+=
+\frac{2}{N^2}
+\left(
+1-e^{-\epsilon/2}
+\right)
+$$
+
+Let $dm$ represent the total polarization change within time $dt$. When $dt\to 0$, total event number $Ns\cdot dt<<1$, therefore it is highly unlikely that two turning events happen in a single time frame:
+$$
+\mathbb{E}[|d m_s|^2]
+=Ns
+\frac{2}{N^2}
+\left(
+1-e^{-\epsilon/2}
+\right)=\frac{2s}{N}
+\left(
+1-e^{-\epsilon/2}
+\right)=\frac{2}{N}\cdot\alpha
+$$
+
+According to the calculation of the second jump moment in the last section, $\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=\mathbf{B}\mathbf{B}^T\approx\text{const}\cdot \mathbf{I}$ where $\mathbf{B}\approx \sqrt{\text{const}}\cdot \mathbf{I}=B_{ii}\cdot \mathbf{I}$. Take the trace:
+$$
+\text{Tr}\left(\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]\right)=\text{Tr}\left(\mathbf{B}\mathbf{B}^T\right)
+$$
+The L.H.S. is actually $\mathbb{E}\left[dM_x^2+dM_y^2\right]=\mathbb{E}[|d m|^2]$, while the R.H.S. is $2B_{11}^2$. Therefore,
+$$
+\frac{2}{N}\cdot\alpha=2B_{11}^2\rightarrow B_{11}=B_{22}=\sqrt{\text{const}}=\sqrt{\frac{\alpha}{N}}
+$$
+
+This explains why the same $\alpha$ appears in both the deterministic and stochastic parts of the empirical SDE. Now consider pair-wise copying. If fish $i$ copies fish $j$, the change in polarization is
+
+$$
+\delta\vec M
 =
 \frac{1}{N}
 \left(
-\hat{\vec v}_j-\hat{\vec v}_i
-\right).
+{\vec v}_j-{\vec v}_i
+\right)
 $$
 
-If $i$ and $j$ are chosen randomly, there is no preferred direction for this change. Therefore,
+If $i$ and $j$ are chosen randomly, there is no preferred direction for this change. Therefore, $\mathbb{E}[\delta\vec M]_{\mathrm{copy}}\approx 0$, meaning that pair-wise copying does not produce a deterministic alignment force at the mesoscopic level. However, its variance is nonzero:
 
 $$
-\mathbb{E}[\Delta\vec M]_{\mathrm{copy}}
-\approx 0,
-$$
-
-meaning that pair-wise copying does not produce a deterministic alignment force at the mesoscopic level.
-
-However, its variance is nonzero:
-
-$$
-|\Delta\vec M|^2
+|\delta\vec M|^2
 =
 \frac{1}{N^2}
-|\hat{\vec v}_j-\hat{\vec v}_i|^2.
+|{\vec v}_j-{\vec v}_i|^2
 $$
 
 Since both vectors have unit length,
 
 $$
-|\hat{\vec v}_j-\hat{\vec v}_i|^2
+|{\vec v}_j-{\vec v}_i|^2
 =
 2\left(
-1-\hat{\vec v}_i\cdot\hat{\vec v}_j
-\right).
+1-{\vec v}_i\cdot{\vec v}_j
+\right)
 $$
 
-Under the mean-field approximation,
-
-$$
-\mathbb{E}
-\left[
-\hat{\vec v}_i\cdot\hat{\vec v}_j
-\right]
-\approx
-|\vec M|^2.
-$$
-
-Therefore,
+Under the mean-field approximation, we should have the relation $\mathbb{E}\left[{\vec v}_i\cdot{\vec v}_j\right]\approx|\vec M|^2$. Therefore,
 
 $$
 \mathbb{E}
 \left[
-|\Delta\vec M|^2
+|\delta\vec M|^2
 \right]
-\propto
-\frac{1-|\vec M|^2}{N^2}.
+=
+2\cdot \frac{1-|\vec M|^2}{N^2}
 $$
 
-Since there are $O(Nc)$ copying events per unit time, the accumulated variance per unit time scales as
+Since there are $Ncdt$ copying events happen in $dt$, the accumulated variance per during $dt$ is:
 
 $$
-\frac{c(1-|\vec M|^2)}{N}.
+\mathbb{E}
+\left[
+|d\vec M_c|^2
+\right]=2Nc\cdot \frac{1-|\vec M|^2}{N^2}
 $$
 
-Combining spontaneous turning and pair-wise copying gives the mesoscopic SDE
+Use the same logic as before, $\mathbb{E}\left[|d\vec M_c|^2\right]=\mathbb{E}\left[dM_x^2+dM_y^2\right]=\text{Tr}\left(\mathbf{B}\mathbf{B}^T\right)$, therefore,
+$$
+2Nc\cdot \frac{1-|\vec M|^2}{N^2}=2B_{11}^2\rightarrow B_{11}=B_{22}=\sqrt{\text{const}}=\sqrt{\frac{c(1-|\vec M|^2)}{N}}
+$$
+
+Finally, combine spontaneous turning and pair-wise copying gives the mesoscopic SDE (Note that $\mathbb{E}\left[|d\vec M|^2\right]$ of two separated process should be added together first and then take the sqaure root):
 
 $$
 d\vec M
@@ -340,16 +380,10 @@ d\vec M
 \alpha+c(1-|\vec M|^2)
 }{N}
 }
-\,d\vec W.
+\,d\vec W
 $$
 
-By identifying
-
-$$
-\beta=c,
-$$
-
-we exactly recover the functional form extracted from experimental data:
+By identifying $\beta=c$, we exactly recover the functional form extracted from experimental data:
 
 $$
 d\vec M
@@ -361,30 +395,14 @@ d\vec M
 \alpha+\beta(1-|\vec M|^2)
 }{N}
 }
-\,d\vec W.
+\,d\vec W
 $$
 
 This is the part I find particularly beautiful: the seemingly complicated multiplicative noise is not merely an empirical fitting function, but can emerge naturally from an extremely simple microscopic copying rule.
 
-### Stationary distribution of the polarization
+## From Itô to Fokker–Planck: the stationary distribution of the polarization
 
-Now that we have the SDE, we can derive the stationary probability distribution of the polarization modulus $|\vec M|$.
-
-Define
-
-$$
-r=|\vec M|
-$$
-
-and
-
-$$
-G(r)
-=
-\alpha+c(1-r^2).
-$$
-
-Then the SDE can be written as
+Now that we have the SDE, we can derive the stationary probability distribution of the polarization modulus $|\vec M|$. Define $r=|\vec M|$ and $G(r)=\alpha+c(1-r^2)$, then the SDE can be written as:
 
 $$
 d\vec M
@@ -392,7 +410,7 @@ d\vec M
 -\alpha\vec M\,dt
 +
 \sqrt{\frac{G(r)}{N}}
-\,d\vec W.
+\,d\vec W
 $$
 
 Let $p(\vec M,t)$ denote the probability density on the two-dimensional polarization plane. The corresponding Fokker--Planck equation is
@@ -406,41 +424,21 @@ $$
 \nabla^2
 \left[
 G(r)p
-\right].
+\right]
 $$
 
-Equivalently,
+where $-\alpha\vec M p$ is the deterministic flow and $D=\frac{G(r)}{2N}$ is the diffusion coefficient. Equivalently,
 
 $$
 \frac{\partial p}{\partial t}
 =
--\nabla\cdot\vec J,
+-\nabla\cdot\vec J
 $$
 
-where the probability current is
+where the probability current is $\vec J=-\alpha\vec M p-\frac{1}{2N}\nabla\left[G(r)p\right]$. At the stationary state, assuming zero probability flux, i.e. $\vec J=0$, because the system is rotationally symmetric,
 
 $$
-\vec J
-=
--\alpha\vec M p
--
-\frac{1}{2N}
-\nabla
-\left[
-G(r)p
-\right].
-$$
-
-At the stationary state, assuming zero probability flux,
-
-$$
-\vec J=0.
-$$
-
-Because the system is rotationally symmetric,
-
-$$
-p(\vec M)=p(r),
+p(\vec M)=p(\vec M(r)),
 $$
 
 and therefore
