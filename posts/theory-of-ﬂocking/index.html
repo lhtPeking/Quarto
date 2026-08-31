@@ -341,10 +341,8 @@ window.Quarto = {
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" id="toc-two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n" class="nav-link" data-scroll-target="#two-dimensional-random-walk-how-does-the-radius-scale-with-step-number-n"><span class="header-section-number">2</span> Two Dimensional Random Walk: How does the radius scale with step number N?</a></li>
   <li><a href="#extraction-of-an-sde-from-data" id="toc-extraction-of-an-sde-from-data" class="nav-link" data-scroll-target="#extraction-of-an-sde-from-data"><span class="header-section-number">3</span> Extraction of an SDE from data</a></li>
-  <li><a href="#from-pair-wise-copying-to-the-exact-pdf-of-polarization" id="toc-from-pair-wise-copying-to-the-exact-pdf-of-polarization" class="nav-link" data-scroll-target="#from-pair-wise-copying-to-the-exact-pdf-of-polarization"><span class="header-section-number">4</span> From pair-wise copying to the exact PDF of polarization</a>
-  <ul class="collapse">
-  <li><a href="#stationary-distribution-of-the-polarization" id="toc-stationary-distribution-of-the-polarization" class="nav-link" data-scroll-target="#stationary-distribution-of-the-polarization"><span class="header-section-number">4.1</span> Stationary distribution of the polarization</a></li>
-  </ul></li>
+  <li><a href="#from-pair-wise-copying-to-the-macroscopic-statistics" id="toc-from-pair-wise-copying-to-the-macroscopic-statistics" class="nav-link" data-scroll-target="#from-pair-wise-copying-to-the-macroscopic-statistics"><span class="header-section-number">4</span> From pair-wise copying to the macroscopic statistics</a></li>
+  <li><a href="#from-itô-to-fokkerplanck-the-stationary-distribution-of-the-polarization" id="toc-from-itô-to-fokkerplanck-the-stationary-distribution-of-the-polarization" class="nav-link" data-scroll-target="#from-itô-to-fokkerplanck-the-stationary-distribution-of-the-polarization"><span class="header-section-number">5</span> From Itô to Fokker–Planck: the stationary distribution of the polarization</a></li>
   </ul>
 </nav>
     </div>
@@ -561,8 +559,8 @@ A_y
 <p>The simplest way to interpret this is to assume that $ $, thereby we could obtain <span class="math inline">\(B_{11}\)</span> and <span class="math inline">\(B_{22}\)</span>. Note that this fractorization is not the only way to interpret data, there could be other possibilities. But in the spirit of simplicity, let’s first accept this.</p>
 <p>From the data we can find that the noise is the strongest when <span class="math inline">\(\vec M \to 0\)</span>. This means the noise is actually what keeps fish aligned, instead of the determinstic force. Researchers tried many function candidates and finally decided that the form <span class="math inline">\(\sqrt{\frac{\beta(1-|\vec M|^2)+\alpha}{N}}\)</span> fits data in the best way. The fish group is less aligned is written in <span class="math inline">\(\mathbf{B}\)</span> is scaled with <span class="math inline">\(O(\frac{1}{\sqrt{N}})\)</span>. Also note that the <span class="math inline">\(\alpha\)</span> in the deterministic part and stochastic part is the same, this will be explained in the following section.</p>
 </section>
-<section id="from-pair-wise-copying-to-the-exact-pdf-of-polarization" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="from-pair-wise-copying-to-the-exact-pdf-of-polarization"><span class="header-section-number">4</span> From pair-wise copying to the exact PDF of polarization</h2>
+<section id="from-pair-wise-copying-to-the-macroscopic-statistics" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="from-pair-wise-copying-to-the-macroscopic-statistics"><span class="header-section-number">4</span> From pair-wise copying to the macroscopic statistics</h2>
 <p>The SDE is cool but not very insightful, we need to know what causes this form instead of just focus on the statistic properties. The coolest part of this research is that they actually had done this. They proposed a pair-wise copying model that explained the complicated form of the SDE.</p>
 <p>The microscopic model they propose actually contains two competing processes. First, each fish can spontaneously change its direction, this part counts for the deterministic decorrelation:</p>
 <p><span class="math display">\[
@@ -599,63 +597,94 @@ z_i e^{-\epsilon/2}
 =
 -\alpha \vec M, \qquad \alpha:=s(1-e^{-\epsilon/2})
 \]</span></p>
-<p>This also explains why the same <span class="math inline">\(\alpha\)</span> appears in both the deterministic and stochastic parts of the empirical SDE. Spontaneous turning is itself a stochastic event: although its average effect is to decrease polarization, for a finite number of fish the actual number and direction of turning events fluctuate. Therefore, the same microscopic process also contributes a finite-size noise term proportional to</p>
+<p><span class="math inline">\(\alpha\)</span> above is actually the first jump moment. Apart from this drift term, the spontaneous turning will also bring a stochastic part to <span class="math inline">\(\vec m\)</span>. To analyze the stochastic part of this spontaneous turning, we need to resort to its secon jump moment, i.e.&nbsp;<span class="math inline">\(\mathbb{E}\left[\frac{d\vec Md\vec M^T }{dt}\right]\)</span>.</p>
+<p>For a single spontaneous-turning event of fish <span class="math inline">\(i\)</span>, <span class="math inline">\(\delta \vec M=\frac{1}{N}\left(\hat{\vec v}_i'-\hat{\vec v}_i\right)\)</span>. Using the complex representation, <span class="math inline">\(\delta m=\frac{1}{N}e^{i\theta_i}\left(e^{i\mu}-1\right)\)</span>. Therefore, the squared magnitude of the jump is</p>
 <p><span class="math display">\[
-\frac{\alpha}{N}.
+|\delta m|^2
+=
+\frac{1}{N^2}
+\left|
+e^{i\mu}-1
+\right|^2
 \]</span></p>
-<p>Now consider pair-wise copying. If fish <span class="math inline">\(i\)</span> copies fish <span class="math inline">\(j\)</span>, the change in polarization is</p>
+<p>Since <span class="math inline">\(\left|e^{i\mu}-1\right|^2=2(1-\cos\mu)\)</span>, we obtain</p>
 <p><span class="math display">\[
-\Delta\vec M
+\mathbb{E}[|\delta m|^2]
+=
+\frac{2}{N^2}
+\left(
+1-\mathbb{E}[\cos\mu]
+\right)
+\]</span></p>
+<p>Because <span class="math inline">\(\mathbb{E}[\cos\mu]=\mathbb{E}[e^{i\mu}]=e^{-\epsilon/2}\)</span>, this becomes</p>
+<p><span class="math display">\[
+\mathbb{E}[|\delta m|^2]
+=
+\frac{2}{N^2}
+\left(
+1-e^{-\epsilon/2}
+\right)
+\]</span></p>
+<p>Let <span class="math inline">\(dm\)</span> represent the total polarization change within time <span class="math inline">\(dt\)</span>. When <span class="math inline">\(dt\to 0\)</span>, total event number <span class="math inline">\(Ns\cdot dt&lt;&lt;1\)</span>, therefore it is highly unlikely that two turning events happen in a single time frame: <span class="math display">\[
+\mathbb{E}[|d m_s|^2]
+=Ns
+\frac{2}{N^2}
+\left(
+1-e^{-\epsilon/2}
+\right)=\frac{2s}{N}
+\left(
+1-e^{-\epsilon/2}
+\right)=\frac{2}{N}\cdot\alpha
+\]</span></p>
+<p>According to the calculation of the second jump moment in the last section, <span class="math inline">\(\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]=\mathbf{B}\mathbf{B}^T\approx\text{const}\cdot \mathbf{I}\)</span> where <span class="math inline">\(\mathbf{B}\approx \sqrt{\text{const}}\cdot \mathbf{I}=B_{ii}\cdot \mathbf{I}\)</span>. Take the trace: <span class="math display">\[
+\text{Tr}\left(\mathbb{E}\left[\frac{(d\vec M)(d\vec M)^T}{dt}\right]\right)=\text{Tr}\left(\mathbf{B}\mathbf{B}^T\right)
+\]</span> The L.H.S. is actually <span class="math inline">\(\mathbb{E}\left[dM_x^2+dM_y^2\right]=\mathbb{E}[|d m|^2]\)</span>, while the R.H.S. is <span class="math inline">\(2B_{11}^2\)</span>. Therefore, <span class="math display">\[
+\frac{2}{N}\cdot\alpha=2B_{11}^2\rightarrow B_{11}=B_{22}=\sqrt{\text{const}}=\sqrt{\frac{\alpha}{N}}
+\]</span></p>
+<p>This explains why the same <span class="math inline">\(\alpha\)</span> appears in both the deterministic and stochastic parts of the empirical SDE. Now consider pair-wise copying. If fish <span class="math inline">\(i\)</span> copies fish <span class="math inline">\(j\)</span>, the change in polarization is</p>
+<p><span class="math display">\[
+\delta\vec M
 =
 \frac{1}{N}
 \left(
-\hat{\vec v}_j-\hat{\vec v}_i
-\right).
+{\vec v}_j-{\vec v}_i
+\right)
 \]</span></p>
-<p>If <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are chosen randomly, there is no preferred direction for this change. Therefore,</p>
+<p>If <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are chosen randomly, there is no preferred direction for this change. Therefore, <span class="math inline">\(\mathbb{E}[\delta\vec M]_{\mathrm{copy}}\approx 0\)</span>, meaning that pair-wise copying does not produce a deterministic alignment force at the mesoscopic level. However, its variance is nonzero:</p>
 <p><span class="math display">\[
-\mathbb{E}[\Delta\vec M]_{\mathrm{copy}}
-\approx 0,
-\]</span></p>
-<p>meaning that pair-wise copying does not produce a deterministic alignment force at the mesoscopic level.</p>
-<p>However, its variance is nonzero:</p>
-<p><span class="math display">\[
-|\Delta\vec M|^2
+|\delta\vec M|^2
 =
 \frac{1}{N^2}
-|\hat{\vec v}_j-\hat{\vec v}_i|^2.
+|{\vec v}_j-{\vec v}_i|^2
 \]</span></p>
 <p>Since both vectors have unit length,</p>
 <p><span class="math display">\[
-|\hat{\vec v}_j-\hat{\vec v}_i|^2
+|{\vec v}_j-{\vec v}_i|^2
 =
 2\left(
-1-\hat{\vec v}_i\cdot\hat{\vec v}_j
-\right).
+1-{\vec v}_i\cdot{\vec v}_j
+\right)
 \]</span></p>
-<p>Under the mean-field approximation,</p>
+<p>Under the mean-field approximation, we should have the relation <span class="math inline">\(\mathbb{E}\left[{\vec v}_i\cdot{\vec v}_j\right]\approx|\vec M|^2\)</span>. Therefore,</p>
 <p><span class="math display">\[
 \mathbb{E}
 \left[
-\hat{\vec v}_i\cdot\hat{\vec v}_j
+|\delta\vec M|^2
 \right]
-\approx
-|\vec M|^2.
+=
+2\cdot \frac{1-|\vec M|^2}{N^2}
 \]</span></p>
-<p>Therefore,</p>
+<p>Since there are <span class="math inline">\(Ncdt\)</span> copying events happen in <span class="math inline">\(dt\)</span>, the accumulated variance per during <span class="math inline">\(dt\)</span> is:</p>
 <p><span class="math display">\[
 \mathbb{E}
 \left[
-|\Delta\vec M|^2
-\right]
-\propto
-\frac{1-|\vec M|^2}{N^2}.
+|d\vec M_c|^2
+\right]=2Nc\cdot \frac{1-|\vec M|^2}{N^2}
 \]</span></p>
-<p>Since there are <span class="math inline">\(O(Nc)\)</span> copying events per unit time, the accumulated variance per unit time scales as</p>
-<p><span class="math display">\[
-\frac{c(1-|\vec M|^2)}{N}.
+<p>Use the same logic as before, <span class="math inline">\(\mathbb{E}\left[|d\vec M_c|^2\right]=\mathbb{E}\left[dM_x^2+dM_y^2\right]=\text{Tr}\left(\mathbf{B}\mathbf{B}^T\right)\)</span>, therefore, <span class="math display">\[
+2Nc\cdot \frac{1-|\vec M|^2}{N^2}=2B_{11}^2\rightarrow B_{11}=B_{22}=\sqrt{\text{const}}=\sqrt{\frac{c(1-|\vec M|^2)}{N}}
 \]</span></p>
-<p>Combining spontaneous turning and pair-wise copying gives the mesoscopic SDE</p>
+<p>Finally, combine spontaneous turning and pair-wise copying gives the mesoscopic SDE (Note that <span class="math inline">\(\mathbb{E}\left[|d\vec M|^2\right]\)</span> of two separated process should be added together first and then take the sqaure root):</p>
 <p><span class="math display">\[
 d\vec M
 =
@@ -666,13 +695,9 @@ d\vec M
 \alpha+c(1-|\vec M|^2)
 }{N}
 }
-\,d\vec W.
+\,d\vec W
 \]</span></p>
-<p>By identifying</p>
-<p><span class="math display">\[
-\beta=c,
-\]</span></p>
-<p>we exactly recover the functional form extracted from experimental data:</p>
+<p>By identifying <span class="math inline">\(\beta=c\)</span>, we exactly recover the functional form extracted from experimental data:</p>
 <p><span class="math display">\[
 d\vec M
 =
@@ -683,30 +708,20 @@ d\vec M
 \alpha+\beta(1-|\vec M|^2)
 }{N}
 }
-\,d\vec W.
+\,d\vec W
 \]</span></p>
 <p>This is the part I find particularly beautiful: the seemingly complicated multiplicative noise is not merely an empirical fitting function, but can emerge naturally from an extremely simple microscopic copying rule.</p>
-<section id="stationary-distribution-of-the-polarization" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="stationary-distribution-of-the-polarization"><span class="header-section-number">4.1</span> Stationary distribution of the polarization</h3>
-<p>Now that we have the SDE, we can derive the stationary probability distribution of the polarization modulus <span class="math inline">\(|\vec M|\)</span>.</p>
-<p>Define</p>
-<p><span class="math display">\[
-r=|\vec M|
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-G(r)
-=
-\alpha+c(1-r^2).
-\]</span></p>
-<p>Then the SDE can be written as</p>
+</section>
+<section id="from-itô-to-fokkerplanck-the-stationary-distribution-of-the-polarization" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="from-itô-to-fokkerplanck-the-stationary-distribution-of-the-polarization"><span class="header-section-number">5</span> From Itô to Fokker–Planck: the stationary distribution of the polarization</h2>
+<p>Now that we have the SDE, we can derive the stationary probability distribution of the polarization modulus <span class="math inline">\(|\vec M|\)</span>. Define <span class="math inline">\(r=|\vec M|\)</span> and <span class="math inline">\(G(r)=\alpha+c(1-r^2)\)</span>, then the SDE can be written as:</p>
 <p><span class="math display">\[
 d\vec M
 =
 -\alpha\vec M\,dt
 +
 \sqrt{\frac{G(r)}{N}}
-\,d\vec W.
+\,d\vec W
 \]</span></p>
 <p>Let <span class="math inline">\(p(\vec M,t)\)</span> denote the probability density on the two-dimensional polarization plane. The corresponding Fokker–Planck equation is</p>
 <p><span class="math display">\[
@@ -718,33 +733,17 @@ d\vec M
 \nabla^2
 \left[
 G(r)p
-\right].
+\right]
 \]</span></p>
-<p>Equivalently,</p>
+<p>where <span class="math inline">\(-\alpha\vec M p\)</span> is the deterministic flow and <span class="math inline">\(D=\frac{G(r)}{2N}\)</span> is the diffusion coefficient. Equivalently,</p>
 <p><span class="math display">\[
 \frac{\partial p}{\partial t}
 =
--\nabla\cdot\vec J,
+-\nabla\cdot\vec J
 \]</span></p>
-<p>where the probability current is</p>
+<p>where the probability current is <span class="math inline">\(\vec J=-\alpha\vec M p-\frac{1}{2N}\nabla\left[G(r)p\right]\)</span>. At the stationary state, assuming zero probability flux, i.e.&nbsp;<span class="math inline">\(\vec J=0\)</span>, because the system is rotationally symmetric,</p>
 <p><span class="math display">\[
-\vec J
-=
--\alpha\vec M p
--
-\frac{1}{2N}
-\nabla
-\left[
-G(r)p
-\right].
-\]</span></p>
-<p>At the stationary state, assuming zero probability flux,</p>
-<p><span class="math display">\[
-\vec J=0.
-\]</span></p>
-<p>Because the system is rotationally symmetric,</p>
-<p><span class="math display">\[
-p(\vec M)=p(r),
+p(\vec M)=p(\vec M(r)),
 \]</span></p>
 <p>and therefore</p>
 <p><span class="math display">\[
@@ -929,7 +928,6 @@ G(r)^\gamma
 <p>emerges directly from the stationary distribution.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
