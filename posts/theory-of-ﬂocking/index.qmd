@@ -552,14 +552,4 @@ $$
 
 ![N dependence of the steady-state PDFs generated from the pairwise model.](3.png)
 
-Thus,
-
-$$
-\text{smaller group}
-\quad\Longrightarrow\quad
-\text{stronger finite-size noise}
-\quad\Longrightarrow\quad
-\text{stronger schooling}
-$$
-
-emerges directly from the stationary distribution.
+Thus, $\text{smaller group}\quad\Longrightarrow\quad\text{stronger finite-size noise}\quad\Longrightarrow\quad\text{stronger schooling}$ emerges directly from the stationary distribution.
