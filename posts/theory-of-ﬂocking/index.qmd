@@ -483,24 +483,14 @@ $$
 -2N\alpha p(r)
 $$
 
-Define $q(r):=\frac{G(r)p(r)}{r}$
-
-Then
-
-$$
-p(r)
-=
-\frac{r\,q(r)}{G(r)}.
-$$
-
-Substituting this back into the differential equation gives
+Let $q(r):=\frac{G(r)p(r)}{r}$, then $p(r)=\frac{r\,q(r)}{G(r)}$. Substituting this back into the differential equation gives:
 
 $$
 \frac{dq}{dr}
 =
 -2N\alpha
 \frac{r}{G(r)}
-q(r).
+q(r)
 $$
 
 Therefore,
@@ -508,32 +498,16 @@ Therefore,
 $$
 \frac{d\ln q}{dr}
 =
--\frac{2N\alpha r}{G(r)}.
+-\frac{2N\alpha r}{G(r)}
 $$
 
-Since
-
-$$
-G(r)
-=
-\alpha+c(1-r^2),
-$$
-
-we have
-
-$$
-\frac{dG}{dr}
-=
--2cr.
-$$
-
-Hence,
+Since $G(r)=\alpha+c(1-r^2)$, we have $\frac{dG}{dr}=-2cr$, hence
 
 $$
 -\frac{2N\alpha r}{G(r)}\,dr
 =
 \frac{N\alpha}{c}
-\frac{dG}{G}.
+\frac{dG}{G}
 $$
 
 Integrating both sides gives
@@ -543,7 +517,7 @@ $$
 =
 \frac{N\alpha}{c}\ln G
 +
-\text{const},
+\text{const}
 $$
 
 and therefore
@@ -551,121 +525,41 @@ and therefore
 $$
 q(r)
 \propto
-G(r)^{N\alpha/c}.
+G(r)^{N\alpha/c}
 $$
 
-Recalling that
+Recalling that $p(r)=\frac{r\,q(r)}{G(r)}$, we finally obtain:
 
 $$
-p(r)
-=
-\frac{r\,q(r)}{G(r)},
-$$
-
-we finally obtain
-
-$$
-\boxed{
 p(r)
 \propto
 r
 \left[
 \alpha+c(1-r^2)
 \right]^{\frac{N\alpha}{c}-1}
-}.
 $$
 
 Since $r=|\vec M|$, this can also be written as
 
 $$
-\boxed{
 p(|\vec M|)
 \propto
 |\vec M|
 \left[
 \alpha+c(1-|\vec M|^2)
 \right]^{\frac{N\alpha}{c}-1}
-}.
 $$
 
-Here $p(r)$ is already the probability density of the polarization magnitude $r=|\vec M|$. The factor $r$ originates from the geometry of the two-dimensional polarization plane: the set of states with magnitude between $r$ and $r+dr$ forms an annulus whose area is proportional to $r\,dr$.
-
-The remaining factor,
-
-$$
-\left[
-\alpha+c(1-r^2)
-\right]^{\frac{N\alpha}{c}-1},
-$$
-
-contains the actual stochastic dynamics.
-
-In particular, define
-
-$$
-\gamma
-=
-\frac{N\alpha}{c}-1.
-$$
-
-For the fitted parameters
-
-$$
-\alpha=0.1,
-\qquad
-c=4,
-$$
-
-we obtain
-
-$$
-\gamma(N=15)
-=
--0.625,
-$$
-
-$$
-\gamma(N=30)
-=
--0.25,
-$$
-
-and
-
-$$
-\gamma(N=60)
-=
-0.5.
-$$
-
-When $N$ is small, $\gamma<0$. Since
-
-$$
-G(r)
-=
-\alpha+c(1-r^2)
-$$
-
-decreases as $r$ increases, a negative exponent makes
-
-$$
-G(r)^\gamma
-$$
-
-increase toward $r=1$. Therefore, the stationary probability distribution becomes strongly biased toward highly polarized states.
-
-As $N$ increases, the exponent eventually becomes positive, and this bias toward large polarization weakens. The distribution consequently shifts toward less polarized states.
+![N dependence of the steady-state PDFs generated from the pairwise model.](3.png)
 
 Thus,
 
 $$
-\boxed{
 \text{smaller group}
 \quad\Longrightarrow\quad
 \text{stronger finite-size noise}
 \quad\Longrightarrow\quad
 \text{stronger schooling}
-}
 $$
 
 emerges directly from the stationary distribution.
