@@ -5,6 +5,7 @@
       "/posts/Ising/index.html",
       "/posts/Lagrangian/index.html",
       "/posts/ObliquePM/index.html",
+      "/posts/README_idtrack/index.html",
       "/posts/TonerTu/index.html",
       "/posts/theory-of-ﬂocking/index.html",
       "/posts/alpha-stable/index.html",
@@ -16,6 +17,7 @@
     "listing": "/posts/index.html",
     "items": [
       "/posts/TonerTu/index.html",
+      "/posts/README_idtrack/index.html",
       "/posts/theory-of-ﬂocking/index.html",
       "/posts/alpha-stable/index.html",
       "/posts/random-forest/index.html",
