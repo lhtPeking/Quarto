@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -96,6 +131,35 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -312,8 +376,8 @@ window.MathJax = {
   <li><a href="#usage" id="toc-usage" class="nav-link active" data-scroll-target="#usage"><span class="header-section-number">1</span> Usage</a></li>
   <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing"><span class="header-section-number">2</span> Data Pre-processing</a>
   <ul class="collapse">
-  <li><a href="#make-blobs-and-re-align-fishes-direction" id="toc-make-blobs-and-re-align-fishes-direction" class="nav-link" data-scroll-target="#make-blobs-and-re-align-fishes-direction"><span class="header-section-number">2.1</span> make blobs and re-align fishes’ direction</a></li>
-  <li><a href="#split-tracklets" id="toc-split-tracklets" class="nav-link" data-scroll-target="#split-tracklets"><span class="header-section-number">2.2</span> split tracklets</a></li>
+  <li><a href="#split-tracklets" id="toc-split-tracklets" class="nav-link" data-scroll-target="#split-tracklets"><span class="header-section-number">2.1</span> split tracklets</a></li>
+  <li><a href="#make-blobs-and-re-align-fishes-direction" id="toc-make-blobs-and-re-align-fishes-direction" class="nav-link" data-scroll-target="#make-blobs-and-re-align-fishes-direction"><span class="header-section-number">2.2</span> make blobs and re-align fishes’ direction</a></li>
   </ul></li>
   <li><a href="#contrastive-learning-framework" id="toc-contrastive-learning-framework" class="nav-link" data-scroll-target="#contrastive-learning-framework"><span class="header-section-number">3</span> Contrastive Learning Framework</a></li>
   <li><a href="#additional-awareness" id="toc-additional-awareness" class="nav-link" data-scroll-target="#additional-awareness"><span class="header-section-number">4</span> Additional Awareness</a></li>
@@ -368,26 +432,28 @@ window.MathJax = {
 <h2 data-number="1" class="anchored" data-anchor-id="usage"><span class="header-section-number">1</span> Usage</h2>
 <p>The code is modified from idtracker.ai(https://idtracker.ai/latest/), it uses almost the same network structure (i.e.&nbsp;same contrast learning framework) as idtracker.ai, but simplified a little and adjusted the pre-processing step for transparent animals. The original pipeline (https://elifesciences.org/articles/107602) is using idtracker.ai to obtain IDs and cropped single-individual windows. By doing this, one can then feed the single individual data to DeepLabCut and identify their skeleton postures.</p>
 <p>The modified code works in a different way. Since the idtracker’s pre-processing step, the hard-coded threshold segmentation algorithm works badly in identifing transparent animals, we need to tell the model where the fishes are. This requires us to do skeleton estimation first, and use the contrastive learning framework as a posthoc proofread method.</p>
-<p>To run the code, we need data: raw video <code>raw_video_record.mp4</code>, skeleton data <code>points2d.pq</code> and bounding box data <code>instances.pq</code> (optional, sanity check need this). You can first run the <code>visualization.ipynb</code> on your PC to do a quick check if your data structure fits, after that you can run <code>id_correction.py</code> either on PC or on server using command <code>python idtrack.py --video raw_video_record.mp4 --points points2d.pq --blob_radius 8</code>.</p>
+<p>To run the code, we need data: raw video <code>raw_video_record.mp4</code>, skeleton data <code>points2d.pq</code> and bounding box data <code>instances.pq</code> (optional, sanity check need this). You can first run the <code>visualization.ipynb</code> on your PC to do a quick check if your data structure fits, after that you can run <code>id_correction.py</code> either on PC or on server using command <code>python idtrack.py --video raw_video_record.mp4 --points points2d.pq</code>. If we want to adjust params of the model, the full command is (we can also ajdust these params in <code>idtrack.py</code> directly):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> idtrack.py <span class="at">--video</span> raw_video_record.mp4 <span class="at">--points</span> points2d.pq <span class="at">--blob_radius</span> 8 <span class="at">--epochs</span> 50 <span class="at">--stride</span> 12 <span class="at">--val_ratio</span> 0.2 <span class="at">--canva_size</span> 192 <span class="at">--lr</span> 0.02 <span class="at">--embedding_dim</span> 8 <span class="at">--patience</span> 8 <span class="at">--seed</span> 0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The output files will include: preprocessed fish masks <code>blob.pkl</code>, , and .</p>
 </section>
 <section id="data-pre-processing" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="data-pre-processing"><span class="header-section-number">2</span> Data Pre-processing</h2>
-<section id="make-blobs-and-re-align-fishes-direction" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="make-blobs-and-re-align-fishes-direction"><span class="header-section-number">2.1</span> make blobs and re-align fishes’ direction</h3>
+<section id="split-tracklets" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="split-tracklets"><span class="header-section-number">2.1</span> split tracklets</h3>
+<p>The most natural way to construct the positive and negative pairs for contrast learning is use the continuous tracking sessions (this is also the method used by idtracker.ai). If an individual is continuously be tracked by the system and doesn’t collide with other fishes, its identity has to remain unswitched. Thereby, a single, uncollided session could use its own frames to form positive pairs. Meanwhile, the uncollided sessions occur at the same time (tracking different fish individuals) can be used to form negative pairs.</p>
+<p>The figure below shows the distribution of individual tracklets, red markers represent the fish is colliding with other fishes, and the colorful segments represent single, uncollided sessions. <img src="tracklets.png" class="img-fluid" alt="The Visualization of Collisions and Tracklets"></p>
 </section>
-<section id="split-tracklets" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="split-tracklets"><span class="header-section-number">2.2</span> split tracklets</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="tracklets.png" class="img-fluid figure-img"></p>
-<figcaption>The visualization of collisions and tracklets</figcaption>
-</figure>
-</div>
+<section id="make-blobs-and-re-align-fishes-direction" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="make-blobs-and-re-align-fishes-direction"><span class="header-section-number">2.2</span> make blobs and re-align fishes’ direction</h3>
+<p>We want the figures feed into the convolution network contains only the morphological features of the fish individuals, not the environment nor the heading direction of the fishes. Therefore, it’s better to extract the fishes from the background and re-align them (rotate their body axis to match the vertical axis). This extraction and re-alignment process is completed by class <code>BlobCache</code>.</p>
 </section>
 </section>
 <section id="contrastive-learning-framework" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="contrastive-learning-framework"><span class="header-section-number">3</span> Contrastive Learning Framework</h2>
+<p>The neural network is adapted from ResNet18 (depth=<span class="math inline">\(18\)</span>), which has the architecture: <img src="resnet18.png" class="img-fluid" alt="The Original ResNet-18 Architecture"></p>
+<p>In order to fit with fish data, I made the following modifications:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.net.conv1 <span class="op">=</span> nn.Conv2d(<span class="dv">1</span>, <span class="dv">64</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">3</span>, bias<span class="op">=</span><span class="va">False</span>) <span class="co"># single channel data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.net.fc <span class="op">=</span> nn.Linear(<span class="dv">512</span>, embedding_dim, bias<span class="op">=</span><span class="va">False</span>) <span class="co"># embedding_dim=8 as default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="additional-awareness" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="additional-awareness"><span class="header-section-number">4</span> Additional Awareness</h2>
