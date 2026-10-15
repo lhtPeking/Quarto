@@ -472,35 +472,53 @@ window.Quarto = {
 <section id="split-tracklets" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="split-tracklets"><span class="header-section-number">2.1</span> split tracklets</h3>
 <p>The most natural way to construct the positive and negative pairs for contrast learning is using the continuous tracking sessions (this is also the method used by idtracker.ai). If an individual is continuously tracked by the system and doesn’t collide with other fishes, its identity has to remain unswitched. Thereby, a single, uncollided session (here we all it a ‘tracklet’) could use its own frames to form positive pairs. Meanwhile, the uncollided sessions occur at the same time (tracking different fish individuals) can be used to form negative pairs.</p>
-<p>The function <code>split_tracklets()</code> in <code>utils.py</code> do the tracklet split for us. It will return <code>tracklets</code> and <code>collisions</code> dictionary. <code>tracklets[tid]["frames"]</code> will give the image information (blob pixels of one fish) of a certain frame. <code>collisions[aid]</code> will give all the frames that is engaged in the collision. <code>tid</code> is tracklet number, <code>aid</code> is animal number. (Look into the code for more information)</p>
-<p>The figure below shows the distribution of individual tracklets, red markers represent the fish is colliding with other fishes, and the colorful segments represent single, uncollided sessions. <img src="tracklets.png" class="img-fluid" alt="The Visualization of Collisions and Tracklets."></p>
+<p>The function <code>split_tracklets()</code> in <code>utils.py</code> do the tracklet split for us. It will return <code>tracklets</code> and <code>collisions</code> dictionary. <code>tracklets[tid]["frames"][frame]</code> will give the image information (blob pixels of one fish) of a certain frame. <code>collisions[aid]</code> will give all the frames that is engaged in the collision. <code>tid</code> is tracklet number, <code>aid</code> is animal number. (Look into the code for more information)</p>
+<p>The figure below shows the distribution of individual tracklets, red markers represent the fish is colliding with other fishes, and the colorful segments represent single, uncollided sessions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tracklets.png" class="img-fluid figure-img"></p>
+<figcaption>The Visualization of Collisions and Tracklets.</figcaption>
+</figure>
+</div>
 </section>
 <section id="make-blobs-and-re-align-fishes-direction" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="make-blobs-and-re-align-fishes-direction"><span class="header-section-number">2.2</span> make blobs and re-align fishes’ direction</h3>
-<p>We want the figures feed into the convolution network contains only the morphological features of the fish individuals, not the environment nor the heading direction of the fishes. Therefore, it’s better to extract the fishes from the background and re-align them (rotate their body axis to match the vertical axis). This extraction and re-alignment process is completed by class <code>BlobCache</code>. <img src="blobs.png" class="img-fluid" alt="The Extracted Fish Blobs."></p>
+<p>We want the figures feed into the convolution network contains only the morphological features of the fish individuals, not the environment nor the heading direction of the fishes. Therefore, it’s better to extract the fishes from the background and re-align them (rotate their body axis to match the vertical axis). This extraction and re-alignment process is completed by class <code>BlobCache</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="blobs.png" class="img-fluid figure-img"></p>
+<figcaption>The Extracted Fish Blobs.</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="contrastive-learning-framework" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="contrastive-learning-framework"><span class="header-section-number">3</span> Contrastive Learning Framework</h2>
 <section id="architecture" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="architecture"><span class="header-section-number">3.1</span> Architecture</h3>
-<p>The neural network is adapted from ResNet18 (depth=<span class="math inline">\(18\)</span>), which has the architecture: <img src="resnet18.png" class="img-fluid" alt="The Original ResNet-18 Architecture."></p>
+<p>The neural network is adapted from ResNet18 (depth=<span class="math inline">\(18\)</span>), which has the architecture:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="resnet18.png" class="img-fluid figure-img"></p>
+<figcaption>The Original ResNet-18 Architecture.</figcaption>
+</figure>
+</div>
 <p>In order to fit with fish data, the following modifications were made:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.net.conv1 <span class="op">=</span> nn.Conv2d(<span class="dv">1</span>, <span class="dv">64</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">3</span>, bias<span class="op">=</span><span class="va">False</span>) <span class="co"># single channel data, we did a RGB to gray to simplify the model</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.net.fc <span class="op">=</span> nn.Linear(<span class="dv">512</span>, embedding_dim, bias<span class="op">=</span><span class="va">False</span>) <span class="co"># embedding_dim=8 as default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sampling-logic" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="sampling-logic"><span class="header-section-number">3.2</span> Sampling Logic</h3>
-<p>Positive pairs are sampled from the same tracklet, while the negative pairs are sampled from overlapping tractlet pairs (which must represent different fishes). Equal number of positive pairs and negative pairs are sampled during training. There is a “hardness” vector specifies the training hardness of tracklets(+ samples) and tracklet pairs(- samples), using the information from training loss. The hardness vector will change the sample weight of the tracklets and tracklet pairs, enabling the “dynamic sampling strategy”, give harder samples more chances.</p>
+<p>Positive pairs are sampled from the same tracklet, while the negative pairs are sampled from overlapping tractlet pairs (which must represent different fishes). Equal number of positive pairs and negative pairs are sampled during training. There is a “hardness” vector specifies the training hardness of tracklets(+ samples) and tracklet pairs(- samples), using the information from margin violation in the training process. The hardness vector will change the sample weight of the tracklets and tracklet pairs, enabling the “dynamic sampling strategy”, give harder samples more chances.</p>
 </section>
 <section id="loss-function" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.3</span> Loss Function</h3>
 <p>The loss function is defined as:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@staticmethod</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> loss_fn(z1, z2, y, pos_margin<span class="op">=</span><span class="fl">1.0</span>, neg_margin<span class="op">=</span><span class="fl">10.0</span>):</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> F.pairwise_distance(z1, z2)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> y <span class="op">*</span> F.relu(d <span class="op">-</span> pos_margin).<span class="bu">pow</span>(<span class="dv">2</span>) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> y) <span class="op">*</span> F.relu(neg_margin <span class="op">-</span> d).<span class="bu">pow</span>(<span class="dv">2</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> loss.mean(), d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> loss_fn(z1, z2, y, pos_margin<span class="op">=</span><span class="fl">1.0</span>, neg_margin<span class="op">=</span><span class="fl">10.0</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> F.pairwise_distance(z1, z2)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> y <span class="op">*</span> F.relu(d <span class="op">-</span> pos_margin).<span class="bu">pow</span>(<span class="dv">2</span>) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> y) <span class="op">*</span> F.relu(neg_margin <span class="op">-</span> d).<span class="bu">pow</span>(<span class="dv">2</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss.mean(), d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which can be written in math: <span class="math display">\[
 \mathcal{L}=\frac{1}{N}\sum_{i=1}^{N}\left[y_i\max(0,d_i-m_+)^2+(1-y_i)\max(0,m_--d_i)^2\right]
 \]</span></p>
@@ -510,12 +528,13 @@ window.Quarto = {
 <h3 data-number="3.4" class="anchored" data-anchor-id="re-id-logic"><span class="header-section-number">3.4</span> Re-ID logic</h3>
 <p>The logic is written in function <code>assign_ids</code> in class <code>ReIDMethod</code>.</p>
 <p>First, embeddings from sampled frames are averaged to obtain one representative embedding per tracklet. If there is <span class="math inline">\(100\)</span> tracklets and the <code>n_ids</code> is <span class="math inline">\(24\)</span>, then <span class="math inline">\(76\)</span> tracklets connections are required to be made. The algorithm choose connections vaildly (which means it can’t concatenate two overlapped connections and each tracklet can have at most 1 predecessor tracklet and 1 sucessor tracklet) and with the least cost (minimize the summation of distances between connected tracklets). After doing this we obtain the global IDs(ranges from <span class="math inline">\(0\)</span> to <span class="math inline">\(23\)</span>) of each tracklets.</p>
-<p>Then, we need to screen through the collided frames and use the trained model to predict the colliding fishes’ embedding position. After that we can calculate which global ID it belongs to (the nearest embedding distance) and finish the re-ID.</p>
+<p>Then, we need to screen through the collided frames and use the trained model to predict the colliding fishes’ embedding position. After that we can calculate which valid global ID it belongs to (the nearest embedding distance) and finish the re-ID.</p>
 </section>
 </section>
 <section id="awareness" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="awareness"><span class="header-section-number">4</span> Awareness</h2>
 <p>This algorithm highly relies on the correctness of the preceding skeleton identification algorithm. We need a clear and stable skeleton file, otherwise the blob crop process will go wild, and all the downstream process will have severe problems.</p>
+<p>Short tracklets excluded during preprocessing, as well as unresolved collision frames (bad skeleton information makes the prediction of body axis impossible), will remain without a global ID in the final output.</p>
 
 
 </section>
