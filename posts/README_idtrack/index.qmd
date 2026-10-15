@@ -48,7 +48,7 @@ Where `--video` specifies the input video path; `--points` specifies the SLEAP s
 
 The output files will include: preprocessed fish masks `blobs.pkl`, blob mask visualization `blobs_rendered.png`, tracklets visualization `tracklets.png`, trained model parameter `reid_model.pt`, global ID labeled skeleton file `points2d_reid.pq` and the rendered re-identified video `reid_video.mp4`.
 
-The global ID labeled skeleton file `points2d_reid.pq`'s head() is printed below. Note the last column `global_id`, that is the true animal identity of a certain skeleton point. All skeleton points of one animal share a common `global_id`, in this case, `l_eye`, `r_eye`, `hc`, `t1`-`t16` of this animal share `global_id = 0.0`.
+The global ID labeled skeleton file `points2d_reid.pq`'s `head()` is printed below. Note the last column `global_id`, that is the true animal identity of a certain skeleton point. All skeleton points of one animal share a common `global_id`, in this case, `l_eye`, `r_eye`, `hc`, `t1`-`t16` of this animal share `global_id = 0.0`.
 
 ```bash
               group_id  frame animal_id camera bodypart           x  \
@@ -74,7 +74,7 @@ The global ID labeled skeleton file `points2d_reid.pq`'s head() is printed below
 ```
 
 ## Data Pre-processing
-### split tracklets
+### Split Tracklets
 The most natural way to construct the positive and negative pairs for contrast learning is using the continuous tracking sessions (this is also the method used by idtracker.ai). If an individual is continuously tracked by the system and doesn't collide with other fishes, its identity has to remain unswitched. Thereby, a single, uncollided session (here we all it a 'tracklet') could use its own frames to form positive pairs. Meanwhile, the uncollided sessions occur at the same time (tracking different fish individuals) can be used to form negative pairs.
 
 The function `split_tracklets()` in `utils.py` do the tracklet split for us. It will return `tracklets` and `collisions` dictionary. `tracklets[tid]["frames"][frame]` will give the image information (blob pixels of one fish) of a certain frame. `collisions[aid]` will give all the frames that is engaged in the collision. `tid` is tracklet number, `aid` is animal number. (Look into the code for more information)
@@ -83,7 +83,7 @@ The figure below shows the distribution of individual tracklets, red markers rep
 
 ![The Visualization of Collisions and Tracklets.](tracklets.png)
 
-### make blobs and re-align fishes' direction
+### Make Blobs and Re-align Fishes' Direction
 We want the figures feed into the convolution network contains only the morphological features of the fish individuals, not the environment nor the heading direction of the fishes. Therefore, it's better to extract the fishes from the background and re-align them (rotate their body axis to match the vertical axis). This extraction and re-alignment process is completed by class `BlobCache`.
 
 ![The Extracted Fish Blobs.](blobs.png)
@@ -130,7 +130,7 @@ First, embeddings from sampled frames are averaged to obtain one representative 
 
 Then, we need to screen through the collided frames and use the trained model to predict the colliding fishes' embedding position. After that we can calculate which valid global ID it belongs to (the nearest embedding distance) and finish the re-ID.
 
-## Awareness
+## Additional Awareness
 This algorithm highly relies on the correctness of the preceding skeleton identification algorithm. We need a clear and stable skeleton file, otherwise the blob crop process will go wild, and all the downstream process will have severe problems. 
 
 Short tracklets excluded during preprocessing, as well as unresolved collision frames (bad skeleton information makes the prediction of body axis impossible), will remain without a global ID in the final output.
