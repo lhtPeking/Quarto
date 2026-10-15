@@ -53,18 +53,21 @@ The output files will include: preprocessed fish masks `blob.pkl`, blob mask vis
 ### split tracklets
 The most natural way to construct the positive and negative pairs for contrast learning is using the continuous tracking sessions (this is also the method used by idtracker.ai). If an individual is continuously tracked by the system and doesn't collide with other fishes, its identity has to remain unswitched. Thereby, a single, uncollided session (here we all it a 'tracklet') could use its own frames to form positive pairs. Meanwhile, the uncollided sessions occur at the same time (tracking different fish individuals) can be used to form negative pairs.
 
-The function `split_tracklets()` in `utils.py` do the tracklet split for us. It will return `tracklets` and `collisions` dictionary. `tracklets[tid]["frames"]` will give the image information (blob pixels of one fish) of a certain frame. `collisions[aid]` will give all the frames that is engaged in the collision. `tid` is tracklet number, `aid` is animal number. (Look into the code for more information)
+The function `split_tracklets()` in `utils.py` do the tracklet split for us. It will return `tracklets` and `collisions` dictionary. `tracklets[tid]["frames"][frame]` will give the image information (blob pixels of one fish) of a certain frame. `collisions[aid]` will give all the frames that is engaged in the collision. `tid` is tracklet number, `aid` is animal number. (Look into the code for more information)
 
 The figure below shows the distribution of individual tracklets, red markers represent the fish is colliding with other fishes, and the colorful segments represent single, uncollided sessions.
+
 ![The Visualization of Collisions and Tracklets.](tracklets.png)
 
 ### make blobs and re-align fishes' direction
 We want the figures feed into the convolution network contains only the morphological features of the fish individuals, not the environment nor the heading direction of the fishes. Therefore, it's better to extract the fishes from the background and re-align them (rotate their body axis to match the vertical axis). This extraction and re-alignment process is completed by class `BlobCache`.
+
 ![The Extracted Fish Blobs.](blobs.png)
 
 ## Contrastive Learning Framework
 ### Architecture
 The neural network is adapted from ResNet18 (depth=$18$), which has the architecture:
+
 ![The Original ResNet-18 Architecture.](resnet18.png)
 
 In order to fit with fish data, the following modifications were made:
@@ -77,16 +80,16 @@ self.net.fc = nn.Linear(512, embedding_dim, bias=False) # embedding_dim=8 as def
 
 
 ### Sampling Logic
-Positive pairs are sampled from the same tracklet, while the negative pairs are sampled from overlapping tractlet pairs (which must represent different fishes). Equal number of positive pairs and negative pairs are sampled during training. There is a "hardness" vector specifies the training hardness of tracklets(+ samples) and tracklet pairs(- samples), using the information from training loss. The hardness vector will change the sample weight of the tracklets and tracklet pairs, enabling the "dynamic sampling strategy", give harder samples more chances.
+Positive pairs are sampled from the same tracklet, while the negative pairs are sampled from overlapping tractlet pairs (which must represent different fishes). Equal number of positive pairs and negative pairs are sampled during training. There is a "hardness" vector specifies the training hardness of tracklets(+ samples) and tracklet pairs(- samples), using the information from margin violation in the training process. The hardness vector will change the sample weight of the tracklets and tracklet pairs, enabling the "dynamic sampling strategy", give harder samples more chances.
 
 ### Loss Function
 The loss function is defined as:
 ```python
 @staticmethod
-    def loss_fn(z1, z2, y, pos_margin=1.0, neg_margin=10.0):
-        d = F.pairwise_distance(z1, z2)
-        loss = y * F.relu(d - pos_margin).pow(2) + (1 - y) * F.relu(neg_margin - d).pow(2)
-        return loss.mean(), d
+def loss_fn(z1, z2, y, pos_margin=1.0, neg_margin=10.0):
+    d = F.pairwise_distance(z1, z2)
+    loss = y * F.relu(d - pos_margin).pow(2) + (1 - y) * F.relu(neg_margin - d).pow(2)
+    return loss.mean(), d
 ```
 
 Which can be written in math:
@@ -101,7 +104,9 @@ The logic is written in function `assign_ids` in class `ReIDMethod`.
 
 First, embeddings from sampled frames are averaged to obtain one representative embedding per tracklet. If there is $100$ tracklets and the `n_ids` is $24$, then $76$ tracklets connections are required to be made. The algorithm choose connections vaildly (which means it can't concatenate two overlapped connections and each tracklet can have at most 1 predecessor tracklet and 1 sucessor tracklet) and with the least cost (minimize the summation of distances between connected tracklets). After doing this we obtain the global IDs(ranges from $0$ to $23$) of each tracklets.
 
-Then, we need to screen through the collided frames and use the trained model to predict the colliding fishes' embedding position. After that we can calculate which global ID it belongs to (the nearest embedding distance) and finish the re-ID.
+Then, we need to screen through the collided frames and use the trained model to predict the colliding fishes' embedding position. After that we can calculate which valid global ID it belongs to (the nearest embedding distance) and finish the re-ID.
 
 ## Awareness
-This algorithm highly relies on the correctness of the preceding skeleton identification algorithm. We need a clear and stable skeleton file, otherwise the blob crop process will go wild, and all the downstream process will have severe problems.
+This algorithm highly relies on the correctness of the preceding skeleton identification algorithm. We need a clear and stable skeleton file, otherwise the blob crop process will go wild, and all the downstream process will have severe problems. 
+
+Short tracklets excluded during preprocessing, as well as unresolved collision frames (bad skeleton information makes the prediction of body axis impossible), will remain without a global ID in the final output.
