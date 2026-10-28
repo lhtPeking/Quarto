@@ -1,0 +1,12 @@
+---
+title: "The Fourier Analysis in Suite2P"
+description: "Rigid and Non-rigid registration."
+date: 2026-10-30
+categories: [Image & Imaging, Math]
+author: "Haotian Li"
+---
+
+## Motivation
+There are 12 free paramters when we do registration for motion correction in Suite2P. People need to understand to full registration process in order to adjust these parameters based on their needs. Otherwise, one might produce a wrongly corrected figure and lead to a cascade of troubles in the following steps.
+
+## Dirac Delta Function and Fourier Intro
