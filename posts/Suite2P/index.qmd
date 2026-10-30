@@ -8,6 +8,12 @@ author: "Haotian Li"
 The writing notes: [Download PDF](Fourier_Analysis.pdf)
 
 ## Motivation
-There are 12 free paramters when we do registration for motion correction in Suite2P. People need to understand to full registration process in order to adjust these parameters based on their needs. Otherwise, one might produce a wrongly corrected figure and lead to a cascade of troubles in the following steps.
+There are 12 free paramters when we do registration for motion correction in Suite2P. People need to understand the full registration process in order to adjust these parameters based on their needs. Otherwise, one might produce a wrongly corrected figure and lead to a cascade of troubles in the following steps.
 
 ## Dirac Delta Function and Fourier Intro
+
+## Normalized Cross-Power Spectrum
+
+## Rigid and Non-rigid Motion Correction
+
+## Paramters

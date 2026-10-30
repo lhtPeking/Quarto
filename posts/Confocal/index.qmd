@@ -1,0 +1,11 @@
+---
+title: "Confocal Microscope and Its Disc Form"
+description: "Light path analysis."
+date: 2026-10-31
+categories: [Image & Imaging]
+author: "Haotian Li"
+---
+
+Confocal microscope has two important properties. The first one is there is a pinhole (or pinholes) in the optic relay path, to restrict the illumination from planes other than focal plane. The second property is that the confocal microscope performs point-to-point imaging, which makes its imaging a bit slow.
+
+The following figure is the optic path of regular confocal microscope:
