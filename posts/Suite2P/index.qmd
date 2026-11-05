@@ -128,7 +128,7 @@ This procedure is known as Phase Correlation, or Phase-Only Correlation (POC).
 Before registration, Suite2p constructs a reference image against which individual frames are aligned (Only by doing this we can have a calculatable $F_{\text{ref}}$). Instead of simply choosing one frame, Suite2p samples multiple frames, identifies highly correlated frames, and iteratively refines the reference through rigid registration and averaging.
 
 
-## Non-rigid Registration
+### Non-rigid Registration
 
 Rigid registration is the mathematical method we described above. In real imaging experiments, different parts of the tissue may move by different amounts. Therefore, the constant-displacement assumption of rigid registration may no longer be appropriate. A more general model is:
 
