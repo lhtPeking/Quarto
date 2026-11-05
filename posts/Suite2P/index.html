@@ -345,9 +345,9 @@ window.Quarto = {
   <li><a href="#rigid-and-non-rigid-motion-correction" id="toc-rigid-and-non-rigid-motion-correction" class="nav-link" data-scroll-target="#rigid-and-non-rigid-motion-correction"><span class="header-section-number">5</span> Rigid and Non-rigid Motion Correction</a>
   <ul class="collapse">
   <li><a href="#reference-image-construction" id="toc-reference-image-construction" class="nav-link" data-scroll-target="#reference-image-construction"><span class="header-section-number">5.1</span> Reference Image Construction</a></li>
+  <li><a href="#non-rigid-registration" id="toc-non-rigid-registration" class="nav-link" data-scroll-target="#non-rigid-registration"><span class="header-section-number">5.2</span> Non-rigid Registration</a></li>
   </ul></li>
-  <li><a href="#non-rigid-registration" id="toc-non-rigid-registration" class="nav-link" data-scroll-target="#non-rigid-registration"><span class="header-section-number">6</span> Non-rigid Registration</a></li>
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">7</span> Parameters</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">6</span> Parameters</a></li>
   </ul>
 </nav>
     </div>
@@ -493,9 +493,8 @@ R(k):=\frac{G(k)F^*(k)}{|G(k)F^*(k)|}=\frac{A^2(k)e^{-ik\Delta}}{A^2(k)}=e^{-ik\
 <h3 data-number="5.1" class="anchored" data-anchor-id="reference-image-construction"><span class="header-section-number">5.1</span> Reference Image Construction</h3>
 <p>Before registration, Suite2p constructs a reference image against which individual frames are aligned (Only by doing this we can have a calculatable <span class="math inline">\(F_{\text{ref}}\)</span>). Instead of simply choosing one frame, Suite2p samples multiple frames, identifies highly correlated frames, and iteratively refines the reference through rigid registration and averaging.</p>
 </section>
-</section>
-<section id="non-rigid-registration" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="non-rigid-registration"><span class="header-section-number">6</span> Non-rigid Registration</h2>
+<section id="non-rigid-registration" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="non-rigid-registration"><span class="header-section-number">5.2</span> Non-rigid Registration</h3>
 <p>Rigid registration is the mathematical method we described above. In real imaging experiments, different parts of the tissue may move by different amounts. Therefore, the constant-displacement assumption of rigid registration may no longer be appropriate. A more general model is:</p>
 <p><span class="math display">\[
 I_t(x,y)=
@@ -520,8 +519,9 @@ I_{\mathrm{ref},b}(x-\Delta x_b,y-\Delta y_b)
 \]</span></p>
 <p>where <span class="math inline">\(a,b\in[0,1]\)</span> describe the pixel’s relative position between the block centers.</p>
 </section>
-<section id="parameters" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="parameters"><span class="header-section-number">7</span> Parameters</h2>
+</section>
+<section id="parameters" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="parameters"><span class="header-section-number">6</span> Parameters</h2>
 
 
 </section>

@@ -368,20 +368,13 @@
     "href": "posts/Suite2P/index.html#rigid-and-non-rigid-motion-correction",
     "title": "The Fourier Analysis in Suite2P",
     "section": "5 Rigid and Non-rigid Motion Correction",
-    "text": "5 Rigid and Non-rigid Motion Correction\n\n5.1 Reference Image Construction\nBefore registration, Suite2p constructs a reference image against which individual frames are aligned (Only by doing this we can have a calculatable \\(F_{\\text{ref}}\\)). Instead of simply choosing one frame, Suite2p samples multiple frames, identifies highly correlated frames, and iteratively refines the reference through rigid registration and averaging."
-  },
-  {
-    "objectID": "posts/Suite2P/index.html#non-rigid-registration",
-    "href": "posts/Suite2P/index.html#non-rigid-registration",
-    "title": "The Fourier Analysis in Suite2P",
-    "section": "6 Non-rigid Registration",
-    "text": "6 Non-rigid Registration\nRigid registration is the mathematical method we described above. In real imaging experiments, different parts of the tissue may move by different amounts. Therefore, the constant-displacement assumption of rigid registration may no longer be appropriate. A more general model is:\n\\[\nI_t(x,y)=\nI_{\\mathrm{ref}}(x-u_t(x,y),y-v_t(x,y))\n\\]\nwhere \\(u_t(x,y)\\) and \\(v_t(x,y)\\) form a spatially varying displacement field. Suite2p uses a relatively straightforward strategy: local rigid registration followed by double linear interpolation.\nThe the image is divided into overlapping blocks. For each block \\(b\\), Suite2p assumes that local deformation can be approximated by a translation:\n\\[\nI_{t,b}(x,y)\\approx\nI_{\\mathrm{ref},b}(x-\\Delta x_b,y-\\Delta y_b)\n\\]\nThe same phase-correlation method is applied to each block, producing local displacement estimates:\n\\[\n\\mathbf \\Delta_b=(\\Delta x_b,\\Delta y_b)\n\\]\nThen local displacement vectors are interpolated to construct a displacement field for the entire image. For example, suppose four neighboring block centers have horizontal displacements \\(\\Delta y_{b_{00}},\\Delta y_{b_{10}},\\Delta y_{b_{01}},\\Delta y_{b_{11}}\\). The displacement at an intermediate pixel can be estimated using bilinear interpolation:\n\\[\n\\Delta y(x,y)=(1-a)(1-b)\\Delta y_{b_{00}}\\\n+a(1-b)\\Delta y_{b_{10}}\\\n+(1-a)b\\Delta y_{b_{01}}\\\n+ab \\Delta y_{b_{11}}\n\\]\nwhere \\(a,b\\in[0,1]\\) describe the pixel’s relative position between the block centers."
+    "text": "5 Rigid and Non-rigid Motion Correction\n\n5.1 Reference Image Construction\nBefore registration, Suite2p constructs a reference image against which individual frames are aligned (Only by doing this we can have a calculatable \\(F_{\\text{ref}}\\)). Instead of simply choosing one frame, Suite2p samples multiple frames, identifies highly correlated frames, and iteratively refines the reference through rigid registration and averaging.\n\n\n5.2 Non-rigid Registration\nRigid registration is the mathematical method we described above. In real imaging experiments, different parts of the tissue may move by different amounts. Therefore, the constant-displacement assumption of rigid registration may no longer be appropriate. A more general model is:\n\\[\nI_t(x,y)=\nI_{\\mathrm{ref}}(x-u_t(x,y),y-v_t(x,y))\n\\]\nwhere \\(u_t(x,y)\\) and \\(v_t(x,y)\\) form a spatially varying displacement field. Suite2p uses a relatively straightforward strategy: local rigid registration followed by double linear interpolation.\nThe the image is divided into overlapping blocks. For each block \\(b\\), Suite2p assumes that local deformation can be approximated by a translation:\n\\[\nI_{t,b}(x,y)\\approx\nI_{\\mathrm{ref},b}(x-\\Delta x_b,y-\\Delta y_b)\n\\]\nThe same phase-correlation method is applied to each block, producing local displacement estimates:\n\\[\n\\mathbf \\Delta_b=(\\Delta x_b,\\Delta y_b)\n\\]\nThen local displacement vectors are interpolated to construct a displacement field for the entire image. For example, suppose four neighboring block centers have horizontal displacements \\(\\Delta y_{b_{00}},\\Delta y_{b_{10}},\\Delta y_{b_{01}},\\Delta y_{b_{11}}\\). The displacement at an intermediate pixel can be estimated using bilinear interpolation:\n\\[\n\\Delta y(x,y)=(1-a)(1-b)\\Delta y_{b_{00}}\\\n+a(1-b)\\Delta y_{b_{10}}\\\n+(1-a)b\\Delta y_{b_{01}}\\\n+ab \\Delta y_{b_{11}}\n\\]\nwhere \\(a,b\\in[0,1]\\) describe the pixel’s relative position between the block centers."
   },
   {
     "objectID": "posts/Suite2P/index.html#parameters",
     "href": "posts/Suite2P/index.html#parameters",
     "title": "The Fourier Analysis in Suite2P",
-    "section": "7 Parameters",
-    "text": "7 Parameters"
+    "section": "6 Parameters",
+    "text": "6 Parameters"
   }
 ]
