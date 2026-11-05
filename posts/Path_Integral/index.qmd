@@ -1,0 +1,7 @@
+---
+title: "The Dirac Delta Function and the Feynman Path Integral"
+description: ""
+date: 2026-11-10
+categories: [Physics, Math]
+author: "Haotian Li"
+---
