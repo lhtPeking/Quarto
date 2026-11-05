@@ -15,16 +15,14 @@ If you are interested in this part, please see my post regarding "The Dirac Delt
 
 ## Spatial Translation in Fourier Space
 
-Consider a one-dimensional reference signal (f(x)). Suppose the signal is shifted by a displacement (\Delta), producing:
+When we are comparing a shifted figure and its original figure, we can use the cross-correlation method to identify the shifting of a figure by finding the argmax. However, the method used by Suit2P is not the cross-correlation method. Instead, Fourier transformation based method can do a better job. Then how can we identify the "shifting" or "spatial translation" in the frequency domain?
 
-$$
-g(x)=f(x-\Delta)
-$$
+We can illustrate this in 1-D first. Consider a 1-D reference signal $f(x)$. Suppose the signal is shifted by a displacement $\Delta$, producing $g(x)=f(x-\Delta)$.
 
 Taking its Fourier transform gives:
 
 $$
-G(k)=\int_{-\infty}^{+\infty}f(x-\Delta)e^{-ikx},dx
+G(k)=\int_{-\infty}^{+\infty}f(x-\Delta)e^{-ikx}\,dx
 $$
 
 Substituting (u=x-\Delta):
@@ -32,32 +30,22 @@ Substituting (u=x-\Delta):
 $$
 \begin{aligned}
 G(k)
-&=\int_{-\infty}^{+\infty}f(u)e^{-ik(u+\Delta)},du\
-&=e^{-ik\Delta}\int_{-\infty}^{+\infty}f(u)e^{-iku},du\
-&=\boxed{F(k)e^{-ik\Delta}}
+=\int_{-\infty}^{+\infty}f(u)e^{-ik(u+\Delta)}\,du\
+=e^{-ik\Delta}\int_{-\infty}^{+\infty}f(u)e^{-iku}\,du\
+=F(k)e^{-ik\Delta}
 \end{aligned}
 $$
 
-If we express the Fourier transform in polar form:
-
-$$
-F(k)=A(k)e^{i\phi(k)}
-$$
-
-then:
+If we express the Fourier transform in polar form $F(k)=A(k)e^{i\phi(k)}$, then:
 
 $$
 G(k)=A(k)e^{i[\phi(k)-k\Delta]}
 $$
 
-Therefore, spatial translation changes the phase of each Fourier component without changing its amplitude.
-
-The phase difference is:
+Therefore, spatial translation changes the phase of each Fourier component without changing its amplitude. The phase difference is:
 
 $$
-\boxed{
 \Delta\phi(k)=-k\Delta\pmod{2\pi}
-}
 $$
 
 For a two-dimensional image, suppose:
@@ -69,22 +57,18 @@ $$
 Its Fourier transform satisfies:
 
 $$
-\begin{aligned}
 F_t(k_x,k_y)
-&=\iint I_{\mathrm{ref}}(x-\Delta x,y-\Delta y)
-e^{-i(k_xx+k_yy)},dx,dy\
-&=e^{-i(k_x\Delta x+k_y\Delta y)}
-\iint I_{\mathrm{ref}}(u,v)e^{-i(k_xu+k_yv)},du,dv
-\end{aligned}
+=\iint I_{\mathrm{ref}}(x-\Delta x,y-\Delta y)
+e^{-i(k_xx+k_yy)}\,dxdy\
+=e^{-i(k_x\Delta x+k_y\Delta y)}
+\iint I_{\mathrm{ref}}(u,v)e^{-i(k_xu+k_yv)}\,dudv
 $$
 
 Thus:
 
 $$
-\boxed{
 F_t(k_x,k_y)=F_{\mathrm{ref}}(k_x,k_y)
 e^{-i(k_x\Delta x+k_y\Delta y)}
-}
 $$
 
 The corresponding phase difference is:
