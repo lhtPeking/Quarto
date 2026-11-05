@@ -96,6 +96,35 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -311,9 +340,7 @@ window.MathJax = {
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#dirac-delta-function-and-fourier-intro" id="toc-dirac-delta-function-and-fourier-intro" class="nav-link" data-scroll-target="#dirac-delta-function-and-fourier-intro"><span class="header-section-number">2</span> Dirac Delta Function and Fourier Intro</a></li>
-  <li><a href="#normalized-cross-power-spectrum" id="toc-normalized-cross-power-spectrum" class="nav-link" data-scroll-target="#normalized-cross-power-spectrum"><span class="header-section-number">3</span> Normalized Cross-Power Spectrum</a></li>
-  <li><a href="#rigid-and-non-rigid-motion-correction" id="toc-rigid-and-non-rigid-motion-correction" class="nav-link" data-scroll-target="#rigid-and-non-rigid-motion-correction"><span class="header-section-number">4</span> Rigid and Non-rigid Motion Correction</a></li>
-  <li><a href="#paramters" id="toc-paramters" class="nav-link" data-scroll-target="#paramters"><span class="header-section-number">5</span> Paramters</a></li>
+  <li><a href="#spatial-translation-in-fourier-space" id="toc-spatial-translation-in-fourier-space" class="nav-link" data-scroll-target="#spatial-translation-in-fourier-space"><span class="header-section-number">3</span> Spatial Translation in Fourier Space</a></li>
   </ul>
 </nav>
     </div>
@@ -368,15 +395,261 @@ window.MathJax = {
 </section>
 <section id="dirac-delta-function-and-fourier-intro" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="dirac-delta-function-and-fourier-intro"><span class="header-section-number">2</span> Dirac Delta Function and Fourier Intro</h2>
+<p>If you are interested in this part, please see my post regarding “The Dirac Delta Function and the Feynman Path Integral”.</p>
 </section>
-<section id="normalized-cross-power-spectrum" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="normalized-cross-power-spectrum"><span class="header-section-number">3</span> Normalized Cross-Power Spectrum</h2>
-</section>
-<section id="rigid-and-non-rigid-motion-correction" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="rigid-and-non-rigid-motion-correction"><span class="header-section-number">4</span> Rigid and Non-rigid Motion Correction</h2>
-</section>
-<section id="paramters" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="paramters"><span class="header-section-number">5</span> Paramters</h2>
+<section id="spatial-translation-in-fourier-space" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="spatial-translation-in-fourier-space"><span class="header-section-number">3</span> Spatial Translation in Fourier Space</h2>
+<p>Consider a one-dimensional reference signal (f(x)). Suppose the signal is shifted by a displacement (), producing:</p>
+<p><span class="math display">\[
+g(x)=f(x-\Delta)
+\]</span></p>
+<p>Taking its Fourier transform gives:</p>
+<p><span class="math display">\[
+G(k)=\int_{-\infty}^{+\infty}f(x-\Delta)e^{-ikx},dx
+\]</span></p>
+<p>Substituting (u=x-):</p>
+<p><span class="math display">\[
+\begin{aligned}
+G(k)
+&amp;=\int_{-\infty}^{+\infty}f(u)e^{-ik(u+\Delta)},du\
+&amp;=e^{-ik\Delta}\int_{-\infty}^{+\infty}f(u)e^{-iku},du\
+&amp;=\boxed{F(k)e^{-ik\Delta}}
+\end{aligned}
+\]</span></p>
+<p>If we express the Fourier transform in polar form:</p>
+<p><span class="math display">\[
+F(k)=A(k)e^{i\phi(k)}
+\]</span></p>
+<p>then:</p>
+<p><span class="math display">\[
+G(k)=A(k)e^{i[\phi(k)-k\Delta]}
+\]</span></p>
+<p>Therefore, spatial translation changes the phase of each Fourier component without changing its amplitude.</p>
+<p>The phase difference is:</p>
+<p><span class="math display">\[
+\boxed{
+\Delta\phi(k)=-k\Delta\pmod{2\pi}
+}
+\]</span></p>
+<p>For a two-dimensional image, suppose:</p>
+<p><span class="math display">\[
+I_t(x,y)=I_{\mathrm{ref}}(x-\Delta x,y-\Delta y)
+\]</span></p>
+<p>Its Fourier transform satisfies:</p>
+<p><span class="math display">\[
+\begin{aligned}
+F_t(k_x,k_y)
+&amp;=\iint I_{\mathrm{ref}}(x-\Delta x,y-\Delta y)
+e^{-i(k_xx+k_yy)},dx,dy\
+&amp;=e^{-i(k_x\Delta x+k_y\Delta y)}
+\iint I_{\mathrm{ref}}(u,v)e^{-i(k_xu+k_yv)},du,dv
+\end{aligned}
+\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[
+\boxed{
+F_t(k_x,k_y)=F_{\mathrm{ref}}(k_x,k_y)
+e^{-i(k_x\Delta x+k_y\Delta y)}
+}
+\]</span></p>
+<p>The corresponding phase difference is:</p>
+<p><span class="math display">\[
+\Delta\phi(k_x,k_y)=-k_x\Delta x-k_y\Delta y
+\]</span></p>
+<p>This relationship provides the mathematical foundation for phase-correlation-based registration.</p>
+<p>Why Does the Inverse Fourier Transform Reveal Displacement?</p>
+<p>There is a useful interpretation of translation in terms of convolution.</p>
+<p>Recall that:</p>
+<p><span class="math display">\[
+g(x)=f(x-\Delta)
+\]</span></p>
+<p>Using the sampling property of the Dirac delta function:</p>
+<p><span class="math display">\[
+\begin{aligned}
+f(x)*\delta(x-\Delta)
+&amp;=\int_{-\infty}^{+\infty}f(u)\delta(x-u-\Delta),du\
+&amp;=f(x-\Delta)
+\end{aligned}
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{
+g(x)=f(x)*\delta(x-\Delta)
+}
+\]</span></p>
+<p>In other words, translating a signal by () is equivalent to convolving it with a delta function centered at ().</p>
+<p>According to the convolution theorem:</p>
+<p><span class="math display">\[
+G(k)=F(k)H(k)
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+H(k)=\mathcal F[\delta(x-\Delta)]=e^{-ik\Delta}
+\]</span></p>
+<p>Therefore, if we can extract (H(k)) from the two images, its inverse Fourier transform will recover the translation kernel:</p>
+<p><span class="math display">\[
+\boxed{
+\mathcal F^{-1}[H(k)]=\delta(x-\Delta)
+}
+\]</span></p>
+<p>The location of the delta peak directly indicates the displacement.</p>
+<p>This is the underlying logic of phase correlation: rather than directly comparing images in the spatial domain, we recover the frequency-domain representation of the translation operator.</p>
+<p>Normalized Cross-Power Spectrum</p>
+<p>Now consider the Fourier transforms of the reference image and the shifted image:</p>
+<p><span class="math display">\[
+G(k)=F(k)e^{-ik\Delta}
+\]</span></p>
+<p>The cross-power spectrum is:</p>
+<p><span class="math display">\[
+C(k)=G(k)F^*(k)
+\]</span></p>
+<p>where (F^*(k)) denotes the complex conjugate of (F(k)).</p>
+<p>Substituting (F(k)=A(k)e^{i(k)}):</p>
+<p><span class="math display">\[
+\begin{aligned}
+C(k)
+&amp;=A(k)e^{i[\phi(k)-k\Delta]}
+A(k)e^{-i\phi(k)}\
+&amp;=A^2(k)e^{-ik\Delta}
+\end{aligned}
+\]</span></p>
+<p>The phase of the original signal has been eliminated, but the amplitude information (A^2(k)) remains.</p>
+<p>To remove it, we normalize the cross-power spectrum by its magnitude:</p>
+<p><span class="math display">\[
+\boxed{
+R(k)=\frac{G(k)F^(k)}{|G(k)F^(k)|}
+}
+\]</span></p>
+<p>At frequencies where the denominator is nonzero:</p>
+<p><span class="math display">\[
+\begin{aligned}
+R(k)
+&amp;=\frac{A^2(k)e^{-ik\Delta}}{A^2(k)}\
+&amp;=\boxed{e^{-ik\Delta}}
+\end{aligned}
+\]</span></p>
+<p>This is the normalized cross-power spectrum, which retains the relative phase information while discarding the Fourier amplitude.</p>
+<p>Now perform the inverse Fourier transform:</p>
+<p><span class="math display">\[
+\begin{aligned}
+r(s)
+&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty}R(k)e^{iks},dk\
+&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty}e^{ik(s-\Delta)},dk\
+&amp;=\boxed{\delta(s-\Delta)}
+\end{aligned}
+\]</span></p>
+<p>Thus, the unknown displacement can be estimated from the peak location:</p>
+<p><span class="math display">\[
+\boxed{
+\hat{\Delta}=\operatorname*{argmax}_s |r(s)|
+}
+\]</span></p>
+<p>For two-dimensional images, this becomes: <span class="math display">\[
+\operatorname*{argmax}_{s_x,s_y}
+\left|
+\mathcal F^{-1}
+\left
+\frac{F_tF_{\mathrm{ref}}^}
+{|F_tF_{\mathrm{ref}}^|}
+\right
+\right|
+\]</span></p>
+<p>This procedure is known as Phase Correlation, or Phase-Only Correlation (POC).</p>
+<p>It is worth emphasizing that we are taking the inverse Fourier transform of the complex exponential of the phase difference, rather than the phase angle itself.</p>
+<p>Why Not Use Ordinary Cross-Correlation?</p>
+<p>Ordinary cross-correlation can also recover spatial displacement.</p>
+<p>In the Fourier domain, cross-correlation is equivalent to:</p>
+<p><span class="math display">\[
+C(k)=G(k)F^*(k)=|F(k)|^2e^{-ik\Delta}
+\]</span></p>
+<p>Its inverse Fourier transform produces a shifted version of the reference signal’s autocorrelation function.</p>
+<p>Although the peak is still located at (), its shape depends on the spatial structure of the original image. For example, a slowly varying image may produce a relatively broad correlation peak.</p>
+<p>In contrast, ideal phase correlation removes the amplitude factor (|F(k)|^2), leaving only the linear phase component. Its inverse Fourier transform therefore produces a sharply localized delta peak.</p>
+<p>This can make displacement estimation more precise.</p>
+<p>However, phase correlation is not always superior. Frequencies dominated by noise may contain unreliable phase information, and normalization can give these frequencies excessive weight.</p>
+<p>For this reason, practical implementations such as Suite2p use additional frequency-domain filtering and regularization to obtain more stable motion estimates.</p>
+<p>Rigid and Non-rigid Motion Correction</p>
+<p>Reference Image Construction</p>
+<p>Before registration, Suite2p constructs a reference image against which individual frames are aligned.</p>
+<p>Instead of simply choosing one frame, Suite2p samples multiple frames, identifies highly correlated frames, and iteratively refines the reference through rigid registration and averaging.</p>
+<p>This procedure reduces the influence of noise and occasional motion artifacts.</p>
+<p>The resulting reference image, refImg, serves as the spatial target for subsequent motion correction.</p>
+<p>Rigid Registration</p>
+<p>Rigid registration assumes that every pixel within a frame undergoes the same spatial translation:</p>
+<p><span class="math display">\[
+I_t(x,y)\approx I_{\mathrm{ref}}(x-\Delta x_t,y-\Delta y_t)
+\]</span></p>
+<p>The goal is to estimate one displacement vector for each frame:</p>
+<p><span class="math display">\[
+\mathbf d_t=(\Delta x_t,\Delta y_t)
+\]</span></p>
+<p>Suite2p accomplishes this through the following steps:</p>
+<p>Image normalization: When norm_frames is enabled, image intensities are clipped according to percentile bounds determined from the reference image.</p>
+<p>Whitening and smoothing: Fourier-domain normalization and Gaussian filtering reduce the influence of undesirable frequency components.</p>
+<p>Spatial tapering: A smooth mask reduces the influence of image boundaries, where motion and acquisition artifacts may be particularly problematic.</p>
+<p>Phase correlation: The current frame is correlated with the reference image in the Fourier domain. The position of the correlation peak provides the estimated displacement.</p>
+<p>Shift application: The entire frame is translated according to the estimated displacement.</p>
+<p>The search range is limited by maxregshift, preventing the algorithm from selecting implausibly large translations.</p>
+<p>One should distinguish the ideal normalized cross-power spectrum derived above from the actual Suite2p implementation, which uses whitened, filtered Fourier representations to improve robustness.</p>
+<p>The rigid shifts are recorded in xoff and yoff, and the corresponding peak correlation values are stored in corrXY.</p>
+<p>Rigid registration is usually effective when the motion primarily consists of whole-frame translation. However, it cannot fully compensate for spatially varying deformation.</p>
+<p>Non-rigid Registration</p>
+<p>In real imaging experiments, different parts of the tissue may move by different amounts. Therefore, the constant-displacement assumption of rigid registration may no longer be appropriate.</p>
+<p>A more general model is:</p>
+<p><span class="math display">\[
+I_t(x,y)\approx
+I_{\mathrm{ref}}(x-u_t(x,y),y-v_t(x,y))
+\]</span></p>
+<p>where (u_t(x,y)) and (v_t(x,y)) form a spatially varying displacement field.</p>
+<p>Suite2p uses a relatively straightforward strategy: local rigid registration followed by displacement-field interpolation.</p>
+<p>First, global rigid registration is performed to remove overall frame translation.</p>
+<p>Then the image is divided into overlapping blocks. By default, each block is approximately (128) pixels, although the exact arrangement depends on the image dimensions.</p>
+<p>For each block (b), Suite2p assumes that local deformation can be approximated by a translation:</p>
+<p><span class="math display">\[
+I_{t,b}(x,y)\approx
+I_{\mathrm{ref},b}(x-\Delta x_b,y-\Delta y_b)
+\]</span></p>
+<p>The same phase-correlation method is applied to each block, producing local displacement estimates:</p>
+<p><span class="math display">\[
+\mathbf d_b=(\Delta x_b,\Delta y_b)
+\]</span></p>
+<p>Because neighboring blocks overlap, their estimates provide information about the spatial variation of tissue movement.</p>
+<p>However, local measurements can be unreliable when a block contains little structural information. Suite2p therefore evaluates the signal-to-noise ratio of each block’s phase-correlation peak. If the SNR falls below snr_thresh, the correlation maps are smoothed using information from neighboring blocks.</p>
+<p>Next, Suite2p performs subpixel estimation by interpolating the correlation map near its peak. This makes it possible to estimate displacements smaller than one pixel.</p>
+<p>Finally, the local displacement vectors are interpolated to construct a displacement field for the entire image.</p>
+<p>For example, suppose four neighboring block centers have horizontal displacements (u_{00},u_{10},u_{01},u_{11}). The displacement at an intermediate pixel can be estimated using bilinear interpolation:</p>
+<p><span class="math display">\[
+\begin{aligned}
+u(x,y)=&amp;(1-a)(1-b)u_{00}\
+&amp;+a(1-b)u_{10}\
+&amp;+(1-a)bu_{01}\
+&amp;+ab u_{11}
+\end{aligned}
+\]</span></p>
+<p>where (a,b) describe the pixel’s relative position between the block centers.</p>
+<p>The vertical displacement (v(x,y)) is calculated in the same way.</p>
+<p>Once the displacement field has been constructed, the image is corrected through spatial warping and bilinear resampling.</p>
+<p>Therefore, the complete non-rigid procedure can be summarized as:</p>
+<p><span class="math display">\[
+\boxed{
+\begin{gathered}
+\text{Global Rigid Registration}\
+\downarrow\
+\text{Overlapping Block Decomposition}\
+\downarrow\
+\text{Local Phase Correlation}\
+\downarrow\
+\text{Subpixel Shift Estimation}\
+\downarrow\
+\text{Displacement Field Interpolation}\
+\downarrow\
+\text{Image Warping}
+\end{gathered}
+}
+\]</span></p>
+<p>The essential assumption is that deformation is locally approximated by translation and varies smoothly across the image.</p>
+<p>Smaller blocks can capture finer spatial variations in motion, but they contain fewer informative structures and are consequently more sensitive to noise. Larger blocks provide more stable estimates but may fail to capture localized deformation.</p>
+<p>Importantly, neither rigid nor non-rigid registration can fully restore image information lost through out-of-plane motion or optical defocusing.</p>
 
 
 </section>
